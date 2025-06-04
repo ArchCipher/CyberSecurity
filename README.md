@@ -2,7 +2,7 @@
 
 Welcome to my cybersecurity portfolio. This repository documents my learning journey, hands-on labs, and personal projects as I transition into cybersecurity from a background in architectural design.
 
-—
+---
 
 ## About Me
 
@@ -10,14 +10,14 @@ I’m a detail-oriented cybersecurity professional transitioning from a backgrou
 
 I’m passionate about protecting people and infrastructure through thoughtful, security-first solutions.
 
-—
+---
 
 ## Skills and Tools (In Progress)
 - Security frameworks (NIST, CIS Controls)
 - Network scanning (Nmap)
 - Packet analysis (tcpdump)
 
-—
+---
 
 ## Cybersecurity Practice Projects (In Progress)
 All projects below were completed as part of the Google Cybersecurity Certificate, using simulated environments, mock data, and guided labs. The focus was on applying foundational security analysis techniques to realistic scenarios.
