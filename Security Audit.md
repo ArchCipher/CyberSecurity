@@ -1,17 +1,23 @@
-
 # <p align="center"> Security Audit </p>
 
 ## Overview
 
-As part of a simulated audit, I was provided with a scope document, goals, and a risk assessment report for a fictional company, Botium Toys. Using this context, I reviewed the risk assessment report, completed a controls and compliance checklist and identified several recommendations to strengthen the organization’s security posture.
+As part of a simulated cybersecurity audit for the fictional company **Botium Toys**, I was provided with a scope document, goals, and a risk assessment report. Based on this, I completed a controls and compliance checklist and recommended key actions to improve the company’s overall security posture.
 
 ## Scenario
+
+As Botium Toys expands globally, their IT department launched an internal audit to assess security gaps and ensure compliance with data protection and payment regulations.
+
+<details>
+<summary><strong>Read full scenario</strong></summary>
 
 Botium Toys is a small U.S. business that develops and sells toys. The business has a single physical location, which serves as their main office, a storefront, and warehouse for their products. However, Botium Toy’s online presence has grown, attracting customers in the U.S. and abroad. As a result, their information technology (IT) department is under increasing pressure to support their online market worldwide. 
 
 The manager of the IT department has decided that an internal IT audit needs to be conducted. She's worried about maintaining compliance and business operations as the company grows without a clear plan. She believes an internal audit can help better secure the company’s infrastructure and help them identify and mitigate potential risks, threats, or vulnerabilities to critical assets. The manager is also interested in ensuring that they comply with regulations related to internally processing and accepting online payments and conducting business in the European Union (E.U.).   
 
 The IT manager starts by implementing the National Institute of Standards and Technology Cybersecurity Framework (NIST CSF), establishing an audit scope and goals, listing assets currently managed by the IT department, and completing a risk assessment. The goal of the audit is to provide an overview of the risks and/or fines that the company might experience due to the current state of their security posture.
+
+</details>
 
 ---
 
@@ -70,13 +76,13 @@ The potential impact from the loss of an asset is rated as medium, because the I
 |-----|-----|---------------|-------|
 | [ ] | [x] | Least Privilege|
 | [ ] | [x] | Disaster recovery plans|
-| [ ] | [x] | Password policies|
+| [ ] | [x] | Password policies| exists but not in line with current minimum password complexity requirements |
 | [ ] | [x] | Separation of duties|
 | [x] | [ ] | Firewall|
 | [ ] | [x] | Intrusion detection system (IDS)|
 | [ ] | [x] | Backups|
 | [x] | [ ] | Antivirus software|
-| [ ] | [x] | Manual monitoring, maintenance, and intervention for legacy systems|
+| [ ] | [x] | Manual monitoring, maintenance, and intervention for legacy systems| no regular schedule in place, intervention method unclear |
 | [ ] | [x] | Encryption|
 | [ ] | [x] | Password management system|
 | [x] | [ ] | Locks (offices, storefront, warehouse)|
@@ -119,11 +125,10 @@ To reduce risks to assets and improve Botium Toys’ security posture
 
 - Enforce separation of duties and least privilege access controls. 
 - Ensure secure data handling and encryption across all transaction points.
-- Avoid storing sensitive credit card data internally if possible. If necessary, ensure encryption and strict access control to ensure PCI DSS storage compliance.
--  Classify and inventory data; restrict access to authorized users only for PII/SPII and transaction data.
-- Define disaster recovery and Incident Response plans.
-- Regular data backups
-- Implement strict password policies and adopt a secure password management system.
-- Establish clear legacy systems management and intervention methods.
-- Install IDS and IPS to detect or mitigate threats automatically. 
-- Classify assets to identify and implement additonal security controls. 
+- Avoid storing sensitive credit card data internally if possible. If necessary, ensure encryption and strict access controls per PCI DSS standards.
+-  Classify and inventory all data; restrict access only to authorized users for PII/SPII and transaction data.
+- Define disaster recovery and incident response plans, including regular data backups.
+- Implement strict password policies and adopt a centralised password management system.
+- Establish clear legacy systems maintainence schedules and intervention procedures.
+- Install intrusion detection and prevention systems (IDS & IPS) to automatically detect or mitigate threats. 
+- Classify assets to determine additonal security controls. 
