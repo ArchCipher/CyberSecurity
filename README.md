@@ -22,7 +22,7 @@ I’m passionate about protecting people and infrastructure through thoughtful, 
 ## Cybersecurity Practice Projects (In Progress)
 All projects below were completed as part of the Google Cybersecurity Certificate, using simulated environments, mock data, and guided labs. The focus was on applying foundational security analysis techniques to realistic scenarios.
 
-### 1.Security Audit Exercise
+### 1.Security Audit
 
 ### 2. DNS & ICMP Traffic Analysis
 
