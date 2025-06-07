@@ -4,6 +4,8 @@
 
 As part of a simulated cybersecurity audit for the fictional company **Botium Toys**, I was provided with a scope document, goals, and a risk assessment report. Based on this, I completed a controls and compliance checklist and recommended key actions to improve the company’s overall security posture.
 
+---
+
 ## Scenario
 
 As Botium Toys expands globally, their IT department launched an internal audit to assess security gaps and ensure compliance with data protection and payment regulations.
@@ -71,23 +73,26 @@ The potential impact from the loss of an asset is rated as medium, because the I
 
 ## Controls and compliance checklist
 
+
 ### Controls assessment checklist
 | Yes |  No | Best Practice |Remarks|
 |-----|-----|---------------|-------|
 | [ ] | [x] | Least Privilege|
 | [ ] | [x] | Disaster recovery plans|
-| [ ] | [x] | Password policies| exists but not in line with current minimum password complexity requirements |
+| [ ] | [x] | Password policies| Password policy exists but not in line with current minimum password complexity requirements |
 | [ ] | [x] | Separation of duties|
 | [x] | [ ] | Firewall|
 | [ ] | [x] | Intrusion detection system (IDS)|
 | [ ] | [x] | Backups|
 | [x] | [ ] | Antivirus software|
-| [ ] | [x] | Manual monitoring, maintenance, and intervention for legacy systems| no regular schedule in place, intervention method unclear |
+| [ ] | [x] | Manual monitoring, maintenance, and intervention for legacy systems| No regular schedule in place, intervention method unclear |
 | [ ] | [x] | Encryption|
 | [ ] | [x] | Password management system|
 | [x] | [ ] | Locks (offices, storefront, warehouse)|
 | [x] | [ ] | Closed-circuit television (CCTV) surveillance|
 | [x] | [ ] | Fire detection/prevention (fire alarm, sprinkler system, etc.) |
+
+---
 
 ### Compliance checklist
 
@@ -120,7 +125,7 @@ The potential impact from the loss of an asset is rated as medium, because the I
 
 ---
 
-## Recommendations : 
+## Recommendations 
 To reduce risks to assets and improve Botium Toys’ security posture
 
 - Enforce separation of duties and least privilege access controls. 
@@ -132,3 +137,5 @@ To reduce risks to assets and improve Botium Toys’ security posture
 - Establish clear legacy systems maintainence schedules and intervention procedures.
 - Install intrusion detection and prevention systems (IDS & IPS) to automatically detect or mitigate threats. 
 - Classify assets to determine additonal security controls. 
+
+___
