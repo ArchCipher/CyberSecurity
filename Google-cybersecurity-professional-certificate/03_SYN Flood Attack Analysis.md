@@ -29,6 +29,9 @@ green : Normal TCP connection handshakes
 red : Attack activity
 
 yellow : Normal TCP connections failing due to attack
+
+<small>
+
 | Color <br>as text | No. | Time (in seconds <br>& milliseconds) | Source  | Destination  | Protocol | Info |
 | --- | --- | --- | --- | --- | --- | --- |
 | green | 47 | 3.144521 | 198.51.100.23 | 192.0.2.1 | TCP | 42584->443 [SYN] Seq=0 Win-5792 Len=120... |
@@ -205,6 +208,8 @@ yellow : Normal TCP connections failing due to attack
 | red | 214 | 51.176992 | 203.0.113.0 | 192.0.2.1 | TCP | 54770->443 [SYN] Seq=0 Win=5792 Len=0... |
 | red | 214 | 51.500005 | 203.0.113.0 | 192.0.2.1 | TCP | 54770->443 [SYN] Seq=0 Win=5792 Len=0... |
 | red | 214 | 51.823018 | 203.0.113.0 | 192.0.2.1 | TCP | 54770->443 [SYN] Seq=0 Win=5792 Len=0... |
+
+</small>
 
 ---
 
