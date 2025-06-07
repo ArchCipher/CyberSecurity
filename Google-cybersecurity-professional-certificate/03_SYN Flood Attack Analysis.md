@@ -30,7 +30,7 @@ red : Attack activity
 
 yellow : Normal TCP connections failing due to attack
 
-<small><small>
+<small>
 
 | Color <br>as text | No. | Time (in seconds <br>& milliseconds) | Source  | Destination  | Protocol | Info |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -209,7 +209,7 @@ yellow : Normal TCP connections failing due to attack
 | red | 214 | 51.500005 | 203.0.113.0 | 192.0.2.1 | TCP | 54770->443 [SYN] Seq=0 Win=5792 Len=0... |
 | red | 214 | 51.823018 | 203.0.113.0 | 192.0.2.1 | TCP | 54770->443 [SYN] Seq=0 Win=5792 Len=0... |
 
-</small></small>
+</small> 
 
 ---
 
