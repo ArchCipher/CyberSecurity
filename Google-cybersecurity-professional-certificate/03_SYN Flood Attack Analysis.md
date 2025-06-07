@@ -30,8 +30,6 @@ red : Attack activity
 
 yellow : Normal TCP connections failing due to attack
 
-<small>
-
 | Color <br>as text | No. | Time (in seconds <br>& milliseconds) | Source  | Destination  | Protocol | Info |
 | --- | --- | --- | --- | --- | --- | --- |
 | green | 47 | 3.144521 | 198.51.100.23 | 192.0.2.1 | TCP | 42584->443 [SYN] Seq=0 Win-5792 Len=120... |
@@ -203,13 +201,11 @@ yellow : Normal TCP connections failing due to attack
 | red | 213 | 49.561927 | 203.0.113.0 | 192.0.2.1 | TCP | 54770->443 [SYN] Seq=0 Win=5792 Len=0... |
 | red | 214 | 49.88494 | 203.0.113.0 | 192.0.2.1 | TCP | 54770->443 [SYN] Seq=0 Win=5792 Len=0... |
 | red | 214 | 50.207953 | 203.0.113.0 | 192.0.2.1 | TCP | 54770->443 [SYN] Seq=0 Win=5792 Len=0... |
-| red | 214 | 50.530966 | 203.0.113.0 | 192.0.2.1 | TCP | 54770->443 [SYN] Seq=0 Win=5792 Len=0... |
+| red | 214 | 50.530966 | 203.0.113.0 | 192.        0.2.1 | TCP | 54770->443 [SYN] Seq=0 Win=5792 Len=0... |
 | red | 214 | 50.853979 | 203.0.113.0 | 192.0.2.1 | TCP | 54770->443 [SYN] Seq=0 Win=5792 Len=0... |
 | red | 214 | 51.176992 | 203.0.113.0 | 192.0.2.1 | TCP | 54770->443 [SYN] Seq=0 Win=5792 Len=0... |
 | red | 214 | 51.500005 | 203.0.113.0 | 192.0.2.1 | TCP | 54770->443 [SYN] Seq=0 Win=5792 Len=0... |
 | red | 214 | 51.823018 | 203.0.113.0 | 192.0.2.1 | TCP | 54770->443 [SYN] Seq=0 Win=5792 Len=0... |
-
-</small> 
 
 ---
 
