@@ -1,19 +1,19 @@
-# <p align="center"> SYN Flood Attack Analysis </p>
+# <p align="center"> OS Hardening: Brute Force Mitigation</p>
 
 ## Overview
 
-As a part of incident response process, I was provided with network traffic data of a website to analyse an attack. I examined the tcpdump output to identify the network protocols used in the compromise, documented the traffic analysis, and suggested security measures to prevent similar incidents in the future.
+As part of a simulated incident response process, I was provided with network traffic data from a website to analyse an attack. I examined the tcpdump output to identify the network protocols used in the compromise, documented the traffic analysis, and suggested security measures to prevent similar incidents in the future.
 
 ## Scenario
 
-A client reported that their website, yummyrecipesforme.com, which sells recipes and cookbooks, was inaccessible. Users were being prompted to download a file which, when executed, redirected them to another website.
+A client reported that their website, yummyrecipesforme.com, which sells recipes and cookbooks, had become inaccessible. Users were prompted to download a file which, when executed, redirected them to another website.
 
 <details>
 <summary><strong>Read full scenario</strong></summary>
 
 You are a cybersecurity analyst for yummyrecipesforme.com, a website that sells recipes and cookbooks. A former employee has decided to lure users to a fake website with malware. 
 
-The former employee/ hacker executed a brute force attack to gain access to the web host. They repeatedly entered several known default passwords for the administrative account until they correctly guessed the right one. After they obtained the login credentials, they were able to access the admin panel and change the website’s source code. They embedded a javascript function in the source code that prompted visitors to download and run a file upon visiting the website. After embedding the malware, the hacker changed the password to the administrative account. When customers download the file, they are redirected to a fake version of the website that contains the malware. 
+The former employee/ hacker executed a brute force attack to gain access to the web host. They repeatedly entered several known default passwords for the administrative account until they correctly guessed the right one. After they obtained the login credentials, they were able to access the admin panel and change the website’s source code. They embedded a JavaScript function in the source code that prompted visitors to download and run a file upon visiting the website. After embedding the malware, the hacker changed the password to the administrative account. When customers download the file, they are redirected to a fake version of the website that contains the malware. 
 
 Several hours after the attack, multiple customers emailed yummyrecipesforme’s helpdesk. They complained that the company’s website had prompted them to download a file to access free recipes. The customers claimed that, after running the file, the address of the website changed and their personal computers began running more slowly. 
 
@@ -107,14 +107,14 @@ The logs show the following process:
 ### Section 1: Identify the network protocol involved in the incident
 
 The logs show
-1. DNS query was initiated from your.machine on port 52444 to resolve the domain yummyrecipesforme.com. The DNS server returned the correct IP address (203.0.113.22) of the domain.
-2. A TCP handshake  was successfully established between your.machine on port 36086 and yummyrecipesforme.com on port 80 (HTTP). 
+1. A DNS query was initiated from your.machine on port 52444 to resolve the domain yummyrecipesforme.com. The DNS server returned the correct IP address (203.0.113.22) of the domain.
+2. A TCP handshake was successfully established between your.machine on port 36086 and yummyrecipesforme.com on port 80 (HTTP).
 3. A GET request was made over HTTP/1.1 to retrieve data from the website.
-3. A lot of traffic on the port 80 followed, indicating content transfer, possibly including a malicious JavaScript that triggered the download.
-4. After the file was executed, another DNS query was made to resolve greatrecipesforme.com. The DNS retuned with a new IP 192.0.2.17.
-5. A new TCP connection was established with greatrecipesforme.com over port 80 (HTTP).
+4. A lot of traffic on the port 80 followed, indicating content transfer, possibly including a malicious JavaScript that triggered the download.
+5. After the file was executed, another DNS query was made to resolve greatrecipesforme.com. The DNS returned with a new IP 192.0.2.17.
+6. A new TCP connection was established with greatrecipesforme.com over port 80 (HTTP).
 
-These logs indicate the use of DNS and HTTP (over TCP) as the protocols involved in the redirection of the website.
+These logs indicate the use of DNS, TCP and HTTP as the protocols involved in the redirection of the website.
 
 ---
 
@@ -123,10 +123,10 @@ These logs indicate the use of DNS and HTTP (over TCP) as the protocols involved
 The incident occurred at 2:18 PM. 
 Several customers emailed yummyrecipesforme’s helpdesk, complaining that the website prompted them to download a file in exchange for free recipes. After running the file, the website address changed, and computers began to slow down. 
 
-The website was tested in a sandbox environment. Packet analysis confirmed that as soon as the yummyrecipesforme.com. website loads, users were prompted to download a file. When the file is downloaded, users were redirected to greatrecipesforme.com, a malicious site.
-The source code had been modified to include malicious JavaScript prompting this behaviour. The downloaded file had a script that executed the redirection from yummyrecipesforme.com to greatrecipesforme.com. 
+The website was tested in a sandbox environment. Packet analysis confirmed that as soon as the yummyrecipesforme.com website loaded, users were prompted to download a file. When the file is downloaded, users were redirected to greatrecipesforme.com, a malicious site.
+The source code had been modified to include malicious JavaScript prompting this behaviour. The downloaded file contained a script that redirectwd the browser from yummyrecipesforme.com to greatrecipesforme.com, a malicious website. 
 
-The investigation revealed the attacker gained access via brute-force attack, exploiting the default administrative password. No security controls were in place to prevent this type of attack.
+The attacker gained access via a brute-force attack, exploiting the default admin password. No security controls were in place to detect or block repeated login attempts.
 
 The cause of the incident was a weak password and lack of brute-force protection. The attacker altered the site’s source code to inject malware and redirect users to a fake website.
 
@@ -134,9 +134,9 @@ The cause of the incident was a weak password and lack of brute-force protection
 
 ### Section 3: Recommended remediation for brute force attacks
 
-- Enforce Strict password policies including minimum length, complexity and expiration date.
+- Enforce strict password policies, including minimum length, complexity and expiration requirements.
 - Enable Multi-Factor Authentication (MFA) or Two-Factor Authentication (2FA).
-- Account lockouts or rate limiting after a defined number of failed login attempts.
-- CAPTCHA or reCAPTCHA to detect and block automated login attempts.
+- Implement sccount lockouts or rate limiting after a defined number of failed login attempts.
+- Use CAPTCHA or reCAPTCHA to block automated login attempts.
 
 ---

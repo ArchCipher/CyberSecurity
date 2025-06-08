@@ -2,7 +2,7 @@
 
 ## Overview
 
-As a part of incident response process, I was provided with DNS and ICMP traffic data from a network protocol analyzer to investigate a website availability issue. I examined the tcpdump output, how the server responded to the DNS request, identified the affected network protocol, and documented the traffic analysis.
+As a part of simulated incident response process, I was provided with DNS and ICMP traffic data from a network protocol analyser to investigate a website availability issue. I examined the tcpdump output, how the server responded to the DNS request, identified the affected network protocol, and documented the traffic analysis.
 
 ---
 
@@ -68,20 +68,20 @@ In the tcpdump log, you find the following information:
 
 __Part 1: Summary of the DNS and ICMP traffic log__
 
-The tcpdump log shows outgoing request from 192.51.100.15 to 203.0.113.2 on UDP port 53 (DNS server) attempting to resolve the domain yummyrecipesforme.com.
+The tcpdump log shows an outgoing request from 192.51.100.15 to 203.0.113.2 on UDP port 53 (DNS server) attempting to resolve the domain yummyrecipesforme.com.
 The DNS query ID is 35084, and "+" symbol indicates recursion desired (RD) flag set to the query.
-"A?" is a query requesting for IPv4 Address record of the website yummyrecipesforme.com.
+"A?" is a query requesting IPv4 Address record of the website yummyrecipesforme.com.
 The DNS server does not send a standard response to this query. Instead, it sends an ICMP error message to 192.51.100.15, stating the packet sent to 203.0.113.2 on UDP port 53 was unreachable.
-This shows that the DNS server was not available on port 53 to receive to the query.
+This indicated that the DNS server was not available on port 53 to receive the query.
 
 ---
 
 __Part 2: Analysis and cause of the incident__
 
 The incident occurred at 1:24 PM. 
-Users reported they were unable to accesss the website yummyrecipesforme.com., receiving an error message “destination port unreachable”.
+Users reported they were unable to access the website yummyrecipesforme.com., and received an error message: “destination port unreachable”.
 Packet analysis revealed that the DNS server at 203.0.113.2 is not responding on UDP port 53. Instead, it returned ICMP "port 53 unreachable" error messages.
 The issue is currently being addressed by the security engineering team.
-The likely cause is the DNS server is down or irresponsive. It could be a Denial of Service (DoS or DDoS) attack targeting the DNS service.
+The likely cause is the DNS server is down or unresponsive. A possible could be a Denial of Service (DoS) or Distributed Denial of Service (DDoS) attack targeting the DNS service.
 
 ---

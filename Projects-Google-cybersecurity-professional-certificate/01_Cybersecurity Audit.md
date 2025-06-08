@@ -1,4 +1,4 @@
-# <p align="center"> Security Audit </p>
+# <p align="center"> Cybersecurity Audit </p>
 
 ## Overview
 
@@ -67,7 +67,7 @@ The potential impact from the loss of an asset is rated as medium, because the I
 - Although a password policy exists, its requirements are nominal and not in line with current minimum password complexity requirements (e.g., at least eight characters, a combination of letters and at least one number; special characters). 
 - There is no centralized password management system that enforces the password policy’s minimum requirements, which sometimes affects productivity when employees/vendors submit a ticket to the IT department to recover or reset a password.
 - While legacy systems are monitored and maintained, there is no regular schedule in place for these tasks and intervention methods are unclear.
-- The store’s physical location, which includes Botium Toys’ main offices, store front, and warehouse of products, has sufficient locks, up-to-date closed-circuit television (CCTV) surveillance, as well as functioning fire detection and prevention systems.
+- The store’s physical location, which includes Botium Toys’ main offices, storefront, and warehouse of products, has sufficient locks, up-to-date closed-circuit television (CCTV) surveillance, as well as functioning fire detection and prevention systems.
 
 ---
 
@@ -126,16 +126,20 @@ The potential impact from the loss of an asset is rated as medium, because the I
 ---
 
 ## Recommendations 
-To reduce risks to assets and improve Botium Toys’ security posture
+Based on the risk assessment report, three major risks identified include: inadequate data security for sensitive information (PII & SPII), lack of disaster recovery and backups, and insufficient access control and password policies.
 
-- Enforce separation of duties and least privilege access controls. 
-- Ensure secure data handling and encryption across all transaction points.
-- Avoid storing sensitive credit card data internally if possible. If necessary, ensure encryption and strict access controls per PCI DSS standards.
--  Classify and inventory all data; restrict access only to authorized users for PII/SPII and transaction data.
-- Define disaster recovery and incident response plans, including regular data backups.
-- Implement strict password policies and adopt a centralised password management system.
-- Establish clear legacy systems maintainence schedules and intervention procedures.
-- Install intrusion detection and prevention systems (IDS & IPS) to automatically detect or mitigate threats. 
-- Classify assets to determine additonal security controls. 
+__To reduce these risks and improve Botium Toys’ security posture:__
 
-___
+__1. Access & Identity controls__
+
+Enforce separation of duties and least privilege access controls. Implement strict password policies and adopt a centralised password management system.
+
+__2.  Data Security & Compliance__
+
+Ensure secure data handling and encryption across all transaction points. Avoid storing sensitive credit card data internally unless absolutely necessary. If required, ensure strong encryption and strict access controls in compliance with PCI DSS standards. Classify and inventory all data; restrict access only to authorized users for PII/SPII and transaction data.
+
+__3. Business Continuity & Threat Detection__
+
+Define disaster recovery and incident response plans, including regular data backups. Install intrusion detection and prevention systems (IDS & IPS) to automatically detect or mitigate threats. Establish clear maintenance schedules and intervention procedures for legacy systems. Classify assets to determine appropriate additional security controls. 
+
+---

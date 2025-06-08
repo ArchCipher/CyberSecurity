@@ -6,47 +6,67 @@ Welcome to my cybersecurity portfolio. This repository documents my learning jou
 
 ## About Me
 
-I’m a detail-oriented cybersecurity professional transitioning from a background in architectural design. I bring over five years of experience solving complex design challenges and working in cross-functional, international teams. I'm currently completing the Google Cybersecurity Certificate, with training in threat detection, SIEM tools, and incident response. My architectural work sharpened my skills in compliance, systems thinking, and conflict resolution—strengths I now apply to digital security.
+I’m a detail-oriented entry-level cybersecurity professional transitioning from a background in architectural design. I bring over five years of experience solving complex design challenges and working in cross-functional, international teams. I'm currently pursuing the Google Cybersecurity Certificate, with training in threat detection, SIEM tools, and incident response. My architectural work sharpened my skills in compliance, systems thinking, and conflict resolution—strengths I now apply to digital security.
 
-I’m passionate about protecting people and infrastructure through thoughtful, security-first solutions.
-
----
-
-## Skills and Tools (In Progress)
-- Security frameworks (NIST, CIS Controls)
-- Network scanning (Nmap)
-- Packet analysis (tcpdump)
+I’m passionate about building thoughtful, security-first solutions to protect users, data, and systems.
 
 ---
 
-## Cybersecurity Practice Projects (In Progress)
-All projects below were completed as part of the Google Cybersecurity Certificate, using simulated environments, mock data, and guided labs. The focus was on applying foundational security analysis techniques to realistic scenarios.
+## Skills and Tools
+- Security frameworks: NIST, CIS Controls
+- Network scanning & Analysis: Nmap, tcpdump
+- Operating Systems & Scripting: Linux, Python
+- Databases & Querying: SQL
+- SIEM & Threat Detection Tools: Splunk, Google Chronicle
 
-### 1.Security Audit
+---
 
-### 2. DNS & ICMP Traffic Analysis
+## Certifications
+- [Google Cybersecurity Certificate](https://www.coursera.org/professional-certificates/google-cybersecurity) – In Progress (Expected July 2025)
+- TryHackMe Jr Penetration Tester – In Progress
 
-### 3. SYN Flood Attack Analysis
+---
+
+## Google Cybersecurity Professional Certificate
+__Summary of skills gained:__
+- Risk analysis and security audit
+- Network packet analysis
+- Threat detection and Incident response
+- Linux command line and SQL  
+- SIEM tools and IDS  
+- Automating tasks with Python  
+
+__Notable Labs & Projects:__  
+1. [Simulated Cybersecurity Audit](/Projects-Google-cybersecurity-professional-certificate/01_Cybersecurity%20Audit.md)
+2. Network Traffic Analysis & Incident Documentation
+- [DNS & ICMP Traffic Analysis](/Projects-Google-cybersecurity-professional-certificate/02_DNS%20&%20ICMP%20Traffic%20Analysis.md)
+- [SYN Flood Attack Analysis & Incident Report](/Projects-Google-cybersecurity-professional-certificate/03_SYN%20Flood%20Attack%20Analysis.md)
+- [OS Hardening: Brute Force Mitigation](/Projects-Google-cybersecurity-professional-certificate/04_OS%20hardening.md)
+- [Incident Response & Network Hardening](/Projects-Google-cybersecurity-professional-certificate/05_Network%20hardening%20analysis.md)
 
 ---
 
 ## Personal Practice Projects
 
 ### 1. Nmap Scan
-- **Objective**: Identify open ports, services, and OS details on a target system.
-- **Tools**: Terminal, Nmap
-- **What I Did**: Performed basic, version, and OS detection scans using nmap and sudo nmap commands.
-**Outcome**: Hands-on experience with port scanning, service enumeration, and OS fingerprinting.
+- __Objective :__ Identify open ports, services, and OS details on a target system.
+- __Tools :__ Terminal, nmap
+- __What I Did :__ Performed basic, version, and OS detection scans using nmap and sudo nmap commands.
+- __Outcome :__ Hands-on experience with port scanning, service enumeration, and OS fingerprinting.
+
+### 2. tcpdump
+- __Objective :__ Capturing data traffic and understand the meaning of the output including deeper understnading of TCP handshake and TCP IP model.
+- __Tools :__ Terminal, tcpdump
+- __What I Did :__ Captured tcpdump data to understand interfaces and traffic on each interface. Capturing data of a specific protocol, port. Understood how to capture data on specific host, source or destination IP.
+- __Outcome :__ Hands-on experience with capturing tcpdump and fitering data based on interface, protocol, port etc.
 
 ---
 
-## Notes
-Documentation and study notes from certificate coursework and other sources.
+## Notes & References
+[An introduction to using tcpdump at the Linux command line](https://opensource.com/article/18/10/introduction-tcpdump)
 
----
+[How to Capture and Analyze Network Traffic with tcpdump?](https://geekflare.com/cloud/tcpdump-examples/)
 
-## Certifications
-- Google Cybersecurity Certificate (In Progress)
-- TryHackMe Pre-Security (In Progress)
+[Masterclass – Tcpdump – Interpreting Output](https://packetpushers.net/blog/masterclass-tcpdump-interpreting-output/)
 
 ---
