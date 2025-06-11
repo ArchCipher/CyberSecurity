@@ -13,52 +13,67 @@ I’m passionate about building thoughtful, security-first solutions to protect 
 ---
 
 ## Skills and Tools
-- Security frameworks: NIST, CIS Controls
-- Network scanning & Analysis: Nmap, tcpdump
-- Operating Systems & Scripting: Linux, Python
-- Databases & Querying: SQL
-- SIEM & Threat Detection Tools: Splunk, Google Chronicle
+- Security Frameworks: NIST, CIS Controls  
+- Risk Analysis & Security Auditing  
+- Network Scanning & Analysis: Nmap, tcpdump  
+- Operating Systems: Linux (basic)  
+- Web Security Testing: Burp Suite (basic), OWASP Top 10 concepts 
 
 ---
 
-## Certifications
-- [Google Cybersecurity Certificate](https://www.coursera.org/professional-certificates/google-cybersecurity) – In Progress (Expected July 2025)
-- TryHackMe Jr Penetration Tester – In Progress
+## [Google Cybersecurity Professional Certificate](https://www.coursera.org/professional-certificates/google-cybersecurity)
+**In Progress** - Expected Completion : July 2025
 
----
+**Focus Areas:**
+- Security auditing, network traffic analysis, and risk assessment (completed)  
+- Linux & SQL for security operations, Python automation (in progress)  
+- SIEM tools and IDS/IPS fundamentals (in progress) 
 
-## Google Cybersecurity Professional Certificate
-__Summary of skills gained:__
-- Risk analysis and security audit
-- Network packet analysis
-- Threat detection and Incident response
-- Linux command line and SQL  
-- SIEM tools and IDS  
-- Automating tasks with Python  
-
-__Notable Labs & Projects:__  
+**Notable Labs & Projects:**
 1. [Simulated Cybersecurity Audit](/Projects-Google-cybersecurity-professional-certificate/01_Cybersecurity%20Audit.md)
-2. Network Traffic Analysis & Incident Documentation
-- [DNS & ICMP Traffic Analysis](/Projects-Google-cybersecurity-professional-certificate/02_DNS%20&%20ICMP%20Traffic%20Analysis.md)
-- [SYN Flood Attack Analysis & Incident Report](/Projects-Google-cybersecurity-professional-certificate/03_SYN%20Flood%20Attack%20Analysis.md)
-- [OS Hardening: Brute Force Mitigation](/Projects-Google-cybersecurity-professional-certificate/04_OS%20hardening.md)
-- [Incident Response & Network Hardening](/Projects-Google-cybersecurity-professional-certificate/05_Network%20hardening%20analysis.md)
+2. [DNS & ICMP Traffic Analysis](/Projects-Google-cybersecurity-professional-certificate/02_DNS%20&%20ICMP%20Traffic%20Analysis.md)
+3. [SYN Flood Attack Analysis & Incident Report](/Projects-Google-cybersecurity-professional-certificate/03_SYN%20Flood%20Attack%20Analysis.md)
+4. [OS Hardening: Brute Force Mitigation](/Projects-Google-cybersecurity-professional-certificate/04_OS%20hardening.md)
+5. [Incident Response & Network Hardening](/Projects-Google-cybersecurity-professional-certificate/05_Network%20hardening%20analysis.md)
 
 ---
 
-## Personal Practice Projects
+## Hands-On Network Security Labs (Terminal-Based)
 
-### 1. Nmap Scan
-- __Objective :__ Identify open ports, services, and OS details on a target system.
-- __Tools :__ Terminal, nmap
-- __What I Did :__ Performed basic, version, and OS detection scans using nmap and sudo nmap commands.
-- __Outcome :__ Hands-on experience with port scanning, service enumeration, and OS fingerprinting.
+### 1. Local Network Discovery & Scanning
 
-### 2. tcpdump
-- __Objective :__ Capturing data traffic and understand the meaning of the output including deeper understnading of TCP handshake and TCP IP model.
-- __Tools :__ Terminal, tcpdump
-- __What I Did :__ Captured tcpdump data to understand interfaces and traffic on each interface. Capturing data of a specific protocol, port. Understood how to capture data on specific host, source or destination IP.
-- __Outcome :__ Hands-on experience with capturing tcpdump and fitering data based on interface, protocol, port etc.
+- __Objective :__ Identify devices on the local network and assess their connectivity.
+
+- __Tools :__ Terminal, `ifconfig`,`ipconfig`,`arp`, `ping`, `nmap`, `lsof`
+
+- __What I Did:__
+* Found my own IP and MAC address using `ipconfig` and `ifconfig`.
+
+* Used `arp -a` to list IP–MAC mappings of known devices on the network.
+
+* Verified network connectivity using `ping <IP>`.
+
+* Performed `nmap` scans (`-sS`, `-sV`, `-O`, `-p-`) to detect open ports, running services, and OS info.
+
+* Used `lsof` to inspect open ports.
+
+- __Outcome :__ Gained hands-on experience in internal network mapping and reconnaissance. Learned how to correlate IPs, MACs, and services across multiple tools.
+
+### 2. tcpdump Packet Capture
+
+- __Objective :__ Capture and analyze network packets to understand real-time traffic flow and TCP handshakes.
+
+- __Tools :__ Terminal, `tcpdump`
+
+- __What I Did:__
+
+* Captured live traffic on specific interfaces and filtered by protocol, port, or IP.
+
+* Analyzed SYN, SYN-ACK, ACK, FIN flags to understand the TCP 3-way handshake and session closures.
+
+* Practiced using filters to isolate HTTP, DNS, and ICMP traffic.
+
+- __Outcome :__ Developed a foundational understanding of packet structures and learned to isolate and analyze network issues using tcpdump.
 
 ---
 
