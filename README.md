@@ -38,7 +38,7 @@ I’m passionate about building thoughtful, security-first solutions to protect 
 
 ---
 
-## Hands-On Network Security Labs (Terminal-Based)
+## Hands-On Network Security Labs (Unix Terminal)
 
 ### 1. Local Network Discovery & Scanning
 
