@@ -21,6 +21,13 @@ I’m passionate about building thoughtful, security-first solutions to protect 
 
 ---
 
+## CTF Challenges
+Security concepts: OverTheWire - Bandit Level 12 
+This challenge covers essential security concepts like file manipulation, encoding/decoding, and using Linux commands for security purposes.  
+[Read write-up here](/OverTheWire-Bandit.md)
+
+---
+
 ## [Google Cybersecurity Professional Certificate](https://www.coursera.org/professional-certificates/google-cybersecurity)
 **In Progress** - Expected Completion : July 2025
 
