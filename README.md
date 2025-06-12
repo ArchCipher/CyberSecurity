@@ -35,6 +35,8 @@ I’m passionate about building thoughtful, security-first solutions to protect 
 3. [SYN Flood Attack Analysis & Incident Report](/Projects-Google-cybersecurity-professional-certificate/03_SYN%20Flood%20Attack%20Analysis.md)
 4. [OS Hardening: Brute Force Mitigation](/Projects-Google-cybersecurity-professional-certificate/04_OS%20hardening.md)
 5. [Incident Response & Network Hardening](/Projects-Google-cybersecurity-professional-certificate/05_Network%20hardening%20analysis.md)
+6. [NIST CSF-Based Incident Report](/Projects-Google-cybersecurity-professional-certificate/06_NIST%20CSF-Based%20Incident%20Report.md)
+7. [Linux File System Permission Audit and Hardening](/Projects-Google-cybersecurity-professional-certificate/07_Linux%20File%20Permission%20Audit)
 
 ---
 
