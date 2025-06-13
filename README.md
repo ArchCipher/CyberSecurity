@@ -22,9 +22,9 @@ I’m passionate about building thoughtful, security-first solutions to protect 
 ---
 
 ## CTF Challenges
-Security concepts: OverTheWire - Bandit Level 12 
+Linux & Security concepts: OverTheWire - Bandit Level 12 
 This challenge covers essential security concepts like file manipulation, encoding/decoding, and using Linux commands for security purposes.  
-[Read write-up here](/OverTheWire-Bandit.md)
+[Read write-up here](/ctf-overthewire-bandit.md)
 
 ---
 
@@ -37,13 +37,14 @@ This challenge covers essential security concepts like file manipulation, encodi
 - SIEM tools and IDS/IPS fundamentals (in progress) 
 
 **Notable Labs & Projects:**
-1. [Simulated Cybersecurity Audit](/Projects-Google-cybersecurity-professional-certificate/01_Cybersecurity%20Audit.md)
-2. [DNS & ICMP Traffic Analysis](/Projects-Google-cybersecurity-professional-certificate/02_DNS%20&%20ICMP%20Traffic%20Analysis.md)
-3. [SYN Flood Attack Analysis & Incident Report](/Projects-Google-cybersecurity-professional-certificate/03_SYN%20Flood%20Attack%20Analysis.md)
-4. [OS Hardening: Brute Force Mitigation](/Projects-Google-cybersecurity-professional-certificate/04_OS%20hardening.md)
-5. [Incident Response & Network Hardening](/Projects-Google-cybersecurity-professional-certificate/05_Network%20hardening%20analysis.md)
-6. [NIST CSF-Based Incident Report](/Projects-Google-cybersecurity-professional-certificate/06_NIST%20CSF-Based%20Incident%20Report.md)
-7. [Linux File System Permission Audit and Hardening](/Projects-Google-cybersecurity-professional-certificate/07_Linux%20File%20Permission%20Audit)
+1. [Simulated Cybersecurity Audit](/Projects-Google-cybersecurity-professional-certificate/01-cybersecurity-audit.md)
+2. [DNS & ICMP Traffic Analysis](/Projects-Google-cybersecurity-professional-certificate/02-dns-icmp-traffic-analysis.md)
+3. [SYN Flood Attack Analysis & Incident Report](/Projects-Google-cybersecurity-professional-certificate/03-syn-flood-incident-report.md)
+4. [OS Hardening: Brute Force Mitigation](/Projects-Google-cybersecurity-professional-certificate/04-os-hardening-brute-force.md)
+5. [Incident Response & Network Hardening](/Projects-Google-cybersecurity-professional-certificate/05-incident-response-network-hardening.md)
+6. [NIST CSF-Based Incident Report](/Projects-Google-cybersecurity-professional-certificate/06-nist-csf-incident-report.md)
+7. [Linux Authorization and Least Privilege Hardening](/Projects-Google-cybersecurity-professional-certificate/07-linux-authorization-permission-hardening)
+8. [Linux User Management and Access Control](/Projects-Google-cybersecurity-professional-certificate/08-linux-user-management-access-control.md)
 
 ---
 

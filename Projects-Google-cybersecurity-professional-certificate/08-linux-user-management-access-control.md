@@ -1,4 +1,4 @@
-# <p align="center"> Authentication using Linux </p>
+# <p align="center"> Linux User Management and Access Control </p>
 
 ## Project Overview
 
