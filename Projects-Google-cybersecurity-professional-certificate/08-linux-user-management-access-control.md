@@ -66,6 +66,8 @@ This output occurs because when a user is created in Linux, a group with the sam
 
 * Properly removed users and cleaned up associated resources when they left the organization.
 
+---
+
 ## Reflection
 This project reinforced the importance of **Identity and Access Management (IAM)** in securing sensitive organizational data. Proper user authentication, group management, and permission assignments ensure that only authorized individuals have access to critical resources.
 
