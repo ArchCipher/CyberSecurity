@@ -9,7 +9,9 @@
 ## **Overview**
 The **Bandit Wargames** are a series of challenges designed to teach fundamental cybersecurity concepts and Linux command-line skills. Each level introduces new tasks involving **file manipulation**, **access control**, **data encoding**, and **system navigation**.
 
-I am currently on **Level 12**. Below is a walkthrough of the challenges I've completed so far, along with the techniques I used.
+I am currently on **Level 13**. Level 12 introduced a new challenge of repeatedly decompressing files represented as a hexdump. I had to identify the compression formats (gzip, bzip2, tar), and carefully extract each layer until I reached a human-readable file containing the password. 
+
+Below is a walkthrough of the challenges I've completed so far, along with the techniques I used.
 
 > _Alert: May contain spoilers!_
 
@@ -116,6 +118,21 @@ Although the ROT13 cipher is a basic cipher, it served as an introduction to sim
 <summary><strong>Spoiler: Reveal Answer</strong></summary>
 tr 'A-Za-z' 'N-ZA-Mn-za-m'
 </details>
+
+---
+
+## **Level 12**
+**Goal**: The password for the next level is stored in a file that has been repeatedly compressed and is represented as a **hexdump**. The challenge involves extracting and decompressing the file to reveal the password.
+
+I started by creating a temporary directory using `mktemp -d` and copied the `data.txt` file there. The file was a hexdump, which began with the signature `1F 8B` for `Gzip (GNU zip)` and also had ASCII string `BZh` (magic number `42 5a 68`), indicating  `Bzip2`compression.
+
+Using `xxd -r`, I converted it back into its binary form. The binary file was compressed multiple times using different formats, including **gzip**, **bzip2**, and **tar**.
+
+I used the `file` command at each step to identify the compression format. After extracting the first layer, it revealed another compressed file, which required a different decompression method. This process was repeated multiple times until I reached a human-readable file containing the password.
+
+I ran into an issue where `gunzip` didn’t recognize some files as gzip-compressed unless they had a `.gz` extension. Since the files didn’t have this extension, I renamed them each time to allow `gunzip` to detect and decompress them properly. This happens because `gunzip` relies on the `.gz` extension to identify gzip files.
+
+This level further sharpened my understanding of working with compressed files and Linux utilities.
 
 ---
 
