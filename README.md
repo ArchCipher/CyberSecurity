@@ -49,6 +49,7 @@ This challenge covers essential security concepts like file manipulation, encodi
 7. [Linux Authorization and Least Privilege Hardening](/Projects-Google-cybersecurity-professional-certificate/07-linux-authorization-permission-hardening)
 8. [Linux User Management and Access Control](/Projects-Google-cybersecurity-professional-certificate/08-linux-user-management-access-control.md)
 9. [SQL for Cybersecurity: Filtering and Forensics](/Projects-Google-cybersecurity-professional-certificate/09-sql-filtering.md)
+10. [SQL for Cybersecurity: Joins and Forensics](/Projects-Google-cybersecurity-professional-certificate/10-sql-joins.md)
 
 ---
 
