@@ -1,4 +1,4 @@
-# <p align="center"> SQL for Cybersecurity: Filtering and Forensics </p>
+# <p align="center"> SQL for Cybersecurity: Joins and Forensics </p>
 
 ## Project Overview
 
