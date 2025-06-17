@@ -14,10 +14,11 @@ I’m passionate about building thoughtful, security-first solutions to protect 
 
 ## Skills and Tools
 - Security Frameworks: NIST, CIS Controls  
-- Risk Analysis & Security Auditing  
-- Network Scanning & Analysis: Nmap, tcpdump  
-- Operating Systems: Linux (basic)  
-- Web Security Testing: Burp Suite (basic), OWASP Top 10 concepts 
+- Risk Assessment and Auditing: Risk analysis, system hardening, security controls
+- Network Analysis: Nmap, tcpdump, traffic analysis  
+- Operating Systems & Scripting: Linux (Bash/ Zsh)
+- Databases: SQL for log querying and incident detection
+- Web Security Testing: Burp Suite (basic), OWASP Top 10 (concepts)
 
 ---
 
@@ -31,9 +32,11 @@ This challenge covers essential security concepts like file manipulation, encodi
 ## [Google Cybersecurity Professional Certificate](https://www.coursera.org/professional-certificates/google-cybersecurity)
 **In Progress** - Expected Completion : July 2025
 
-**Focus Areas:**
-- Security auditing, network traffic analysis, and risk assessment (completed)  
-- Linux & SQL for security operations, Python automation (in progress)  
+**Key Areas & Skills:**
+- Risk assessment, auditing & network traffic analysis  (completed)  
+- Security controls, hardening, and protocols fundamentals (completed)  
+- Linux & SQL for SOC, Python Automation (in progress)  
+- Incident response, documentation and cybercttack mitigation (in progress) 
 - SIEM tools and IDS/IPS fundamentals (in progress) 
 
 **Notable Labs & Projects:**
