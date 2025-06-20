@@ -29,13 +29,21 @@ This challenge covers essential security concepts like file manipulation, encodi
 
 ---
 
+## Web Security Academy:PortSwigger
+**SQL injection** -In Progress
+
+Notable Labs:
+1. [UNION Attack: Retrieve Data](/PortSwigger-web-security-academy/SQL-injection/05-sqli-union-attack.md)
+
+---
+
 ## [Google Cybersecurity Professional Certificate](https://www.coursera.org/professional-certificates/google-cybersecurity)
 **In Progress** - Expected Completion : July 2025
 
 **Key Areas & Skills:**
 - Risk assessment, auditing & network traffic analysis  (completed)  
 - Security controls, hardening, and protocols fundamentals (completed)  
-- Linux & SQL for SOC, Python Automation (in progress)  
+- Linux & SQL for SecOps, Python Automation (in progress)  
 - Incident response, documentation and cybercttack mitigation (in progress) 
 - SIEM tools and IDS/IPS fundamentals (in progress) 
 
@@ -50,6 +58,11 @@ This challenge covers essential security concepts like file manipulation, encodi
 8. [Linux User Management and Access Control](/Projects-Google-cybersecurity-professional-certificate/08-linux-user-management-access-control.md)
 9. [SQL for Cybersecurity: Filtering and Forensics](/Projects-Google-cybersecurity-professional-certificate/09-sql-filtering.md)
 10. [SQL for Cybersecurity: Joins and Forensics](/Projects-Google-cybersecurity-professional-certificate/10-sql-joins.md)
+11. [Asset Management: Inventory and Classification](/Projects-Google-cybersecurity-professional-certificate/11-asset-management.md)
+12. [NIST CSF-Based Risk Assessment](/Projects-Google-cybersecurity-professional-certificate/12-nist-csf-risk-assessment.md)
+13. [NIST CSF-Based Data Handling](/Projects-Google-cybersecurity-professional-certificate/13-nist-csf-data-handling.md.md)
+14. [Decryption with OpenSSL: Caesar to AES](/Projects-Google-cybersecurity-professional-certificate/14-decryption-cipher.md)
+15. [Hash Function to Detect File Tampering](/Projects-Google-cybersecurity-professional-certificate/15-hash-detect-tampering.md)
 
 ---
 
