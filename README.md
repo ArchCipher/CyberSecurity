@@ -63,6 +63,7 @@ Notable Labs:
 13. [NIST CSF-Based Data Handling](/Projects-Google-cybersecurity-professional-certificate/13-nist-csf-data-handling.md.md)
 14. [Decryption with OpenSSL: Caesar to AES](/Projects-Google-cybersecurity-professional-certificate/14-decryption-cipher.md)
 15. [Hash Function to Detect File Tampering](/Projects-Google-cybersecurity-professional-certificate/15-hash-detect-tampering.md)
+16. [Authentication, Authorization, and Accounting](/Projects-Google-cybersecurity-professional-certificate/16-AAA-small-business.md)
 
 ---
 
