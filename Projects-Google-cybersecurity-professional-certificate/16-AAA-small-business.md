@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-I simulated the role of first cybersecurity professional hired by a growing business. I reviewd the access log of the incident, assessed the current access controls, analyzed their current process, identified issues, and made recommendations to improve their security practices.
+I simulated the role of first cybersecurity professional hired by a growing business. I reviewed the access log of the incident, assessed the current access controls, analyzed their current process, identified issues, and made recommendations to improve their security practices.
 
 ## Scenario
 
