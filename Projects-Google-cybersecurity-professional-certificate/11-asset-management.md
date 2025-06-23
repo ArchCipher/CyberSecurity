@@ -1,4 +1,4 @@
-# <p align="center"> Asset Management: Inventory and Classification </p>
+# <p align="center"> Home Business Asset Inventory & Classification </p>
 
 ## Project Overview
 

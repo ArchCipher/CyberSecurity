@@ -1,4 +1,4 @@
-# <p align="center"> OS Hardening: Brute Force Mitigation</p>
+# <p align="center"> Website Breach Investigation & OS Hardening </p>
 
 ## Overview
 

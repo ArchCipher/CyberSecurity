@@ -6,9 +6,9 @@ Welcome to my cybersecurity portfolio. This repository documents my learning jou
 
 ## About Me
 
-I’m a detail-oriented entry-level cybersecurity professional transitioning from a background in architectural design. I bring over five years of experience solving complex design challenges and working in cross-functional, international teams. I'm currently pursuing the Google Cybersecurity Certificate, with training in threat detection, SIEM tools, and incident response. My architectural work sharpened my skills in compliance, systems thinking, and conflict resolution—strengths I now apply to digital security.
+I'm a detail-oriented entry-level cybersecurity professional transitioning from a background in architectural design. I bring over five years of experience solving complex design challenges and working in cross-functional, international teams. I'm currently pursuing the Google Cybersecurity Certificate, with training in threat detection, SIEM tools, and incident response. My architectural work sharpened my skills in compliance, systems thinking, and conflict resolution—strengths I now apply to digital security.
 
-I’m passionate about building thoughtful, security-first solutions to protect users, data, and systems.
+I'm passionate about building thoughtful, security-first solutions to protect users, data, and systems.
 
 ---
 
@@ -44,26 +44,35 @@ Notable Labs:
 - Risk assessment, auditing & network traffic analysis  (completed)  
 - Security controls, hardening, and protocols fundamentals (completed)  
 - Linux & SQL for SecOps, Python Automation (in progress)  
-- Incident response, documentation and cybercttack mitigation (in progress) 
+- Incident response, documentation and cyberattack mitigation (in progress) 
 - SIEM tools and IDS/IPS fundamentals (in progress) 
 
-**Notable Labs & Projects:**
-1. [Simulated Cybersecurity Audit](/Projects-Google-cybersecurity-professional-certificate/01-cybersecurity-audit.md)
-2. [DNS & ICMP Traffic Analysis](/Projects-Google-cybersecurity-professional-certificate/02-dns-icmp-traffic-analysis.md)
-3. [SYN Flood Attack Analysis & Incident Report](/Projects-Google-cybersecurity-professional-certificate/03-syn-flood-incident-report.md)
-4. [OS Hardening: Brute Force Mitigation](/Projects-Google-cybersecurity-professional-certificate/04-os-hardening-brute-force.md)
-5. [Incident Response & Network Hardening](/Projects-Google-cybersecurity-professional-certificate/05-incident-response-network-hardening.md)
-6. [NIST CSF-Based Incident Report](/Projects-Google-cybersecurity-professional-certificate/06-nist-csf-incident-report.md)
-7. [Linux Authorization and Least Privilege Hardening](/Projects-Google-cybersecurity-professional-certificate/07-linux-authorization-permission-hardening)
-8. [Linux User Management and Access Control](/Projects-Google-cybersecurity-professional-certificate/08-linux-user-management-access-control.md)
-9. [SQL for Cybersecurity: Filtering and Forensics](/Projects-Google-cybersecurity-professional-certificate/09-sql-filtering.md)
-10. [SQL for Cybersecurity: Joins and Forensics](/Projects-Google-cybersecurity-professional-certificate/10-sql-joins.md)
-11. [Asset Management: Inventory and Classification](/Projects-Google-cybersecurity-professional-certificate/11-asset-management.md)
-12. [NIST CSF-Based Risk Assessment](/Projects-Google-cybersecurity-professional-certificate/12-nist-csf-risk-assessment.md)
-13. [NIST CSF-Based Data Handling](/Projects-Google-cybersecurity-professional-certificate/13-nist-csf-data-handling.md.md)
-14. [Decryption with OpenSSL: Caesar to AES](/Projects-Google-cybersecurity-professional-certificate/14-decryption-cipher.md)
-15. [Hash Function to Detect File Tampering](/Projects-Google-cybersecurity-professional-certificate/15-hash-detect-tampering.md)
-16. [Authentication, Authorization, and Accounting](/Projects-Google-cybersecurity-professional-certificate/16-AAA-small-business.md)
+**All Projects & Labs by Domain:**
+
+*Security Assessments & Risk Management*
+- [Cybersecurity Audit & Assessment](/Projects-Google-cybersecurity-professional-certificate/01-cybersecurity-audit.md)
+- [E-commerce Vulnerability Assessment](/Projects-Google-cybersecurity-professional-certificate/17-vulnerability-assessement.md)
+- [Commercial Bank Risk Assessment (NIST CSF-based)](/Projects-Google-cybersecurity-professional-certificate/12-nist-csf-risk-assessment.md)
+- [Home Business Asset Inventory & Classification](/Projects-Google-cybersecurity-professional-certificate/11-asset-management.md)
+
+*Incident Response & Network Forensics*
+- [SYN Flood Attack Investigation & Incident Analysis](/Projects-Google-cybersecurity-professional-certificate/03-syn-flood-incident-report.md)
+- [Website Breach Investigation & OS Hardening](/Projects-Google-cybersecurity-professional-certificate/04-os-hardening-brute-force.md)
+- [Network Protocol Investigation & Traffic Analysis](/Projects-Google-cybersecurity-professional-certificate/02-dns-icmp-traffic-analysis.md)
+- [Social Media Data Breach Investigation & Response](/Projects-Google-cybersecurity-professional-certificate/05-incident-response-network-hardening.md)
+- [Data Breach Investigation & Response (NIST CSF-based)](/Projects-Google-cybersecurity-professional-certificate/06-nist-csf-incident-report.md)
+
+*Access Control & Identity Management*
+- [Financial Fraud Investigation & Access Control Analysis](/Projects-Google-cybersecurity-professional-certificate/16-AAA-small-business.md)
+- [Linux Security Audit & Permission Hardening](/Projects-Google-cybersecurity-professional-certificate/07-linux-authorization-permission-hardening.md)
+- [Linux User Management & Access Control](/Projects-Google-cybersecurity-professional-certificate/08-linux-user-management-access-control.md)
+- [Data Leak Investigation (NIST CSF-based)](/Projects-Google-cybersecurity-professional-certificate/13-nist-csf-data-handling.md)
+
+*Database Security & Digital Forensics*
+- [SQL for Cybersecurity: Filtering and Forensics](/Projects-Google-cybersecurity-professional-certificate/09-sql-filtering.md)
+- [SQL for Cybersecurity: Joins and Forensics](/Projects-Google-cybersecurity-professional-certificate/10-sql-joins.md)
+- [Decryption with OpenSSL: Caesar to AES](/Projects-Google-cybersecurity-professional-certificate/14-decryption-cipher.md)
+- [Digital Forensics & File Integrity Analysis](/Projects-Google-cybersecurity-professional-certificate/15-hash-detect-tampering.md)
 
 ---
 

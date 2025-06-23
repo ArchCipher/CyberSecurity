@@ -1,4 +1,4 @@
-# <p align="center"> Hash Function to Detect File Tampering </p>
+# <p align="center"> Digital Forensics & File Integrity Analysis </p>
 
 ## Project Overview
 

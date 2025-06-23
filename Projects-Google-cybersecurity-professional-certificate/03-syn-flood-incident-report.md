@@ -1,4 +1,4 @@
-# <p align="center"> SYN Flood Attack Analysis & Incident Report </p>
+# <p align="center"> SYN Flood Attack Investigation & Incident Analysis </p>
 
 ## Overview
 

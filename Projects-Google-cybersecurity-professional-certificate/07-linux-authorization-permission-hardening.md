@@ -1,4 +1,4 @@
-# <p align="center"> Linux Authorization and Least Privilege Hardening </p>
+# <p align="center"> Linux Security Audit & Permission Hardening </p>
 
 ## Project Overview
 

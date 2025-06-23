@@ -1,4 +1,4 @@
-# <p align="center"> NIST CSF-Based Risk Assessment </p>
+# <p align="center"> Commercial Bank Risk Assessment (NIST CSF-based) </p>
 
 ## Project Overview
 

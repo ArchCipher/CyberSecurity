@@ -1,4 +1,4 @@
-# <p align="center"> Cybersecurity Audit </p>
+# <p align="center"> Cybersecurity Audit & Assessment </p>
 
 ## Overview
 

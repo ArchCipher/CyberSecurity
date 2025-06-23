@@ -1,4 +1,4 @@
-# <p align="center"> DNS & ICMP Traffic Analysis </p>
+# <p align="center"> Network Protocol Investigation & Traffic Analysis </p>
 
 ## Overview
 
