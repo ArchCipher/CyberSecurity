@@ -55,6 +55,7 @@ Notable Labs:
 - [Commercial Bank Risk Assessment (NIST CSF-based)](/Projects-Google-cybersecurity-professional-certificate/12-nist-csf-risk-assessment.md)
 - [Healthcare USB Drive Threat Vectors & Risk Analysis](/Projects-Google-cybersecurity-professional-certificate/18-usb-threat-vectors-risk-analysis.md)
 - [Home Business Asset Inventory & Classification](/Projects-Google-cybersecurity-professional-certificate/11-asset-management.md)
+- [Mobile App Threat Modelling- PASTA](/Projects-Google-cybersecurity-professional-certificate/19-threat-modelling-PASTA)
 
 *Incident Response & Network Forensics*
 - [SYN Flood Attack Investigation & Incident Analysis](/Projects-Google-cybersecurity-professional-certificate/03-syn-flood-incident-report.md)
