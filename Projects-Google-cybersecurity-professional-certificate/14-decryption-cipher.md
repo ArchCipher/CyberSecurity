@@ -80,8 +80,8 @@ cat Q1.recovered    # Read the decrypted file
 
 In the OverTheWire: Bandit CTF challenge, I encountered tasks involving both basic and advanced encryption. I used the `tr` command to solve a ROT13 decryption task and `openssl s_client -connect localhost:<port`> to interact with SSL/TLS services over SSH.
 
-This project was my first time using OpenSSL for local file decryption with AES. It expanded my understanding of OpenSSL from network-level encryption to file-level symmetric encryption and decryption.
+This project was my first time using OpenSSL for local file decryption with AES-256. It expanded my understanding of OpenSSL beyond network-level encryption to include file-level symmetric encryption and decryption.
 
-The experience highlighted the importance of understanding both simple ciphers like Caesar and modern standards like AES-256 — especially in layered or real-world security challenges.
+The experience highlighted the importance of understanding both simple ciphers like Caesar ciphers and modern standards like AES-256 — especially in layered or real-world security challenges.
 
 ---
