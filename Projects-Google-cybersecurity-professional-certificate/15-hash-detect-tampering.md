@@ -44,7 +44,7 @@ cmp file1hash file2hash     # Compare hash values
 # Output:
 # file1hash file2hash differ: char 1, line 1
 ```
-The output of `cmp` command confirms a difference starting at character 1 of line 1 in the hash files. 
+The output of the `cmp` command confirms a difference starting at character 1 of line 1 in the hash files. 
 
 ## Extended analysis
 
@@ -61,12 +61,12 @@ file file2.txt
 file -i file1.txt   # check encoding
 # Output:
 # file1.txt: text/plain; charset=us-ascii
-analyst@c8e8caed288b:~$ file -i file2.txt   # forcecheck encoding
+analyst@c8e8caed288b:~$ file -i file2.txt   # force check encoding
 # Output:
 # file2.txt: text/plain; charset=us-ascii
 ```
 
-There is no differnece in file encoding.
+There is no difference in file encoding.
 
 ```bash
 stat file1.txt  # detect metadata differences
@@ -118,18 +118,18 @@ Preprocessing means converting the file into a more analyzable format (like hex 
 
 ## Summary
 
-Although the visible content appeared identical in both files,they may still be different at a binary level. Using `cat -A` and `diff -y`, I discovered that `file2.txt` contained extra hidden characters: `9sxa5Yq20Ranal` beyond the standard EICAR test string. This demonstrates how even subtle or invisible changes to file content can be critical in file integrity and malware detection analysis.
+Although the visible content appeared identical in both files, they may still be different at a binary level. Using `cat -A` and `diff -y`, I discovered that `file2.txt` contained extra hidden characters: `9sxa5Yq20Ranal` beyond the standard EICAR test string. This demonstrates how even subtle or invisible changes to file content can be critical in file integrity and malware detection analysis.
 
 ---
 
 ## Notes
 EICAR (European Institute for Computer Antivirus Research) developed a standard test file used to safely test the behavior of antivirus software without using real malware.
 
-EICAR test string is:
+The EICAR test string is:
 
 `X5O!P%@AP[4\PZX54(P^)7CC)7}$EICAR-STANDARD-ANTIVIRUS-TEST-FILE!$H+H*`
 
 **Ways to detect how the files are different**:
-Use `file` to check encoding/file type, use `stat` to check metadata, use `cat -A` , `hexdump` or `xxd` with `diff` to detect invisible characters or to view byte structure.
+Use `file` to check encoding/file type, use `stat` to check metadata, use `cat -A`, `hexdump` or `xxd` with `diff` to detect invisible characters or to view byte structure.
 
 ---
