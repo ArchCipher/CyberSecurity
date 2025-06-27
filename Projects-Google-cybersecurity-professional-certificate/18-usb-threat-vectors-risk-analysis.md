@@ -2,7 +2,9 @@
 
 ## Project Overview
 
-I simulated the role of a cybersecurity professional at Rhetorical Hospital and identified 8 attack vectors of a found USB drive and suggested several controls to be implemented.
+I simulated the role of a cybersecurity professional at Rhetorical Hospital and identified 8 attack vectors associated with a found USB drive and suggested several controls to be implemented.
+
+---
 
 ## Scenario
 You are part of the security team at Rhetorical Hospital and arrive to work one morning. On the ground of the parking lot, you find a USB stick with the hospital's logo printed on it. There's no one else around who might have dropped it, so you decide to pick it up out of curiosity.
