@@ -18,6 +18,7 @@ I'm passionate about building thoughtful, security-first solutions to protect us
 - Network Analysis: Nmap, tcpdump, traffic analysis  
 - Operating Systems & Scripting: Linux (Bash/ Zsh)
 - Databases: SQL for log querying and incident detection
+- SIEM & Threat Detection Tools: Splunk, Google SecOps, Suricata
 - Web Security Testing: Burp Suite (basic), OWASP Top 10 (concepts)
 
 ---
@@ -44,8 +45,8 @@ Notable Labs:
 - Risk assessment, auditing & network traffic analysis  (completed)  
 - Security controls, hardening, and protocols fundamentals (completed)  
 - Linux & SQL for SecOps, Python Automation (in progress)  
-- Incident response, documentation and cyberattack mitigation (in progress) 
-- SIEM tools and IDS/IPS fundamentals (in progress) 
+- Incident response, documentation and cyberattack mitigation (completed) 
+- SIEM tools and IDS/IPS fundamentals (completed)
 
 **All Projects & Labs by Domain:**
 
@@ -55,7 +56,7 @@ Notable Labs:
 - [Commercial Bank Risk Assessment (NIST CSF-based)](/Projects-Google-cybersecurity-professional-certificate/12-nist-csf-risk-assessment.md)
 - [Healthcare USB Drive Threat Vectors & Risk Analysis](/Projects-Google-cybersecurity-professional-certificate/18-usb-threat-vectors-risk-analysis.md)
 - [Home Business Asset Inventory & Classification](/Projects-Google-cybersecurity-professional-certificate/11-asset-management.md)
-- [Mobile App Threat Modelling- PASTA](/Projects-Google-cybersecurity-professional-certificate/19-threat-modelling-PASTA)
+- [Mobile App Threat Modelling- PASTA](/Projects-Google-cybersecurity-professional-certificate/19-threat-modelling-PASTA.md)
 
 *Incident Response & Network Forensics*
 - [SYN Flood Attack Investigation & Incident Analysis](/Projects-Google-cybersecurity-professional-certificate/03-syn-flood-incident-report.md)
@@ -63,6 +64,8 @@ Notable Labs:
 - [Network Protocol Investigation & Traffic Analysis](/Projects-Google-cybersecurity-professional-certificate/02-dns-icmp-traffic-analysis.md)
 - [Social Media Data Breach Investigation & Response](/Projects-Google-cybersecurity-professional-certificate/05-incident-response-network-hardening.md)
 - [Data Breach Investigation & Response (NIST CSF-based)](/Projects-Google-cybersecurity-professional-certificate/06-nist-csf-incident-report.md)
+- [Multi-Scenario Incident Response & Documentation](/Projects-Google-cybersecurity-professional-certificate/20-incident-response.md)
+- [Suricata Log Analysis & Alert Examination](/Projects-Google-cybersecurity-professional-certificate/21-suricata-alert-analysis.md)
 
 *Access Control & Identity Management*
 - [Financial Fraud Investigation & Access Control Analysis](/Projects-Google-cybersecurity-professional-certificate/16-AAA-small-business.md)
