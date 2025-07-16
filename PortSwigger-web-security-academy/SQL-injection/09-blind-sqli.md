@@ -32,7 +32,7 @@ This returned a "Welcome back" message.
 
 **Injected Payload:**
 ```sql
-' AND '1'='2`
+' AND '1'='2
 ```
 **The Traking ID becomes:**
 ```
