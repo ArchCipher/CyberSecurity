@@ -75,6 +75,15 @@ Notable Labs:
 - [Decryption with OpenSSL: Caesar to AES](/Projects-Google-cybersecurity-professional-certificate/14-decryption-cipher.md)
 - [Digital Forensics & File Integrity Analysis](/Projects-Google-cybersecurity-professional-certificate/15-hash-detect-tampering.md)
 
+*Security Automation & Programming*
+- [Python Loops for Security Automation](/Projects-Google-cybersecurity-professional-certificate/22-python-loops.md)
+- [Python Functions for Security Analysis](/Projects-Google-cybersecurity-professional-certificate/23-python-function.md)
+- [Python String Manipulation for Security Analysis](/Projects-Google-cybersecurity-professional-certificate/24-python-strings.md)
+- [Python Algorithm for User-Device Authentication](/Projects-Google-cybersecurity-professional-certificate/25-python-algorithm.md)
+- [Python Regular Expressions for Security Analysis](/Projects-Google-cybersecurity-professional-certificate/26-python-regular-expressions.md)
+- [Python File Import and Parsing for Security Analysis](/Projects-Google-cybersecurity-professional-certificate/27-python-import-parse-files.md)
+- [Python Algorithm for Access Control Management](/Projects-Google-cybersecurity-professional-certificate/28-python-algorithm2.md)
+
 ---
 
 ## Hands-On Network Security Labs (Unix Terminal)
