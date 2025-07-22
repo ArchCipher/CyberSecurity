@@ -16,7 +16,7 @@ I'm passionate about building thoughtful, security-first solutions to protect us
 - Security Frameworks: NIST, CIS Controls  
 - Risk Assessment and Auditing: Risk analysis, system hardening, security controls
 - Network Analysis: Nmap, tcpdump, traffic analysis  
-- Operating Systems & Scripting: Linux (Bash/ Zsh)
+- Operating Systems & Scripting: Linux (Bash/ Zsh), basic Python for automation
 - Databases: SQL for log querying and incident detection
 - SIEM & Threat Detection Tools: Splunk, Google SecOps, Suricata
 - Web Security Testing: Burp Suite (basic), OWASP Top 10 (concepts)
@@ -24,9 +24,11 @@ I'm passionate about building thoughtful, security-first solutions to protect us
 ---
 
 ## CTF Challenges
-Linux & Security concepts: OverTheWire - Bandit Level 12 
-This challenge covers essential security concepts like file manipulation, encoding/decoding, and using Linux commands for security purposes.  
+OverTheWire: Bandit - Completed (Level 32)
+Linux security fundamentals: file manipulation, SSH authentication, privilege escalation, Git security, and shell scripting. Advanced techniques include cron job exploitation, restricted shell bypasses, and brute-force automation.  
 [Read write-up here](/ctf-overthewire-bandit.md)
+
+OverTheWire: Leviathan - Level 2
 
 ---
 
@@ -35,18 +37,12 @@ This challenge covers essential security concepts like file manipulation, encodi
 
 Notable Labs:
 1. [UNION Attack: Retrieve Data](/PortSwigger-web-security-academy/SQL-injection/05-sqli-union-attack.md)
+2. [Database Enumeration & Schema Discovery](/PortSwigger-web-security-academy/SQL-injection/08-sqli-list-contents.md)
+3. [Blind SQL Injection with Conditional Responses](/PortSwigger-web-security-academy/SQL-injection/09-blind-sqli.md)
 
 ---
 
 ## [Google Cybersecurity Professional Certificate](https://www.coursera.org/professional-certificates/google-cybersecurity)
-**In Progress** - Expected Completion : July 2025
-
-**Key Areas & Skills:**
-- Risk assessment, auditing & network traffic analysis  (completed)  
-- Security controls, hardening, and protocols fundamentals (completed)  
-- Linux & SQL for SecOps, Python Automation (in progress)  
-- Incident response, documentation and cyberattack mitigation (completed) 
-- SIEM tools and IDS/IPS fundamentals (completed)
 
 **All Projects & Labs by Domain:**
 
