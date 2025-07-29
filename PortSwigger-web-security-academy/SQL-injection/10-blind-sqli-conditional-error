@@ -85,7 +85,7 @@ HTTP/2 500 Internal Server Error
 ```
 HTTP/2 200 OK
 
-In the first payload `TO_CHAR(1/0)` forces evaluation and triggers a division-by-zero error, which gives an error.
+In the first payload, `TO_CHAR(1/0)` forces evaluation and triggers a division-by-zero error, which causes the server to return an error.
 
 ### 4. Verified the `administrator` Username
 
