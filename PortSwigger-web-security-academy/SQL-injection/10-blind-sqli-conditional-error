@@ -35,6 +35,8 @@ HTTP/2 200 OK
 
 If `''` (an empty string literal) does not cause an error, it suggests that the database accepts `''` as a valid string and likely restores valid SQL syntax in that context. This further supports that the input is processed as part of a SQL string.
 
+Testing with `'` and `''` helps determine whether input is placed within a SQL string and if it's properly escaped.
+
 ```sql
 ' AND SELECT '1'='1
 ```
@@ -163,7 +165,7 @@ Logged in as the administrator using the retrieved password.
 
 - Use parameterised queries (prepped statements) instead of building SQL statements with user input. This prevents user-controlled input from being executed as SQL code.
 
-Check syntax [here](/PortSwigger-web-security-academy/SQL-injection/01-sqli-where-clause.md#how-to-fix-this-vulnerability)
+Check syntax [here](/PortSwigger-web-security-academy/SQL-injection/09-blind-sqli-conditional-responses.md#mitigation)
 
 - Restrict database permissions: The application should connect using a low-privilege database account with access only to the necessary tables and operations. It should not have access to sensitive operations like `SELECT * FROM users`, `DROP`, `UPDATE`, `CREATE`, etc., unless absolutely required.
 
