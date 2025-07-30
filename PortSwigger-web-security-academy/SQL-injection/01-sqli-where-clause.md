@@ -55,16 +55,21 @@ This query returns all products, including those that are unreleased.
 
 Never build SQL statements by directly concatenating user input. 
 
-Vulnerable SQL query:
-```sql
-SELECT * FROM products WHERE category = ' " + user_input + " ' AND released = 1"
+Insecure code (Python):
+```py
+user_input = request.args.get('category')  # assuming Flask
+query = "SELECT * FROM products WHERE category = ' " + user_input + " ' AND released = 1"
+cursor.execute(query)
 ```
 
-Safe version using prepared statements (python script):
+Safe version using prepared statements (Python sqlite3):
 ```py
-query = SELECT * FROM products WHERE category = ? AND released = 1"
+query = "SELECT * FROM products WHERE category = ? AND released = 1"
 cursor.execute(query, (user_input,))
 ```
+
+`?` is a parameter placeholder. It tells the database, "Expect a value here." The value is safely passed as a separate argument to `cursor.execute()`. This prevents it from being executed as SQL. Some DBs like MySQL or Oracle use `%s` or `$1` instead.  Check [notes](#notes) for more info.
+
 Parameterised query treats user input as data and not as part of SQL code, which prevents injection.
 
 ---
@@ -81,5 +86,14 @@ Parameterised query treats user input as data and not as part of SQL code, which
 ## Notes
 
 The sequence `' --` can also be used to close the string and comment out the rest of the query, bypassing the released = 1 clause.
+
+Different databases use different placeholder formats:
+
+| Database | Placeholder syntax |
+|----------|--------------------|
+| SQLite | ? |
+| Oracle | :1, :name |
+| PostgreSQL/MySQL (with psycopg2 / MySQLdb) | %s |
+| SQL Server | @name |
 
 ---
