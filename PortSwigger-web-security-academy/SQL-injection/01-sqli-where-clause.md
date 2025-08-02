@@ -11,36 +11,44 @@ To solve the lab, perform a SQL injection attack that causes the application to 
 
 ---
 
-## Process
+## Vulnerability Analysis
 
-### 1. Intercept the GET request using Burp Suite
+### Attack Vector Identification
+- **Entry Point**: `category` parameter in GET request
+- **Vulnerability Type**: T1190.001 - SQL Injection: WHERE Clause Bypass (CWE-89)
+- **Security Flaw:** User input is embedded directly into SQL queries
+
+### Vulnerability Assessment & Exploitation
+
+**Initial Approach:**
+- Intercepted HTTP requests using Burp Suite
+- Identified category parameter as potential injection point
+- Performed systematic input validation testing
+
+**Step 1: Intercepting the Request**
+
 ```http
 GET /filter?category=Corporate+gifts HTTP/2
-...
 ```
 
-### 2. Modify the category parameter to inject SQL
-
-**Injected payload:**
+**Step 2: Testing SQL Injection**
 
 ```sql
 ' OR 1=1--
 ```
 
-Selecting injected sql and pressing "⌘U" in Burp Suite URL-encodes the selected portion of request.
+Selecting injected SQL and pressing "⌘U" in Burp Suite URL-encodes the selected portion of request.
 
 **The GET request becomes:**
-
 ```http
 GET /filter?category=Corporate+gifts'+OR+1=1-- HTTP/2
 ```
 
-### 3. Explanation
+**Step 3: Understanding the Injection**
 
 `' OR 1=1--` closes the string with `'` and creates a condition that always returns true, bypassing the `released = 1` clause. The `--` comments out the rest of the SQL query.
 
 **The SQL query becomes:**
-
 ```sql
 SELECT * FROM products WHERE category = 'Corporate gifts' OR 1=1--' AND released = 1
 ```
@@ -49,11 +57,25 @@ This query returns all products, including those that are unreleased.
 
 ---
 
-## How to fix this vulnerability
+## Security Assessment
 
-**Use Parameterized Queries (Prepared Statements)**
+### Root Cause Analysis
+- Application concatenates user input directly into SQL queries
+- No input validation or sanitization implemented
+- Parameterized queries (prepared statements) are not used
 
-Never build SQL statements by directly concatenating user input. 
+### Risk Assessment
+| Category | Impact |
+|----------|--------|
+| Confidentiality | Medium – Unreleased products exposed |
+| Data Integrity | Low – Read-only access |
+| Information Disclosure | Medium – Internal product data revealed |
+
+---
+
+## Mitigation
+
+**Parameterized Queries (Prepared Statements):** Parameterized queries treat user input as data and not as part of SQL code, which prevents injection. Never build SQL statements by directly concatenating user input. 
 
 Insecure code (Python):
 ```py
@@ -68,18 +90,13 @@ query = "SELECT * FROM products WHERE category = ? AND released = 1"
 cursor.execute(query, (user_input,))
 ```
 
-`?` is a parameter placeholder. It tells the database, "Expect a value here." The value is safely passed as a separate argument to `cursor.execute()`. This prevents it from being executed as SQL. Some DBs like MySQL or Oracle use `%s` or `$1` instead.  Check [notes](#notes) for more info.
-
-Parameterised query treats user input as data and not as part of SQL code, which prevents injection.
+`?` is a parameter placeholder. It tells the database, "Expect a value here." The value is safely passed as a separate argument to `cursor.execute()`. This prevents it from being executed as SQL. Some DBs like MySQL or Oracle use `%s` or `$1` instead. Check [notes](#notes) for more info.
 
 ---
 
 ## Reflection
 
-- Learnt how SQL injection can bypass filtering logic (like `released = 1`) by injecting always-true conditions.
-- Understood the importance of using **prepared statements** to prevent such attacks.
-- Learnt that even simple GET requests can expose vulnerabilities if inputs are not properly sanitized.
-- Gained insight into secured filtering logic through **proper input handling**.
+This lab demonstrated how SQL injection can bypass filtering logic by injecting always-true conditions. The `OR 1=1` technique proved highly effective in bypassing the `released = 1` clause. Learned the importance of using prepared statements and proper input validation to prevent such attacks.
 
 ---
 
@@ -95,5 +112,3 @@ Different databases use different placeholder formats:
 | Oracle | :1, :name |
 | PostgreSQL/MySQL (with psycopg2 / MySQLdb) | %s |
 | SQL Server | @name |
-
----

