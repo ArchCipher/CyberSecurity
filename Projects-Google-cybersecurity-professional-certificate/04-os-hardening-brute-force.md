@@ -136,7 +136,7 @@ The cause of the incident was a weak password and lack of brute-force protection
 
 - Enforce strict password policies, including minimum length, complexity and expiration requirements.
 - Enable Multi-Factor Authentication (MFA) or Two-Factor Authentication (2FA).
-- Implement sccount lockouts or rate limiting after a defined number of failed login attempts.
+- Implement account lockouts or rate limiting after a defined number of failed login attempts.
 - Use CAPTCHA or reCAPTCHA to block automated login attempts.
 
 ---
