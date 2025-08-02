@@ -6,7 +6,7 @@ Welcome to my cybersecurity portfolio. This repository documents my learning jou
 
 ## About Me
 
-I'm a detail-oriented entry-level cybersecurity professional transitioning from a background in architectural design. I bring over five years of experience solving complex design challenges and working in cross-functional, international teams. I have completed the Google Cybersecurity Professional Certificate, with comprehensive training in threat detection, SIEM tools, incident response, and security analysis. My architectural work sharpened my skills in compliance, systems thinking, and conflict resolution—strengths I now apply to digital security.
+I'm a detail-oriented entry-level cybersecurity professional with a background in architectural design. I bring over five years of experience solving complex design challenges and working in cross-functional, international teams. I have completed the Google Cybersecurity Professional Certificate, with comprehensive training in threat detection, SIEM tools, incident response, and security analysis. My architectural work sharpened my skills in compliance, systems thinking, and conflict resolution—strengths I now apply to digital security.
 
 I'm passionate about building thoughtful, security-first solutions to protect users, data, and systems.
 
@@ -16,7 +16,7 @@ I'm passionate about building thoughtful, security-first solutions to protect us
 - Security Frameworks: NIST, CIS Controls  
 - Risk Assessment and Auditing: Risk analysis, system hardening, security controls
 - Network Analysis: Nmap, tcpdump, traffic analysis  
-- Operating Systems & Scripting: Linux (Bash/ Zsh), basic Python for automation
+- OS & Scripting: Linux (Bash/ Zsh), basic Python automation, basic shell scripting
 - Databases: SQL for log querying and incident detection
 - SIEM & Threat Detection Tools: Splunk, Google SecOps, Suricata
 - Web Security Testing: Burp Suite, OWASP Top 10 (concepts)
@@ -58,28 +58,29 @@ I'm passionate about building thoughtful, security-first solutions to protect us
 
 **OverTheWire: [Bandit](https://overthewire.org/wargames/bandit/)** - Completed (Level 32)
 
-**Skills:** Linux security, SSH authentication, privilege escalation, cryptography, Git security, and shell scripting. Advanced techniques include cron job exploitation, restricted shell bypasses, and brute-force automation.  
-[Read detailed write-up here](/ctf-overthewire-bandit.md)
+**Skills:** Linux security, SSH authentication, privilege escalation, cryptography, Git security, and shell scripting. Advanced techniques include cron job exploitation, restricted shell bypasses, and brute-force automation.
+
+Read detailed write-up [here](/ctf-overthewire-bandit.md)
 
 **OverTheWire: [Leviathan](https://overthewire.org/wargames/leviathan/)** - Level 2
 
 ---
 
-## Threat Hunting & SIEM Analysis: Splunk Enterprise Security  - In Progress
+## Threat Hunting & SIEM (Splunk Enterprise Security) - In Progress
 
-- Taedongang APT [Threat Hunting Report](/Splunk-bots-threat-hunting/report-taedonggang-apt.md) - MITRE ATT&CK-based APT investigation using Splunk
+- Taedongang APT [Threat Hunting Report](/Splunk-bots-threat-hunting/report-taedonggang-apt.md)
 
-**Skills:** Threat hunting, log analysis, MITRE ATT&CK framework, data correlation, Splunk
+**Skills:** Threat hunting, MITRE ATT&CK mapping, log analysis, data correlation
 
 ---
 
-## Web Security Academy: PortSwigger - In Progress
+## Web Security Academy (PortSwigger) - In Progress
 
 **SQL Injection Labs** - Completed 11 Labs
-- [Authentication Bypass](/PortSwigger-web-security-academy/SQL-injection/02-sqli-login-bypass.md)
-- [Database Enumeration](/PortSwigger-web-security-academy/SQL-injection/08-sqli-list-contents.md)
+- [Login Bypass via SQLi](/PortSwigger-web-security-academy/SQL-injection/02-sqli-login-bypass.md)
+- [Database Enumeration via SQLi](/PortSwigger-web-security-academy/SQL-injection/08-sqli-list-contents.md)
 - [Blind SQL Injection - Conditional Responses](/PortSwigger-web-security-academy/SQL-injection/09-blind-sqli-conditional-responses.md)
-- [Visible Error-Based SQL Injection](/PortSwigger-web-security-academy/SQL-injection/11-visible-error-based-sqli.md)
+- [Visible Error-Based SQLi](/PortSwigger-web-security-academy/SQL-injection/11-visible-error-based-sqli.md)
 
 ---
 
@@ -87,15 +88,15 @@ I'm passionate about building thoughtful, security-first solutions to protect us
 
 **Local Network Discovery & Scanning**
 - **Objective:** Identify devices on the local network and assess their connectivity
-- **Tools:** Terminal, `ifconfig`, `ipconfig`, `arp`, `ping`, `nmap`, `lsof`
+- **Tools:** `ifconfig`, `ipconfig`, `arp`, `ping`, `nmap`, `lsof`
 - **Skills:** Network mapping, reconnaissance, service enumeration, OS detection
 
-**tcpdump Packet Capture**
+**Packet Capture with tcpdump**
 - **Objective:** Capture and analyze network packets to understand real-time traffic flow and TCP handshakes
-- **Tools:** Terminal, `tcpdump`
+- **Tools:** `tcpdump`
 - **Skills:** Packet analysis, TCP handshake understanding, traffic filtering
 
-[Read detailed lab documentation here](/hands-on-network-security-labs.md)
+Read detailed lab documentation [here](/hands-on-network-security-labs.md)
 
 **Skills:** Network reconnaissance, packet analysis, traffic monitoring, security assessment
 
