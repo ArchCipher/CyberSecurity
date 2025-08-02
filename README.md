@@ -6,7 +6,7 @@ Welcome to my cybersecurity portfolio. This repository documents my learning jou
 
 ## About Me
 
-I'm a detail-oriented entry-level cybersecurity professional transitioning from a background in architectural design. I bring over five years of experience solving complex design challenges and working in cross-functional, international teams. I'm currently pursuing the Google Cybersecurity Certificate, with training in threat detection, SIEM tools, and incident response. My architectural work sharpened my skills in compliance, systems thinking, and conflict resolution—strengths I now apply to digital security.
+I'm a detail-oriented entry-level cybersecurity professional transitioning from a background in architectural design. I bring over five years of experience solving complex design challenges and working in cross-functional, international teams. I have completed the Google Cybersecurity Professional Certificate, with comprehensive training in threat detection, SIEM tools, incident response, and security analysis. My architectural work sharpened my skills in compliance, systems thinking, and conflict resolution—strengths I now apply to digital security.
 
 I'm passionate about building thoughtful, security-first solutions to protect users, data, and systems.
 
@@ -19,32 +19,15 @@ I'm passionate about building thoughtful, security-first solutions to protect us
 - Operating Systems & Scripting: Linux (Bash/ Zsh), basic Python for automation
 - Databases: SQL for log querying and incident detection
 - SIEM & Threat Detection Tools: Splunk, Google SecOps, Suricata
-- Web Security Testing: Burp Suite (basic), OWASP Top 10 (concepts)
+- Web Security Testing: Burp Suite, OWASP Top 10 (concepts)
 
 ---
 
-## CTF Challenges
-OverTheWire: Bandit - Completed (Level 32)
-Linux security fundamentals: file manipulation, SSH authentication, privilege escalation, Git security, and shell scripting. Advanced techniques include cron job exploitation, restricted shell bypasses, and brute-force automation.  
-[Read write-up here](/ctf-overthewire-bandit.md)
+## [Google Cybersecurity Professional Certificate](https://www.coursera.org/professional-certificates/google-cybersecurity) - Completed
 
-OverTheWire: Leviathan - Level 2
+Comprehensive cybersecurity training covering threat detection, SIEM tools, incident response, and security analysis.
 
----
-
-## Web Security Academy:PortSwigger
-**SQL injection** -In Progress
-
-Notable Labs:
-1. [UNION Attack: Retrieve Data](/PortSwigger-web-security-academy/SQL-injection/05-sqli-union-attack.md)
-2. [Database Enumeration & Schema Discovery](/PortSwigger-web-security-academy/SQL-injection/08-sqli-list-contents.md)
-3. [Blind SQL Injection with Conditional Responses](/PortSwigger-web-security-academy/SQL-injection/09-blind-sqli.md)
-
----
-
-## [Google Cybersecurity Professional Certificate](https://www.coursera.org/professional-certificates/google-cybersecurity)
-
-**All Projects & Labs by Domain:**
+**Projects by Domain:**
 
 *Security Assessments & Risk Management*
 - [Cybersecurity Audit & Assessment](/Projects-Google-cybersecurity-professional-certificate/01-cybersecurity-audit.md)
@@ -86,8 +69,31 @@ Notable Labs:
 
 ---
 
-## Hands-On Network Security Labs (Unix Terminal)
+## CTF Challenges
 
+**OverTheWire: Bandit** - Completed (Level 32)
+Linux security fundamentals: file manipulation, SSH authentication, privilege escalation, Git security, and shell scripting. Advanced techniques include cron job exploitation, restricted shell bypasses, and brute-force automation.  
+[Read write-up here](/ctf-overthewire-bandit.md)
+
+**OverTheWire: Leviathan** - Level 2
+
+---
+
+## Web Security Academy: PortSwigger - In Progress
+
+**SQL Injection Labs** - Completed (11 Labs)
+
+**Key Labs:**
+- [Authentication Bypass](/PortSwigger-web-security-academy/SQL-injection/02-sqli-login-bypass.md) - Login form SQL injection
+- [Database Enumeration](/PortSwigger-web-security-academy/SQL-injection/08-sqli-list-contents.md) - Complete schema discovery
+- [Blind SQL Injection](/PortSwigger-web-security-academy/SQL-injection/09-blind-sqli-conditional-responses.md) - Boolean-based data extraction
+- [Error-Based SQL Injection](/PortSwigger-web-security-academy/SQL-injection/11-visible-error-based-sqli.md) - Exploiting verbose errors
+
+**Techniques:** UNION attacks, blind injection, database fingerprinting, authentication bypass, systematic vulnerability assessment using MITRE ATT&CK (T1190.001) and CWE-89 frameworks.
+
+---
+
+## Hands-On Network Security Labs (Unix Terminal)
 ### 1. Local Network Discovery & Scanning
 
 - __Objective :__ Identify devices on the local network and assess their connectivity.
@@ -131,5 +137,3 @@ Notable Labs:
 [How to Capture and Analyze Network Traffic with tcpdump?](https://geekflare.com/cloud/tcpdump-examples/)
 
 [Masterclass – Tcpdump – Interpreting Output](https://packetpushers.net/blog/masterclass-tcpdump-interpreting-output/)
-
----
