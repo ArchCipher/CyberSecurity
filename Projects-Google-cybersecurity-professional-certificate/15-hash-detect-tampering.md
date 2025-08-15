@@ -61,7 +61,7 @@ file file2.txt
 file -i file1.txt   # check encoding
 # Output:
 # file1.txt: text/plain; charset=us-ascii
-analyst@c8e8caed288b:~$ file -i file2.txt   # force check encoding
+file -i file2.txt   # force check encoding
 # Output:
 # file2.txt: text/plain; charset=us-ascii
 ```
