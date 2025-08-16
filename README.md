@@ -16,7 +16,7 @@ I'm passionate about building thoughtful, security-first solutions to protect us
 - Security Frameworks: NIST, CIS Controls  
 - Risk Assessment and Auditing: Risk analysis, system hardening, security controls
 - Network Analysis: Nmap, tcpdump, traffic analysis  
-- Operating Systems & Scripting: Linux (Bash/ Zsh), basic Python for automation
+- Operating Systems & Scripting: Linux (Bash/ Zsh), shell scripting (automation, loops), C programming, Python for automation, binary analysis tools (objdump, otool, nm, readelf)
 - Databases: SQL for log querying and incident detection
 - SIEM & Threat Detection Tools: Splunk, Google SecOps, Suricata
 - Web Security Testing: Burp Suite, OWASP Top 10 (concepts)
@@ -51,6 +51,16 @@ I'm passionate about building thoughtful, security-first solutions to protect us
 *Security Automation & Programming*
 - [Python Algorithm for User-Device Authentication](/Projects-Google-cybersecurity-professional-certificate/25-python-algorithm.md)
 - [Python Algorithm for Access Control Management](/Projects-Google-cybersecurity-professional-certificate/28-python-algorithm2.md)
+
+---
+
+## Programming & Development Skills
+
+**C Programming & Binary Analysis** - [View Notes](c-notes.md)
+- Memory management and security concepts for vulnerability research
+- Binary analysis and reverse engineering techniques
+- Debugging with sanitizers and low-level debugging tools
+- Understanding of memory vulnerabilities and exploitation
 
 ---
 
