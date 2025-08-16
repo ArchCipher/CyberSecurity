@@ -1,4 +1,4 @@
-# <p align="center"> CTF Challenge: Linux & Security Concepts (OverTheWire: Wargames) </p>
+# <p align="center"> CTF Challenge: Linux & Security Concepts (OverTheWire: Bandit) </p>
 
 **Platform:** OverTheWire  
 **Objective:** Capture the flag/password to proceed to the next level
