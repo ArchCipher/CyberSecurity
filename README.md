@@ -61,6 +61,7 @@ I'm passionate about building thoughtful, security-first solutions to protect us
 - Binary analysis and reverse engineering techniques
 - Debugging with sanitizers and low-level debugging tools
 - Understanding of memory vulnerabilities and exploitation
+- **Learning Resources**: Harvard CS50, learn-c.org, hands-on practice with binary analysis tools
 
 ---
 
