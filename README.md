@@ -62,7 +62,9 @@ Linux security fundamentals: file manipulation, SSH authentication, privilege es
 
 **OverTheWire: Leviathan** - Level 2
 
-**Skills:** Linux security, privilege escalation, cryptography, shell scripting, binary analysis
+**OverTheWire: Natas** - Level 12
+
+**Skills:** Linux security, privilege escalation, cryptography, shell scripting, python scripting, binary analysis
 
 ---
 
