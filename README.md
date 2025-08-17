@@ -67,14 +67,14 @@ I'm passionate about building thoughtful, security-first solutions to protect us
 
 ## CTF Challenges
 
-**OverTheWire: Bandit** - Completed (Level 32)
+**OverTheWire: Bandit** - Completed (Level 33)
 
 Linux security fundamentals: file manipulation, SSH authentication, privilege escalation, Git security, and shell scripting. Advanced techniques include cron job exploitation, restricted shell bypasses, and brute-force automation.  
 [Read detailed write-up here](/CTF/ctf-otw-bandit.md)
 
-**OverTheWire: Leviathan** - Level 2
+**OverTheWire: Leviathan** - Completed (Level 7)
 
-Binary analysis fundamentals: setuid binaries, function tracing, debugging tools, and reverse engineering techniques.  
+Binary analysis fundamentals: setuid binaries, function tracing, debugging tools, and reverse engineering techniques. Advanced techniques include assembly code analysis, memory inspection, and symbolic link exploitation.  
 [Read detailed write-up here](/CTF/ctf-otw-leviathan.md)
 
 **OverTheWire: Natas** - Level 12

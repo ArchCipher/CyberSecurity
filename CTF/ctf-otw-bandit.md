@@ -30,7 +30,7 @@
 ## Overview
 The **Bandit Wargames** are a series of challenges designed to teach fundamental cybersecurity concepts and Linux command-line skills. Each level introduces new tasks involving **file manipulation**, **access control**, **data encoding**, and **system navigation**.
 
-I have solved **Level 32** and moved on to Level 33, which is the last level. Levels 13-32 presented significant challenges involving **SSH connections**, **RSA private key authentication**, **network communication protocols**, **Git security**, and **shell restriction bypasses**, requiring deeper understanding of cryptographic concepts and remote access techniques.
+I have completed **Level 33**. Levels 13-32 presented significant challenges involving **SSH connections**, **RSA private key authentication**, **network communication protocols**, **Git security**, and **shell restriction bypasses**, requiring deeper understanding of cryptographic concepts and remote access techniques.
 
 Below is a walkthrough of the challenges I've completed, along with the techniques I used.
 
@@ -428,29 +428,16 @@ I then simply used cat command to get the password to the next level.
 
 ---
 
+## Level 33 – Completion
+**Goal**: Access the final level and read the congratulations message.
+
+I successfully accessed the final level and found a congratulations message indicating completion of the Bandit challenges.
+
+---
+
 ## Key Learning Outcomes
 
-### Technical Skills Developed
-- **Linux System Administration**: File permissions, user management, process control
-- **Network Security**: Port scanning, service identification, SSL/TLS communication
-- **Cryptographic Operations**: Encoding/decoding, key management, secure communications
-- **Version Control Security**: Git repository analysis, commit history exploration, branch management
-- **Shell Scripting**: Automation, error handling, network interaction
-- **Binary Analysis**: File type identification, hexdump analysis, string extraction
-
-### Security Concepts Understood
-- **Privilege Escalation**: Setuid binaries, restricted shell bypasses, cron job exploitation
-- **Reconnaissance**: Port scanning, service enumeration, information gathering
-- **Access Control**: File permissions, user privileges, authentication mechanisms
-- **Data Protection**: Encryption, secure transmission, key management
-- **Attack Vectors**: Shell restrictions, service vulnerabilities, misconfigurations
-
-### Problem-Solving Approach
-- **Methodical Investigation**: Systematic approach to understanding each challenge
-- **Tool Proficiency**: Effective use of command-line utilities and scripting
-- **Error Handling**: Learning from failures and adapting strategies
-- **Documentation**: Understanding man pages and technical documentation
-- **Persistence**: Working through complex multi-step challenges
+The Bandit challenges provided comprehensive training in Linux security and command-line skills. Key takeaways include the importance of systematic investigation, effective tool usage, and understanding both high-level security concepts and low-level system behavior. The challenges highlighted common security vulnerabilities and attack vectors in Linux systems.
 
 ---
 
