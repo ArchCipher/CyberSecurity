@@ -14,7 +14,7 @@ This section contains my threat hunting projects using Splunk Enterprise Securit
 
 ## Current Projects
 
-### **Taedonggang APT Investigation** 🔄
+### **Taedonggang APT Investigation**
 - **Focus:** Training APT investigation using MITRE ATT&CK framework
 - **Tools:** Splunk Enterprise Security, CyberChef, IP2Location
 - **Status:** In progress

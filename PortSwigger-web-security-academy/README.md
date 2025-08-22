@@ -21,7 +21,7 @@ This section contains my progress through the PortSwigger Web Security Academy l
 
 ## Completed Labs
 
-### **SQL Injection Track** ✅ (11 Labs Completed)
+### **SQL Injection Track** (11 Labs Completed)
 
 #### **Authentication Bypass**
 - [SQL Injection Login Bypass](SQL-injection/02-sqli-login-bypass.md)

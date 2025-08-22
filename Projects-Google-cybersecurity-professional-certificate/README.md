@@ -7,7 +7,7 @@ This section contains all projects and labs completed as part of the Google Cybe
 ## Certificate Overview
 
 **Program:** Google Cybersecurity Professional Certificate  
-**Status:** ✅Completed
+**Status:** Completed
 **Focus:** Entry-level cybersecurity with practical application
 
 ---

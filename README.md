@@ -22,7 +22,7 @@ I'm a detail-oriented cybersecurity professional transitioning from architectura
 
 ## Projects & Repository
 
-### **Google Cybersecurity Professional Certificate** ✅
+### **Google Cybersecurity Professional Certificate**
 - **Incident Response:** [SYN Flood Attack Investigation](/Projects-Google-cybersecurity-professional-certificate/03-syn-flood-incident-report.md) - Network forensics and DDoS analysis
 - **SQL Analysis:** [SQL Filtering for Cybersecurity](/Projects-Google-cybersecurity-professional-certificate/09-sql-filtering.md) - Log querying and incident detection
 - **Risk Assessment:** [Commercial Bank NIST CSF Analysis](/Projects-Google-cybersecurity-professional-certificate/12-nist-csf-risk-assessment.md) - Enterprise risk management framework
@@ -52,18 +52,18 @@ I'm a detail-oriented cybersecurity professional transitioning from architectura
 
 ## Learning Path
 
-### **Completed** ✅
+### **Completed**
 - Google Cybersecurity Professional Certificate
 - OverTheWire CTF Challenges (Bandit, Leviathan)
 - Hands-on Network Security Labs
 
-### **In Progress** 🔄
+### **In Progress**
 - OverTheWire Natas (Level 12)
 - PortSwigger Web Security Academy (SQL Injection track)
 - C Programming & Binary Analysis
 - Splunk Threat Hunting
 
-### **Upcoming** 📅
+### **Upcoming**
 - 42Tokyo Piscine (C Programming & System Programming)
 
 ---

@@ -14,15 +14,15 @@ This section contains my Capture The Flag (CTF) challenge writeups and solutions
 
 ## Completed Challenges
 
-### **OverTheWire: Bandit** ✅ (Level 33)
+### **OverTheWire: Bandit** (Level 33)
 - **Focus:** Linux security fundamentals and privilege escalation
 - **[View Writeup](ctf-otw-bandit.md)**
 
-### **OverTheWire: Leviathan** ✅ (Level 7)
+### **OverTheWire: Leviathan** (Level 7)
 - **Focus:** Binary analysis and reverse engineering
 - **[View Writeup](ctf-otw-leviathan.md)**
 
-### **OverTheWire: Natas** 🔄 (Level 12)
+### **OverTheWire: Natas** (Level 12)
 - **Focus:** Web security and authentication bypass
 - **Status:** In progress
 - **[View Writeup](ctf-otw-natas.md)**
@@ -34,4 +34,3 @@ This section contains my Capture The Flag (CTF) challenge writeups and solutions
 - [OverTheWire Bandit](https://overthewire.org/wargames/bandit/)
 - [OverTheWire Leviathan](https://overthewire.org/wargames/leviathan/)
 - [OverTheWire Natas](https://overthewire.org/wargames/natas/)
-- [GDB Tutorial](https://www.tutorialspoint.com/gnu_debugger/)
