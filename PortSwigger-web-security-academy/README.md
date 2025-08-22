@@ -4,7 +4,7 @@ This section contains my progress through the PortSwigger Web Security Academy l
 
 ---
 
-## 🎯 Learning Objectives
+## Learning Objectives
 
 **Web Security Fundamentals:** Input validation, authentication mechanisms, database security, error handling  
 **Practical Skills:** Burp Suite, manual testing, exploitation, documentation  
@@ -12,14 +12,14 @@ This section contains my progress through the PortSwigger Web Security Academy l
 
 ---
 
-## 🛠️ Techniques Mastered
+## Techniques Mastered
 
 **SQL Injection Methods:** Authentication bypass, UNION attacks, blind injection, error-based injection, database fingerprinting  
 **Systematic Approach:** Vulnerability assessment, MITRE ATT&CK framework, CWE-89 understanding, documentation
 
 ---
 
-## 🌐 Completed Labs
+## Completed Labs
 
 ### **SQL Injection Track** ✅ (11 Labs Completed)
 
@@ -46,7 +46,7 @@ This section contains my progress through the PortSwigger Web Security Academy l
 
 ---
 
-## 📚 Resources & References
+## Resources & References
 
 - [OWASP SQL Injection Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/SQL_Injection_Prevention_Cheat_Sheet.html)
 - [MITRE ATT&CK T1190.001](https://attack.mitre.org/techniques/T1190/001/)

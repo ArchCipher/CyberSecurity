@@ -4,7 +4,7 @@ This section contains all projects and labs completed as part of the Google Cybe
 
 ---
 
-## 🎓 Certificate Overview
+## Certificate Overview
 
 **Program:** Google Cybersecurity Professional Certificate  
 **Status:** ✅Completed
@@ -12,7 +12,7 @@ This section contains all projects and labs completed as part of the Google Cybe
 
 ---
 
-## 🛠️ Skills Developed
+## Skills Developed
 
 **Security Assessments:** Risk analysis, auditing, threat modeling  
 **Incident Response:** Incident handling, documentation, analysis  
@@ -24,7 +24,7 @@ This section contains all projects and labs completed as part of the Google Cybe
 
 ---
 
-## 📚 Course Structure & Projects
+## Course Structure & Projects
 
 ### **Course 1: Foundations of Cybersecurity** (2 projects)
 - **Cybersecurity Audit & Assessment** - [View Project](01-cybersecurity-audit.md)
@@ -70,7 +70,7 @@ This section contains all projects and labs completed as part of the Google Cybe
 
 ---
 
-## 🎯 Key Learning Outcomes
+## Key Learning Outcomes
 
 **Professional Skills:** Systematic approach, documentation, risk management, problem solving  
 **Technical Competencies:** Security analysis, tool proficiency, automation, forensics

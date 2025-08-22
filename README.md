@@ -4,13 +4,13 @@ Welcome to my cybersecurity portfolio showcasing my transition from architectura
 
 ---
 
-## 👨‍💻 About Me
+## About Me
 
 I'm a detail-oriented cybersecurity professional transitioning from architectural design. My 5+ years in cross-functional, international teams taught me systematic problem-solving and risk management—skills I now apply to digital security. I'm passionate about building security-first solutions and continuously expanding my technical expertise.
 
 ---
 
-## 🛠️ Technical Skills
+## Technical Skills
 
 **Security Frameworks:** NIST CSF, CIS Controls, MITRE ATT&CK  
 **Programming:** Python, C, Bash/Zsh, SQL  
@@ -20,7 +20,7 @@ I'm a detail-oriented cybersecurity professional transitioning from architectura
 
 ---
 
-## 🚀 Projects & Repository
+## Projects & Repository
 
 ### **Google Cybersecurity Professional Certificate** ✅
 - **Incident Response:** [SYN Flood Attack Investigation](/Projects-Google-cybersecurity-professional-certificate/03-syn-flood-incident-report.md) - Network forensics and DDoS analysis
@@ -29,28 +29,28 @@ I'm a detail-oriented cybersecurity professional transitioning from architectura
 - **Security Automation:** [Python Access Control Management](/Projects-Google-cybersecurity-professional-certificate/28-python-algorithm-access-control.md) - Automated IP allowlist management
 - **[View All Projects](/Projects-Google-cybersecurity-professional-certificate/)**
 
-### **CTF Challenges** 🏆
+### **CTF Challenges**
 - **OverTheWire Bandit:** Level 33 (Linux security, privilege escalation)
 - **OverTheWire Leviathan:** Level 7 (Binary analysis, reverse engineering)
 - **OverTheWire Natas:** Level 12 (Web security, authentication bypass)
 - **[View CTF Writeups](/CTF/)**
 
-### **Threat Hunting & SIEM** 🔍
+### **Threat Hunting & SIEM**
 - **Splunk Enterprise Security:** [APT Threat Hunting Report](/Splunk-bots-threat-hunting/report-taedonggang-apt.md)
 - **[View Threat Hunting Projects](/Splunk-bots-threat-hunting/)**
 
-### **Web Security Testing** 🌐
+### **Web Security Testing**
 - **PortSwigger Academy:** 11 SQL Injection labs completed
 - **Techniques:** UNION attacks, blind injection, authentication bypass
 - **[View Web Security Labs](/PortSwigger-web-security-academy/)**
 
-### **Programming & Analysis** 💻
+### **Programming & Analysis**
 - **C Programming:** Memory management, binary analysis, reverse engineering
 - **[View Programming Notes](/c-notes.md)**
 
 ---
 
-## 📚 Learning Path
+## Learning Path
 
 ### **Completed** ✅
 - Google Cybersecurity Professional Certificate

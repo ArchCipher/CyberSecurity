@@ -4,7 +4,7 @@ This section contains my threat hunting projects using Splunk Enterprise Securit
 
 ---
 
-## 🛠️ Technical Skills
+## Technical Skills
 
 **SIEM & Log Analysis:** Splunk Enterprise Security, SPL queries, log analysis, data correlation  
 **Threat Hunting:** Hypothesis-driven hunting, indicator-based hunting, anomaly detection  
@@ -12,7 +12,7 @@ This section contains my threat hunting projects using Splunk Enterprise Securit
 
 ---
 
-## 🔍 Current Projects
+## Current Projects
 
 ### **Taedonggang APT Investigation** 🔄
 - **Focus:** Training APT investigation using MITRE ATT&CK framework
@@ -22,7 +22,7 @@ This section contains my threat hunting projects using Splunk Enterprise Securit
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [Splunk Documentation](https://docs.splunk.com/Documentation/ES)
 - [MITRE ATT&CK Framework](https://attack.mitre.org/)

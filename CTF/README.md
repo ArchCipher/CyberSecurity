@@ -4,7 +4,7 @@ This section contains my Capture The Flag (CTF) challenge writeups and solutions
 
 ---
 
-## 🛠️ Technical Skills
+## Technical Skills
 
 **Linux Security:** File permissions, privilege escalation, SSH, shell scripting  
 **Binary Analysis:** Reverse engineering, debugging, memory analysis, GDB  
@@ -12,7 +12,7 @@ This section contains my Capture The Flag (CTF) challenge writeups and solutions
 
 ---
 
-## 🏆 Completed Challenges
+## Completed Challenges
 
 ### **OverTheWire: Bandit** ✅ (Level 33)
 - **Focus:** Linux security fundamentals and privilege escalation
@@ -29,7 +29,7 @@ This section contains my Capture The Flag (CTF) challenge writeups and solutions
 
 ---
 
-## 📚 Resources
+## Resources
 
 - [OverTheWire Bandit](https://overthewire.org/wargames/bandit/)
 - [OverTheWire Leviathan](https://overthewire.org/wargames/leviathan/)
