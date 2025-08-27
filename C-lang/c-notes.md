@@ -1034,9 +1034,11 @@ int b = x | y;   // 0111 = 7 (bitwise OR)
 int c = x ^ y;   // 0110 = 6 (bitwise XOR)
 int d = ~x;      // 0b11111010 in 8-bit = -6 in 2's complement (bitwise NOT)
 ```
-- Binary (`0b`) and Hexadecimal (`0x`) Literals: In C, you can express integers using their binary or hexadecimal(digits 0-F) representations by prefixing them with `0b` or `0x`
-- A full 32-bit signed integer stores the value of `x = 5` as: `00000000 00000000 00000000 00000101` decimal number 5. The `~`operator flips every bit (1's complement): `11111111 11111111 11111111 11111010`. This is not interpreted as a large positive number — it's interpreted as a negative number in two's complement representation. To get the decimal value (2's complement) invert it back and add 1: `00000000 00000000 00000000 00000110` which is 6. So the original value `11111111 11111111 11111111 11111010` is -6.
-- **Two's complement** is how negative numbers are stored in binary on modern systems. In two's complement, to get the negative of a number: invert all bits (1's complement) and add 1
+- Binary (`0b`) and Hexadecimal (`0x`) Literals: In C, you can express integers in binary or hexadecimal(digits 0-F) form by prefixing them with `0b` or `0x`,respectively. 
+- A full 32-bit signed integer stores the value of `x = 5` as: `00000000 00000000 00000000 00000101` (decimal 5). The `~`operator flips every bit (producing the 1's complement): `11111111 11111111 11111111 11111010`. This is not interpreted as a large positive number — it's interpreted as a negative number in two's complement representation. To get the decimal value, invert the bits again and add 1: `00000000 00000000 00000000 00000110`, which is 6. So, the original value `11111111 11111111 11111111 11111010` represents -6.
+- In two's complement, the formula `-x = ~x + 1` holds. Similarly, subtraction can be rewritten as `A - B = A + (~B +1)`
+- **Two's complement** is how negative numbers are stored in binary on modern systems. To get the negative of a number using two’s complement: invert all bits (1's complement), then add 1.
+
 ```
     5   = 00000101
   - 3   = 11111101  ← this is two's complement of 3
@@ -1047,12 +1049,15 @@ Add them:
 -----------
   00000010   ← result is 2
 ```
+
 - Positive and negative integers are differentiated using the most significant bit (**MSB**) — also known as the `sign bit`. If the MSB is 0, the number is positive. If the MSB is 1, the number is negative.
 
-- Left shift assignment operator, `x <<= y` shifts the bits of x left by y positions. `x >>= y` shifts bits of x right by y positions
+- Left shift assignment operator, `x <<= y` shifts the bits of x left by y positions. `x >>= y` shifts bits of x right by y positions. Right shifting by 1 divides by 2: `x >> 1 = x / 2`. More generally: `x >> n = x / 2^n` (integer division).
 
 ### Logical Operators (&&, ||, !)
 Work with true/false (non-zero is true, 0 is false)
+
+- when 2ⁿ is a power of 2: `x % 2 = x & 1`. `x % 4 == x & 3`. `x % 2ⁿ == x & (2ⁿ - 1)` or `x % (1 << n) == x & ((1 << n) - 1)`
 
 Check examples [here](#example-for-operator-difference)
 
