@@ -469,6 +469,76 @@ This is in-memory code execution — common in fileless malware and hard to dete
 
 ---
 
+```splunk
+index=botsv2 sourcetype=stream:http site=www.froth.ly earliest=08/01/2017:00:00:00 latest=08/31/2017:23:59:59 | stats count by http_user_agent | sort - count
+```
+
+Check list of user agents here: https://explore.whatismybrowser.com/useragents/explore/
+Parse user agents using https://explore.whatismybrowser.com/
+
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10.12; rv:54.0) Gecko/20100101 Firefox/54.0
+
+
+Layout engine name/ layout engine version: Gecko/20100101
+Software name/ software version: Firefox/54.0
+
+index=botsv2 sourcetype=stream:http site=www.froth.ly earliest=08/01/2017:00:00:00 latest=08/31/2017:23:59:59  http_user_agent="Mozilla/4.0 (compatible;)"
+8/31/17 10:50:56 to 8/31/17 3:50:56 PM
+
+---
+
+```splunk
+index=botsv2 sourcetype=stream:http "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko" earliest=08/01/2017:00:00:00 latest=08/31/2017:23:59:59 
+```
+
+839 events 8/16/17 1:36 to 8/19/17 2:32:13 PM
+
+User agent strings seen between Initial malware delivery attempt (unsuccessful) and Successful spearphishing campaign
+
+2:32:13.304 PM
+content_encoding: gzip
+accept: */* (743)
+Host: store.froth.ly
+Connection: keep-alive
+Referer: http://store.froth.ly/magento2/
+Accept-Encoding: gzip, deflate (752)
+c_ip 175.10.254.43
+cookie: mage-translation-storage=%7B%7D; mage-translation-file-version=%7B%7D; form_key=FWPDusJpJOVr47j2
+uri: /magento2/pub/static/version1501014192/frontend/Magento/luma/en_US/mage/validation.js
+uri_path: /magento2/pub/static/version1501014192/frontend/Magento/luma/en_US/mage/validation.js
+
+c_ip | City, Country | ISP | Domain
+|----|---------------|-----|--------|
+71.75.173.193 | Manning, USA | Charter Communications Inc | spectrum.com
+248.104.58.121 | - | Reserved RFC3330 | -
+1.171.142.148 | Taiwan, Taipei | Chunghwa Telecom Co. Ltd. | cht.com.tw
+175.10.254.43 | Changsha, China | ChinaNet Hunan Province Network | chinatelecom.com.cn
+207.107.133.51 | Toronto, Canada | Rogers Communications Canada Inc. | rogers.com
+230.51.162.177 | - | Reserved RFC3330 | -
+
+dest: 172.31.7.2 (IP2location ISP: Private IP Address LAN)
+
+http_referrer="http://store.froth.ly/magento2/"
+
+```splunk
+index=botsv2 sourcetype=stream:http "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; rv:11.0) like Gecko" earliest=08/01/2017:00:00:00 latest=08/31/2017:23:59:59 search http_referrer="http://store.froth.ly/magento2/"
+```
+287 results
+
+6 results for
+accept: application/json, text/javascript, */*; q=0.01
+
+request: GET /magento2/customer/section/load/?sections=cart&update_section_id=false&_=1502946692133 HTTP/1.1
+
+1502946692133
+1502946692133
+1502946692133
+1502946692133
+1502992521285
+1502993621937
+
+---
+
 ## Conclusion
 
 The investigation confirmed a targeted spearphishing campaign by Taedongang APT. A password-protected ZIP containing a malicious Word document successfully executed on an employee’s workstation. It launched an obfuscated PowerShell payload that bypassed security controls and downloaded further malware from a remote C2 server. The attack employed stealthy evasion techniques and legitimate-looking infrastructure.
