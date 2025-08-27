@@ -15,6 +15,9 @@ These are my personal solutions to the CS50 course problem sets. Posted here for
 - **[Caesar](pset2/caesar.md)**: Implement Caesar cipher encryption
 - **[Substitution](pset2/substitution.md)**: Implement substitution cipher encryption
 
+### Additional Files
+- **[Custom Functions](custom-functions/)**: Additional C programming examples including a custom strlen implementation
+
 ## Repository Structure
 
 Each problem set (pset1, pset2, etc.) contains:
@@ -31,9 +34,6 @@ pset1/
 ├── credit.c
 └── credit.md
 ```
-
-### Additional Files
-- **[Custom Functions](custom-functions/)**: Additional C programming examples including a custom strlen implementation
 
 ## Learning Objectives
 
