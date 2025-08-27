@@ -13,6 +13,8 @@ The code below uses **pointer arithmetic** instead of array indexing (unlike the
 - **Unique Key Validation**: Ensures the 26-character key contains only unique alphabetic characters
 - **Case Preservation**: Maintains the original case of letters in the output
 
+> Note: When using pointer arithmetic, preserve the original pointer in case it needs to be used later within the function. (Not applicable in this specific code.)
+
 ## Code Structure
 - `is_unique_alpha()`: Validates that the key contains 26 unique alphabetic characters
 - `get_input()`: Gets plaintext using fgets() and handles newline removal
