@@ -38,28 +38,34 @@ int scores(char *word) {
     //iterate through words
     int i = 0;
     while (word[i]) {
+        int matched = 0;
         for (int j=0; j<len1; j++) {
-            if (word[i]==point1[j]) score+=1; goto next_char;
+            if (word[i]==point1[j]) {score+=1; matched = 1; break;}
         }
+        if (!matched)
         for (int j=0; j<len2; j++) {
-            if (word[i]==point2[j]) score+=2; goto next_char;
+            if (word[i]==point2[j]) {score+=2; matched = 1; break;}
         }
+        if (!matched)
         for (int j=0; j<len3; j++) {
-            if (word[i]==point3[j]) score+=3; goto next_char;
+            if (word[i]==point3[j]) {score+=3; matched = 1; break;}
         }
+        if (!matched)
         for (int j=0; j<len4; j++) {
-            if (word[i]==point4[j]) score+=4; goto next_char;
+            if (word[i]==point4[j]) { score+=4; matched = 1; break; }
         }
+        if (!matched)
         for (int j=0; j<len5; j++) {
-            if (word[i]==point5[j]) score+=5; goto next_char;
+            if (word[i]==point5[j]) { score+=5; matched = 1; break; }
         }
+        if (!matched)
         for (int j=0; j<len8; j++) {
-            if (word[i]==point8[j]) score+=8; goto next_char;
+            if (word[i]==point8[j]) { score+=8; matched = 1; break; }
         }
+        if (!matched)
         for (int j=0; j<len10; j++) {
-            if (word[i]==point10[j]) score+=10; goto next_char;
+            if (word[i]==point10[j]) { score+=10; matched = 1; break; }
         }
-        next_char:
             i++;
     }
     return score;
