@@ -44,10 +44,6 @@ I'm a detail-oriented cybersecurity professional transitioning from architectura
 - **Techniques:** UNION attacks, blind injection, authentication bypass
 - **[View Web Security Labs](/PortSwigger-web-security-academy/)**
 
-### **Programming & Analysis**
-- **C Programming:** Memory management, binary analysis, reverse engineering
-- **[View Programming Notes](/c-notes.md)**
-
 ---
 
 ## Learning Path
@@ -60,11 +56,7 @@ I'm a detail-oriented cybersecurity professional transitioning from architectura
 ### **In Progress**
 - OverTheWire Natas (Level 12)
 - PortSwigger Web Security Academy (SQL Injection track)
-- C Programming & Binary Analysis
 - Splunk Threat Hunting
-
-### **Upcoming**
-- 42Tokyo Piscine (C Programming & System Programming)
 
 ---
 
