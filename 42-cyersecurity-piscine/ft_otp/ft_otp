@@ -1,0 +1,153 @@
+#!/usr/bin/env python3
+
+import argparse
+import hashlib
+import hmac
+import sys
+import time
+import os
+from base64 import urlsafe_b64encode
+from pathlib import Path
+from typing import Any
+
+from cryptography.fernet import Fernet, InvalidToken
+
+KEY_FILE = "ft_otp.key"
+SECRET = b"\xd2P\xbb5H:\xd8\xf9\xb8:\xc0\xc28<^\xf3\xbbi\x84\xba}\xa7\r\x8b5\t\x97h\xfbH\xc6\xd5"
+# python3 -c "import os; print(repr(os.urandom(32)))"
+
+
+class FtOtpError(Exception):
+    pass
+
+
+class Otp:
+    def __init__(
+        self,
+        key: bytes,
+        digits: int = 6,
+        digest: Any = hashlib.sha1,
+        interval: int = 30,
+    ) -> None:
+        self.key = key
+        self.digits = digits
+        self.digest = digest
+        self.interval = interval
+
+    def hotp(self, counter: int) -> str:
+        """
+        Generating an HOTP Value
+
+        Step 1: Generate an HMAC-SHA-1 value
+        Let HS = HMAC-SHA-1(K,C)  // HS is a 20-byte string
+
+        Step 2: Generate a 4-byte string (Dynamic Truncation)
+        Let Sbits = DT(HS)  //  DT, defined below,
+                            //  returns a 31-bit string
+
+        Step 3: Compute an HOTP value
+        Let Snum  = StToNum(Sbits)   // Convert S to a number in
+                                        0...2^{31}-1
+        Return D = Snum mod 10^Digit //  D is a number in the range
+                                        0...10^{Digit}-1
+
+        DT(String) // String = String[0]...String[19]
+        Let OffsetBits be the low-order 4 bits of String[19]
+        Offset = StToNum(OffsetBits) // 0 <= OffSet <= 15
+        Let P = String[OffSet]...String[OffSet+3]
+        Return the Last 31 bits of P
+        """
+        msg = counter.to_bytes(8, "big")  # C: 8 byte big-endian
+        hs = hmac.new(self.key, msg, self.digest).digest()
+        offset = hs[-1] & 0x0F  # low-order 4 bits of hs (hs[19] for sha1)
+        p = hs[offset : offset + 4]  # slice 4 bytes at offset
+        snum = int.from_bytes(p, "big") & 0x7FFFFFFF  # 31 bits (mask sign bit)
+        return f"{snum % 10**self.digits:0{self.digits}d}"  # 0 padding to digits
+
+    def totp(self) -> str:
+        """
+        TOTP = HOTP(K, T)
+        T = (Current Unix time - T0) / X
+        where, initial counter time T0 and Time Step X
+        """
+        counter = int(time.time()) // self.interval  # floor division to get `int`
+        return self.hotp(counter)
+
+
+def test() -> None:
+    "test hotp"
+    key = b"12345678901234567890"
+    assert [Otp(key).hotp(c) for c in range(3)] == ["755224", "287082", "359152"]
+    assert Otp(key, 8).hotp(59 // 30) == "94287082"
+    assert Otp(key, 8).hotp(1111111109 // 30) == "07081804"
+    print("hotp test ok")
+
+
+class KeyStore:
+    def __init__(self, path: str = KEY_FILE):
+        self.fernet = Fernet(urlsafe_b64encode(hashlib.sha256(SECRET).digest()))
+        self.path = path
+
+    @staticmethod
+    def read_hex(path: str) -> bytes:
+        """Read hexadecimal key file and return raw key bytes"""
+        try:
+            text = Path(path).read_text(encoding="ascii")
+        except (OSError, UnicodeDecodeError) as exc:
+            raise FtOtpError(f"cannot read path {path}") from exc
+        s = "".join(text.split())
+        if len(s) < 64:
+            raise FtOtpError("key must be at least 64 hexadecimal characters")
+        if len(s) % 2:
+            raise FtOtpError("key must have an even number of hexadecimal characters")
+        try:
+            return bytes.fromhex(s)
+        except ValueError as exc:
+            raise FtOtpError("key must be hexadecimal") from exc
+
+    def save(self, raw: bytes) -> None:
+        Path(self.path).write_bytes(self.fernet.encrypt(raw))
+        os.chmod(self.path, 0o600)
+        print(f"Key was successfully saved in {KEY_FILE}")
+
+    def load_secret(self, path: str) -> bytes:
+        try:
+            secret = Path(path).read_bytes()
+        except OSError as exc:
+            raise FtOtpError(f"cannot read path {path}") from exc
+        try:
+            return self.fernet.decrypt(secret)
+        except InvalidToken as exc:
+            raise FtOtpError(f"{path} is not a ft_otp key file") from exc
+
+
+def parse_args(argv=None) -> argparse.Namespace:
+    """
+    -g FILE: read hexadecimal key in FILE and store it encrypted in ft_otp.key
+    -k FILE: print a new one-time password from the encrypted FILE
+    """
+    parser = argparse.ArgumentParser(prog="ft_otp")
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument(
+        "-g", metavar="FILE", help="store the hexadecimal from FILE in ft_otp.key"
+    )
+    group.add_argument("-k", metavar="FILE", help="print one-time password from FILE")
+    return parser.parse_args(argv)
+
+
+def main(argv=None) -> int:
+    args = parse_args(argv)
+    store = KeyStore()
+    try:
+        if args.g is not None:
+            store.save(store.read_hex(args.g))
+        else:
+            print(Otp(store.load_secret(args.k)).totp())
+    except FtOtpError as exc:
+        print(f"{sys.argv[0]}: error: {exc}", file=sys.stderr)
+        return 1
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
