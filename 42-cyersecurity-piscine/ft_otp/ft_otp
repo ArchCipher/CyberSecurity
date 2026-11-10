@@ -22,6 +22,9 @@ class FtOtpError(Exception):
 
 
 class Otp:
+    """
+    hotp and totp algorithm
+    """
     def __init__(
         self,
         key: bytes,
@@ -84,6 +87,12 @@ def test() -> None:
 
 
 class KeyStore:
+    """
+    Key encryption and decryption using Fernet(symmetric encryption).
+    Fernet uses
+      AES in CBC mode with a 128-bit key for encryption; using PKCS7 padding.
+      HMAC using SHA256 for authentication.
+    """
     def __init__(self, path: str = KEY_FILE):
         self.fernet = Fernet(urlsafe_b64encode(hashlib.sha256(SECRET).digest()))
         self.path = path
@@ -106,11 +115,13 @@ class KeyStore:
             raise FtOtpError("key must be hexadecimal") from exc
 
     def save(self, raw: bytes) -> None:
+        """Encrypt secret and save to KEY_FILE"""
         Path(self.path).write_bytes(self.fernet.encrypt(raw))
         os.chmod(self.path, 0o600)
         print(f"Key was successfully saved in {KEY_FILE}")
 
-    def load_secret(self, path: str) -> bytes:
+    def load(self, path: str) -> bytes:
+        """Read encrypted secret from KEY_FILE"""
         try:
             secret = Path(path).read_bytes()
         except OSError as exc:
@@ -142,7 +153,7 @@ def main(argv=None) -> int:
         if args.g is not None:
             store.save(store.read_hex(args.g))
         else:
-            print(Otp(store.load_secret(args.k)).totp())
+            print(Otp(store.load(args.k)).totp())
     except FtOtpError as exc:
         print(f"{sys.argv[0]}: error: {exc}", file=sys.stderr)
         return 1
