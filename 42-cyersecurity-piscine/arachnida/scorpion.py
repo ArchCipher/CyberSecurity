@@ -254,7 +254,17 @@ def read_ifd(tiff: bytes, offset: int, order: str, names: dict):
         value = decode_entry(tiff, typ, cnt, raw, order)
         # print(f"tag=0x{tag:04X} type={typ:2} count={cnt:6} {format_value(value)}")
         name = names.get(tag, f"0x{tag:04X}")
-        print(f"{name:<28} {format_value(value)}")
+        # print IFD
+        print(f" {name:<28} {format_value(value)}")
+        sub_ifds = []
+        if tag in (0x8769, 0x8825) and value:
+            #  ExifOffset, GPSInfo
+            sub_ifds.append((tag, value[0]))
+        # read and print Exif sub-IFD / GPS IFD
+        for tag, sub_offset in sub_ifds:
+            sub_names = EXIF_TAG_NAMES if tag == 0x8769 else GPS_TAG_NAMES
+            print("Exif sub-IFD:" if tag == 0x8769 else "GPS IFD:")
+            read_ifd(tiff, sub_offset, order, sub_names)
         p += 12
 
     if p + 4 > len(tiff):
