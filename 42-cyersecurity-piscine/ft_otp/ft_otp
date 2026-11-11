@@ -18,7 +18,7 @@ SECRET = b"\xd2P\xbb5H:\xd8\xf9\xb8:\xc0\xc28<^\xf3\xbbi\x84\xba}\xa7\r\x8b5\t\x
 
 
 class FtOtpError(Exception):
-    pass
+    """Base class for all errors"""
 
 
 class Otp:

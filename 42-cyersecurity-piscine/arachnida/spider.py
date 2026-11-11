@@ -38,7 +38,7 @@ MAX_WORKERS = 8
 
 
 class ArachnidaError(Exception):
-    pass
+    """Base class for all errors"""
 
 
 class Crawler:
