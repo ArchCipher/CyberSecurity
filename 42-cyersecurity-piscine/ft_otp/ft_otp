@@ -59,13 +59,22 @@ class Otp:
         Offset = StToNum(OffsetBits) // 0 <= OffSet <= 15
         Let P = String[OffSet]...String[OffSet+3]
         Return the Last 31 bits of P
+
+        Offset varies when hs changes, so p changes -> truncation is random
+          hs b'd\xe9v\x06\x8c\xcfW\x1c\xad\xd4\xf2\xaa\x85\xa0T\xd2\xa0\xb5\x95\x0c'
+          hs[-1] 12, 0x0F 15, offset 12 = 1100, 1111, 1100
+          p = b'\x85\xa0T\xd2'
+          p as int 2241877202 = 10000101101000000101010011010010
+          snum   =   94393554 =      101101000000101010011010010
+          # mask is to ensure the result is nonnegative if interpreted as a signed 32-bit integer
+          94393554 % 10^6 = 393554 (final otp)
         """
         msg = counter.to_bytes(8, "big")  # C: 8 byte big-endian
         hs = hmac.new(self.key, msg, self.digest).digest()
         offset = hs[-1] & 0x0F  # low-order 4 bits of hs (hs[19] for sha1)
         p = hs[offset : offset + 4]  # slice 4 bytes at offset
         snum = int.from_bytes(p, "big") & 0x7FFFFFFF  # 31 bits (mask sign bit)
-        return f"{snum % 10**self.digits:0{self.digits}d}"  # 0 padding to digits
+        return f"{snum % 10**self.digits:0{self.digits}d}" # :0 mean 0 padding
 
     def totp(self) -> str:
         """
@@ -104,7 +113,7 @@ class KeyStore:
             text = Path(path).read_text(encoding="ascii")
         except (OSError, UnicodeDecodeError) as exc:
             raise FtOtpError(f"cannot read path {path}") from exc
-        s = "".join(text.split())
+        s = "".join(text.split()) # remove whitespaces
         if len(s) < 64:
             raise FtOtpError("key must be at least 64 hexadecimal characters")
         if len(s) % 2:
@@ -116,8 +125,11 @@ class KeyStore:
 
     def save(self, raw: bytes) -> None:
         """Encrypt secret and save to KEY_FILE"""
-        Path(self.path).write_bytes(self.fernet.encrypt(raw))
-        os.chmod(self.path, 0o600)
+        try:
+            Path(self.path).write_bytes(self.fernet.encrypt(raw))
+            os.chmod(self.path, 0o600) # owner-read and owner-write only
+        except OSError as exc:
+            raise FtOtpError(f"cannot write path {self.path}") from exc
         print(f"Key was successfully saved in {KEY_FILE}")
 
     def load(self, path: str) -> bytes:
