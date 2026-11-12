@@ -40,13 +40,21 @@ Exercise 2 - Scorpion
 
 ### Requirements
 
-python
+- python3
+
+Create a venv and `pip install` the modules required.
+
+Modules:
+- bs4 (BeautifulSoup)
 
 ### Run
 
 ```sh
-./spider [-rlp] URL
-./scropion FILE1 [FILE2 ...]
+# To run spider:
+./ex01/spider [-rlp] URL
+
+# To run scorpion:
+./ex02/scropion FILE1 [FILE2 ...]
 ```
 
 ---
