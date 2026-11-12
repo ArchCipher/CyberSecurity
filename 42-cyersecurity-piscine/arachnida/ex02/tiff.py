@@ -1,6 +1,7 @@
 import struct
 from exceptions import ScorpionError
 from collections import deque
+from tag_names import TAG_NAMES
 
 EXIF_TAG_NAMES = {
     0x829A: "ExposureTime",
