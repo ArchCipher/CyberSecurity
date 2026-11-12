@@ -106,10 +106,10 @@ def parse_png(data: bytes) -> None:
         struct.unpack_from(">IIBBBBB", data, p + 8)
     )
     print(
-        f"image: {width} x {height}, color type: {color_type}, bit depth: {bit_depth}"
+        f"  image: {width} x {height}, color type: {color_type}, bit depth: {bit_depth}"
     )
     print(
-        f"compression: {compression}, filter method: {filter_method}, interlace method: {interlace}"
+        f"  compression: {compression}, filter method: {filter_method}, interlace method: {interlace}"
     )
     p += 12 + ihdr_length
     while p + 12 <= len(data):
@@ -122,11 +122,11 @@ def parse_png(data: bytes) -> None:
             break
 
         if typ in (b"tEXt", b"zTXt", b"iTXt", b"eXIf"):
-            print(f"type: {typ.decode('ascii', errors='replace')} length: {length}")
+            print(f"  type: {typ.decode('ascii', errors='replace')} length: {length}")
         chunk_data = data[p + 8 : p + 8 + length]
         if typ in (b"tEXt", b"zTXt", b"iTXt"):
             info = parse_png_text(typ, chunk_data)
-            print(f" {info['keyword']}: {info['text']}")
+            print(f"    {info['keyword']}: {info['text']}")
         elif typ == b"eXIf":
             order, ifd0_offset = parse_tiff_header(chunk_data)
             read_ifd(chunk_data, ifd0_offset, order, TAG_NAMES)

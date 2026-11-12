@@ -46,7 +46,7 @@ def parse_jpeg(data: bytes) -> bytes | None:
             print(f"{start:#08x} EOI")
             return
         if marker == 0xDA:
-            print(f"{start:#08x} SOS - image data follows, stopping")
+            # print(f"{start:#08x} SOS - image data follows, stopping") # debug
             return
         if marker == 0x01 or 0xD0 <= marker <= 0xD7:
             # TEM or RST0-RST7 (restart markers)
@@ -58,9 +58,9 @@ def parse_jpeg(data: bytes) -> bytes | None:
         length = int.from_bytes(data[pos : pos + 2], "big")
         if length < 2 or pos + length > len(data):
             raise ScorpionError(f"bad segment length {length} at {start:#x}")
-        print(
-            f"{start:#08x} {marker_name(marker):5} length={length:5} payload={length - 2:5}"
-        )
+        # print(
+        #     f"{start:#08x} {marker_name(marker):5} length={length:5} payload={length - 2:5}"
+        # ) # debug
 
         if marker == 0xE1:
             payload = data[pos + 2 : pos + length]

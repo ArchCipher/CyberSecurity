@@ -43,11 +43,11 @@ def parse_gif(data: bytes) -> None:
     width, height, packed, background_index, aspect_ratio = struct.unpack_from(
         "<HHBBB", data, 6
     )
-    print(f"GIF version: {version}")
-    print(f"canvas: {width} x {height}")
-    print(f"background color index: {background_index}")
+    print(f"  GIF version: {version}")
+    print(f"  canvas: {width} x {height}")
+    print(f"  background color index: {background_index}")
     if aspect_ratio:
-        print(f"pixel aspect ratio byte: {aspect_ratio}")
+        print(f"  pixel aspect ratio byte: {aspect_ratio}")
 
     p = 13
     # Skip the optional global color table.
@@ -62,7 +62,7 @@ def parse_gif(data: bytes) -> None:
         p += 1
 
         if marker == 0x3B:  # GIF trailer
-            print(f"frames: {frames}")
+            print(f"  frames: {frames}")
             return
         if marker == 0x21:  # extension
             need(p, 1)
@@ -71,13 +71,13 @@ def parse_gif(data: bytes) -> None:
             blocks, p = read_subblocks(p)
             if label == 0xFE:  # Comment Extension
                 comment = b"".join(blocks).decode("latin-1", errors="replace")
-                print(f"comment: {comment}")
+                print(f"  comment: {comment}")
             elif label == 0xF9 and blocks and len(blocks[0]) == 4:
                 # Graphic Control Extension: delay is in hundredths of a second.
                 delay = int.from_bytes(blocks[0][1:3], "little")
-                print(f"frame delay: {delay / 100:.2f} seconds")
+                print(f"  frame delay: {delay / 100:.2f} seconds")
             elif label == 0xFF and blocks:
-                print(f"application extension: {blocks[0]!r}")
+                print(f"  application extension: {blocks[0]!r}")
         elif marker == 0x2C:  # Image Descriptor
             need(p, 9)
             left, top, frame_width, frame_height, image_packed = struct.unpack_from(
@@ -85,7 +85,7 @@ def parse_gif(data: bytes) -> None:
             )
             p += 9
             frames += 1
-            print(f"frame {frames}: {frame_width} x {frame_height} at ({left}, {top})")
+            print(f"  frame {frames}: {frame_width} x {frame_height} at ({left}, {top})")
             # Skip optional local color table.
             if image_packed & 0x80:
                 table_size = 3 * (2 ** ((image_packed & 0x07) + 1))
