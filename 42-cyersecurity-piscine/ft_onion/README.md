@@ -36,7 +36,10 @@ sudo service tor restart
 sudo ss -lntp
 
 # find onion address in /var/lib/tor/hidden_service/hostaname
-curl --socks5-hostname http://127.0.0.1:9050 https:://onion_address.onion
+curl --socks5-hostname http://127.0.0.1:9050 http:://onion_address.onion
+
+
+torify ssh -p 4242 <user>@<ssh_address_.onion>
 
 ```
 
