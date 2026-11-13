@@ -35,10 +35,10 @@ sudo service tor restart
 # check all services and ports listening are correct (matches config)
 sudo ss -lntp
 
-# find onion address in /var/lib/tor/hidden_service/hostaname
-curl --socks5-hostname http://127.0.0.1:9050 http:://onion_address.onion
+# find onion address in /var/lib/tor/hidden_service/hostname
+curl --socks5-hostname http://127.0.0.1:9050 http://onion_address.onion
 
-
+# find ssh onion address in /var/lib/tor/ssh_service/hostname
 torify ssh -p 4242 <user>@<ssh_address_.onion>
 
 ```
@@ -47,11 +47,13 @@ torify ssh -p 4242 <user>@<ssh_address_.onion>
 
 Tor -> guard relay -> middle relay -> exit relay -> website
 
-By default, Onion Services publish a “Hidden Service Descriptor” to the Tor network’s distributed Hidden Service Directory (HDir) (every few hours?).
+By default, Onion Services publish a “**Hidden Service Descriptor**” to the Tor network’s distributed **Hidden Service Directory** (HDir) (every few hours?).
 
 HDir is tor relay assigned to store and serve these descriptors.
 
 The Hidden Service Descriptor returned by the HDir contains the metadata necessary for a client to connect to the Onion Service.
+
+**SOCKS** is an Internet protocol that exchanges network packets between a client and server through a proxy server. **SOCKS5** optionally provides authentication, so only authorized users may access a server.
 
 Run tor from cli in linux
 ```
@@ -95,3 +97,4 @@ dark web directories like [Hidden Wiki](https://thehiddenwiki.org/)
 [How to install Tor](https://support.torproject.org/little-t-tor/getting-started/installing/)
 [Set up Your Onion Service](https://community.torproject.org/onion-services/setup/)
 [NetWorkChuck video: i put a DARK WEB website on a Raspberry Pi!!](https://www.youtube.com/watch?v=bllS9tkCkaM) - intro to tor network
+`man tor` or [tor manual](https://2019.www.torproject.org/docs/tor-manual.html.en)
