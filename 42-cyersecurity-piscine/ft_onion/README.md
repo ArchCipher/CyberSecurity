@@ -1,7 +1,54 @@
+## Intructions
 
+Requirement:
+  Debian VM
+  Tor
+  Nginx
 
+Run it in a virtual machine:
+```
+# create /var/www/onion and copy index.html to it
+sudo mkdir /var/www/onion
+sudo cp index.html /var/www/onion
+sudo chmod +r /var/www/onion/index.html
+
+# install nginx, tor, openssh-server if required
+sudo apt udate
+sudo apt install nginx tor ssh openssh-server
+# IF you get 'sshd: no hostkeys available -- exiting'
+sudo ssh-keygen -A
+# IF you receive 'Missing privilege separation directory: /run/sshd'
+sudo install -d -o root -g root -m 0755 /run/sshd
+
+# set all config files
+cd ft_onion
+sudo nginx -c /absolute_path/nginx.conf
+sudo tor -f /absolute_path/torrc
+sudo sshd -f /absolute_path/sshd_config
+
+# check if all uses the correct config
+pgrep -a nginx
+
+# restart service if required
+sudo service tor restart
+
+# check all services and ports listening are correct (matches config)
+sudo ss -lntp
+
+# find onion address in /var/lib/tor/hidden_service/hostaname
+curl --socks5-hostname http://127.0.0.1:9050 https:://onion_address.onion
+
+```
 
 ## Notes
+
+Tor -> guard relay -> middle relay -> exit relay -> website
+
+By default, Onion Services publish a “Hidden Service Descriptor” to the Tor network’s distributed Hidden Service Directory (HDir) (every few hours?).
+
+HDir is tor relay assigned to store and serve these descriptors.
+
+The Hidden Service Descriptor returned by the HDir contains the metadata necessary for a client to connect to the Onion Service.
 
 Run tor from cli in linux
 ```
